@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+configuration 节点包含下面三个属性
+ 
+scan: 当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。
+scanPeriod: 设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。
+debug: 当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false
+ -->
+<configuration debug="false">
+
+	<!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 -->
+	<property name="LOG_HOME" value="/data/log" />
+	
+	<property resource="config.properties" />
+
+	<!-- <property file="src/main/java/chapters/configuration/variables.properties" /> -->
+
+	<!-- 设置日志上下文名称，可以通过%contextName来打印日志上下文名称 -->
+	<!-- <contextName>myAppName</contextName>  -->
+	<!-- 本例中 只在 appender STDOUT 中使用-->
+	<contextName>${log.appname}</contextName> 
+	
+	<!-- 控制台输出 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+	
+		<!-- 可以自定义拦截器 -->
+		<!-- <filter class="com.sauzny.jmvc.utils.logback.MyLogbackFilter" /> -->
+		
+		<!-- 用logback提供的拦截器ThresholdFilter来过滤掉ERROR级别以下的日志不输出到文件中 -->
+		<!-- 
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+              <level>ERROR</level>
+        </filter>
+         -->
+         
+         
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS Z} [%thread] %-5level %logger{50} - %msg%n</pattern>
+		</encoder>
+        <!--  
+		<layout class="com.sauzny.jmvc.utils.logback.MyPatternLayout">
+			格式化输出：%contextName %d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度  %msg：日志消息，%n是换行符
+			<pattern>%contextName %d{yyyy-MM-dd HH:mm:ss.SSS Z} [自定义转换符输出的ip：%ip] [%thread] %-5level %logger{50} - %msg%n</pattern>
+		</layout>
+		 -->
+	</appender>
+	
+	<!-- 归档策略，按照每天生成日志文件 -->
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		
+		
+        <!-- 支持多JVM同时操作同一个日志文件 -->  
+        <!-- 多个线程操作一个文件有很多不稳定的可能，性能下降，Rolling出错等，不建议使用这种方式 -->
+        <!-- <prudent>true</prudent> -->
+		
+		<!-- 文件大小和时间限制策略 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- 按天归档，如果需要按小时归档，则设置为{yyyy-MM-dd_HH} -->
+			<FileNamePattern>${LOG_HOME}/TestWeb.log.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+			<!-- 单个日志文件最多 100MB -->
+			<maxFileSize>100MB</maxFileSize>   
+			<!-- 3天的日志周期 --> 
+			<maxHistory>3</maxHistory>
+			<!-- 所有日志文件的总大小空间。当日志文件的空间超过了设置的最大空间数量，就会删除旧的文件。配合maxHistory使用 -->
+			<!-- 一般来说，我不会删除日志 -->
+			<!-- <totalSizeCap>20GB</totalSizeCap> -->
+		</rollingPolicy>
+		
+		<!-- 
+			其他归档策略
+			TimeBasedRollingPolicy，按照时间归档
+			SizeBasedTriggeringPolicy，按照日志大小归档
+			
+			SizeBasedTriggeringPolicy MaxFileSize 日志文件最大的大小 达到阈值，会刷新此文件，一般不会有人使用吧，一旦达到了阈值，旧的日志就被删除了。
+		 -->
+		
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS Z} [%thread] %-5level %logger{50} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+     <!-- 异步输出 -->  
+     <appender name ="ASYNC" class= "ch.qos.logback.classic.AsyncAppender">  
+            <!-- BlockingQueue的最大容量，默认情况下，大小为256 -->  
+            <queueSize>512</queueSize>  
+            <!-- 丢弃临界值 -->
+            <!-- 默认情况下，当BlockingQueue还有20%容量，他将丢弃TRACE、DEBUG和INFO级别的event -->  
+            <!-- 设置为0，则保持所有的events -->
+            <discardingThreshold >0</discardingThreshold>  
+            <!-- 添加附加的appender,最多只能添加一个 -->  
+         <appender-ref ref ="FILE"/>  
+     </appender>  
+
+
+	<!-- 日志输出级别 -->
+	<!-- TRACE < DEBUG < INFO < WARN < ERROR -->
+
+	<!-- show parameters for hibernate sql 专为 Hibernate 定制 -->
+	<!-- 
+	<logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE" />
+	<logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="DEBUG" />
+	<logger name="org.hibernate.SQL" level="DEBUG" />
+	<logger name="org.hibernate.engine.QueryParameters" level="DEBUG" />
+	<logger name="org.hibernate.engine.query.HQLQueryPlan" level="DEBUG" />
+	 -->
+	 
+	<!-- myibatis log configure-->
+	<logger name="com.apache.ibatis" level="TRACE"/>
+	<logger name="java.sql.Connection" level="DEBUG"/>
+	<logger name="java.sql.Statement" level="DEBUG"/>
+	<logger name="java.sql.PreparedStatement" level="DEBUG"/>
+	
+	<logger name="com.sauzny.jmvc.web" level="INFO">
+		<appender-ref ref="ASYNC"/>
+	</logger>
+	
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+	</root>
+	
+</configuration>
