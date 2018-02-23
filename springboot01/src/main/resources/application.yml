@@ -1,0 +1,16 @@
+#spring boot配置文件完整内容请查看下面的地址
+#请注意地址中版本号的变化
+#        ^^^^
+#http://docs.spring.io/spring-boot/docs/1.5.6.RELEASE/reference/html/common-application-properties.html
+#                                       ^^^^^^^^^^^^^
+
+#
+
+#
+server:
+  port: 8443	
+  ssl:
+    key-store: classpath:webdemo.keystore
+    key-store-type: JKS
+    key-password: webdemopasswd
+    key-alias: webdemo
