@@ -1,4 +1,4 @@
-package com.sauzny.springboot.aop;
+package com.sauzny.springboot.annotation;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,13 +19,13 @@ AOP
 
 */
 
-public class JUnitAop extends BaseJUnit4Test{
+public class JUnitAnnotation extends BaseJUnit4Test{
 
 	@Autowired
-	private AopTarget aopTarget;
+	private UserServiceImpl userServiceImpl;
 	
 	@Test
 	public void testint(){
-		aopTarget.say();
+	    userServiceImpl.getUser("");
 	}
 }
