@@ -53,7 +53,7 @@ public class UserService {
             newUser = new User("TestBob" + i, "testmail"+i+"@gmail.com");
             userList.add(newUser);
         }
-        List<User> savedUserList = userRepository.save(userList);
+        List<User> savedUserList = userRepository.saveAll(userList);
         
     }
     
@@ -61,13 +61,13 @@ public class UserService {
     public void find(){
         
         // 根据主键查询单个对象。
-        User foundUser = userRepository.findOne(1L);
+        User foundUser = userRepository.findById(1L).get();
         
         // 查询全部对象。
         List<User> foundUserList = userRepository.findAll();
         
         // 根据 id 字段查询并排序，默认是顺序（ASC）。
-        List<User> foundASCSortedUserList = userRepository.findAll(new Sort("id"));
+        List<User> foundASCSortedUserList = userRepository.findAll(Sort.by("id"));
         
         // 根据 id 字段倒序查询（DESC）。
         List<User> foundDESCSortedUserList = userRepository.findAll(new Sort(Sort.Direction.DESC, "id"));
@@ -77,7 +77,7 @@ public class UserService {
         // 1.使用 Example。
         // 创建 Example。
         Example<User> userExample = Example.of(user);
-        User foundExampleUser = userRepository.findOne(userExample);
+        User foundExampleUser = userRepository.findOne(userExample).get();
         // 2.使用 ExampleMatcher。
         // 创建 ExampleMatcher。
         ExampleMatcher exampleMatcher = ExampleMatcher.matching()
@@ -89,7 +89,7 @@ public class UserService {
                 .withIgnoreNullValues();
         // 携带 ExampleMatcher。
         userExample = Example.of(user, exampleMatcher);
-        User foundExampleWithExampleMatcherUser = userRepository.findOne(userExample);
+        User foundExampleWithExampleMatcherUser = userRepository.findOne(userExample).get();
     }
     
     @Test
@@ -111,7 +111,7 @@ public class UserService {
     public void del(){
         
         // 根据主键删除单个对象
-        userRepository.delete(1L);
+        userRepository.deleteById(1L);
         
         // 根据对象删除单个对象
         User user = new User("TestBob", "testmail@gmail.com"); 
@@ -127,7 +127,7 @@ public class UserService {
             userTemp = new User("TestBob" + i, "testmail"+i+"@gmail.com");
             userList.add(userTemp);
         }
-        userRepository.delete(userList);
+        userRepository.deleteAll(userList);
     }
     
     @Test
@@ -137,7 +137,7 @@ public class UserService {
         long count = userRepository.count();
         
         // 判断对象是否存在
-        boolean exists = userRepository.exists(1L);
+        boolean exists = userRepository.existsById(1L);
     }
     
 }
