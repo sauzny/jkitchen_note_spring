@@ -39,6 +39,13 @@ public class User {
         this.username = username;
         this.email = email;
     }
+    
+    // 提供一个不可为 null 的属性的构造方法以防止出错。
+    public User(Long id, String username, String email) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+    }
 
     // 省略一大堆 Getter、Setter 和 ToString 方法。也可以通过 Lombok 插件以注解的方式大幅度简化，各大 IDE 均提供！
 }

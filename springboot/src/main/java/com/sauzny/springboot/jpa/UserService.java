@@ -2,22 +2,29 @@ package com.sauzny.springboot.jpa;
 
 import java.util.List;
 
-import org.junit.Test;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
 
+@Service
 public class UserService {
     
     @Autowired
     private UserRepository userRepository;
-
+    
+    @PersistenceContext
+    private EntityManager em;
+    
     // 增加此注解，即可
     @Transactional
     // 设置 隔离级别 传播行为
@@ -39,7 +46,54 @@ public class UserService {
         userRepository.save(new User("JJJJJJJJJJJJJJJ", "testJJJmail@gmail.com"));
     }
     
-    @Test
+    @Transactional
+    public void batchInsert(){
+        
+        List<User> list = Lists.newArrayList();
+        list.add(new User("AAA", "testAAAmail@gmail.com"));
+        list.add(new User("BBB", "testBBBmail@gmail.com"));
+        list.add(new User("CCC", "testCCCmail@gmail.com"));
+        list.add(new User("DDD", "testDDDmail@gmail.com"));
+        list.add(new User("EEE", "testEEEmail@gmail.com"));
+        list.add(new User("FFF", "testFFFmail@gmail.com"));
+        list.add(new User("GGG", "testGGGmail@gmail.com"));
+        list.add(new User("HHH", "testHHHmail@gmail.com"));
+        list.add(new User("III", "testIIImail@gmail.com"));
+        list.add(new User("JJJ", "testJJJmail@gmail.com"));
+        
+        for(int i = 0; i < list.size(); i++) {  
+            em.persist(list.get(i));  
+            if(i % 5 == 0) {  
+                em.flush();  
+                em.clear();  
+            }  
+        }
+    }
+
+    @Transactional
+    public void batchUpdate(){
+        
+        List<User> list = Lists.newArrayList();
+        list.add(new User(54L, "AAA", "testAAAmail@google.com"));
+        list.add(new User(55L, "BBB", "testBBBmail@google.com"));
+        //list.add(new User(56L, "CCC", "testCCCmail@google.com"));
+        list.add(new User(57L, "DDD", "testDDDmail@google.com"));
+        list.add(new User(58L, "EEE", "testEEEmail@google.com"));
+        //list.add(new User(59L, "FFF", "testFFFmail@google.com"));
+        list.add(new User(60L, "GGG", "testGGGmail@google.com"));
+        //list.add(new User(61L, "HHH", "testHHHmail@google.com"));
+        list.add(new User(62L, "III", "testIIImail@google.com"));
+        list.add(new User(63L, "JJJ", "testJJJmail@google.com"));
+        
+        for(int i = 0; i < list.size(); i++) {  
+            em.merge(list.get(i));  
+            if(i % 5 == 0) {  
+                em.flush();  
+                em.clear();  
+            }  
+        }
+    }
+    
     public void save() {
 
 
@@ -54,10 +108,8 @@ public class UserService {
             userList.add(newUser);
         }
         List<User> savedUserList = userRepository.saveAll(userList);
-        
     }
     
-    @Test
     public void find(){
         
         // 根据主键查询单个对象。
@@ -92,11 +144,10 @@ public class UserService {
         User foundExampleWithExampleMatcherUser = userRepository.findOne(userExample).get();
     }
     
-    @Test
     public void page(){
         
         // 分页查询，从 0 页开始查询 5 个。
-        Page<User> foundUserPage = userRepository.findAll(new PageRequest(0, 5));
+        Page<User> foundUserPage = userRepository.findAll(PageRequest.of(0, 5));
         // 分页表。
         List<User> content = foundUserPage.getContent();
         // 总数量。
@@ -107,7 +158,6 @@ public class UserService {
         int size = foundUserPage.getSize();
     }
     
-    @Test
     public void del(){
         
         // 根据主键删除单个对象
@@ -130,7 +180,6 @@ public class UserService {
         userRepository.deleteAll(userList);
     }
     
-    @Test
     public void other(){
         
         // 统计对象数量
