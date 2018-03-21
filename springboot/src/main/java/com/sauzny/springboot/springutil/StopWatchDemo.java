@@ -45,7 +45,9 @@ public class StopWatchDemo {
         System.out.println("数据抓取任务全部执行结束");
         System.out.println(clock.prettyPrint());
         double seconds = clock.getTotalTimeSeconds();
+        long millis = clock.getTotalTimeMillis();
         System.out.println("共耗费秒数=" + seconds);
+        System.out.println("共耗费毫秒数=" + millis);
         
         TaskInfo[] taskInfos = clock.getTaskInfo();
         List<TaskInfo> list = Arrays.asList(taskInfos);

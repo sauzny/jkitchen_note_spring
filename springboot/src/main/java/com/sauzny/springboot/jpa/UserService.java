@@ -16,7 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class UserService {
     
     @Autowired
@@ -144,10 +147,10 @@ public class UserService {
         User foundExampleWithExampleMatcherUser = userRepository.findOne(userExample).get();
     }
     
-    public void page(){
+    public Page<User> page(){
         
         // 分页查询，从 0 页开始查询 5 个。
-        Page<User> foundUserPage = userRepository.findAll(PageRequest.of(0, 5));
+        Page<User> foundUserPage = userRepository.findAll(PageRequest.of(0, 3));
         // 分页表。
         List<User> content = foundUserPage.getContent();
         // 总数量。
@@ -156,6 +159,12 @@ public class UserService {
         long totalPages = foundUserPage.getTotalPages();
         // 分页表大小。
         int size = foundUserPage.getSize();
+        // 
+        int number = foundUserPage.getNumber();
+        
+        log.info("{},{},{},{}",totalElements,totalPages,size,number);
+        
+        return foundUserPage;
     }
     
     public void del(){

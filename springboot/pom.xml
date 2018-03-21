@@ -21,7 +21,6 @@
         <aspectjrt>1.8.13</aspectjrt>
 		<slf4j>1.7.25</slf4j>
 		<logback>1.2.3</logback>
-		<springboot>1.5.9.RELEASE</springboot>
 	</properties>	
 
 	<parent>
