@@ -17,6 +17,7 @@ import com.sauzny.springbootweb.controller.vo.RestFulResult;
 import com.sauzny.springbootweb.entity.pojo.User;
 import com.sauzny.springbootweb.service.UserService;
 import com.sauzny.springbootweb.utils.JacksonUtils;
+import com.sauzny.springbootweb.utils.vo.UserUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,6 +47,6 @@ public class UserController {
         
         
         
-        return RestFulResult.success();
+        return RestFulResult.success(UserUtils.user4ManagerList(page));
     }
 }
