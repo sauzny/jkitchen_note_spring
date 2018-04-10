@@ -12,7 +12,7 @@ public interface SbwConstant {
     }
     
     interface Platform{
-        int JFS = 1;
+        int GLY = 1;
         int SH = 2;
     }
     
