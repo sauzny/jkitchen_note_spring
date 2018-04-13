@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LogAspect {
 
-    @Pointcut("execution(public * com.jfs.purchase.controller.*Controller.*(..))") // 要处理的方法，包名+类名+方法名
+    @Pointcut("execution(public *  com.sauzny.springbootweb.controller.*Controller.*(..))") // 要处理的方法，包名+类名+方法名
     public void point() {}
     
     @Around("point()")

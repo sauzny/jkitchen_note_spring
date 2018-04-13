@@ -10,6 +10,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sauzny.springbootweb.dao.UserDao;
 import com.sauzny.springbootweb.entity.pojo.User;
+import com.sauzny.springbootweb.entity.pojo.UserExample;
 
 @Service
 public class UserService {
@@ -36,5 +37,22 @@ public class UserService {
     @Transactional
     public void insert(User user) {
         userDao.insert(user);
+    }
+    
+    public User findByAccount(String account){
+        
+        User user = null;
+        
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        criteria.andAccountEqualTo(account);
+        
+        List<User> userList = userDao.selectByExample(example);
+        
+        if(!userList.isEmpty()){
+            user = userList.get(0);
+        }
+        
+        return user;
     }
 }

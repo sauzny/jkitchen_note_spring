@@ -120,7 +120,6 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.16.12</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
@@ -173,12 +172,14 @@
 
 	</dependencies>
 	
-	    <build>
+	<build>
         <plugins>
+        	<!-- 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+             -->
             <!-- mybatis generator 自动生成代码插件 -->
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
@@ -190,6 +191,67 @@
                     <verbose>true</verbose>
                 </configuration>
             </plugin>
+            
+            <!-- mvn install 跳过测试 -->
+            <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-surefire-plugin</artifactId>
+		        <configuration>
+		        	<skip>true</skip>
+		        </configuration>
+			</plugin>
+			
+			<!-- 指定编译版本 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source> <!-- 源代码使用的开发版本 -->
+					<target>1.8</target> <!-- 需要生成的目标class文件的编译版本 -->
+					<!-- 一般而言，target与source是保持一致的，但是，有时候为了让程序能在其他版本的jdk中运行(对于低版本目标jdk，源代码中需要没有使用低版本jdk中不支持的语法)，会存在target不同于source的情况 -->
+
+					<!-- 这下面的是可选项 -->
+					<encoding>UTF-8</encoding>
+					<meminitial>128m</meminitial>
+					<maxmem>512m</maxmem>
+					<!-- 
+					<fork>true</fork>
+					<compilerVersion>1.3</compilerVersion>
+ 					-->
+					<!-- 这个选项用来传递编译器自身不包含但是却支持的参数选项 -->
+					<!-- <compilerArgument>-verbose -bootclasspath ${java.home}\lib\rt.jar</compilerArgument> -->
+
+				</configuration>
+			</plugin>
+			
+			  
+            <plugin>  
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-resources-plugin</artifactId>  
+                <configuration>  
+                	<!-- 指定编码格式，否则在DOS下运行mvn命令时当发生文件资源copy时将使用系统默认使用GBK编码 -->  
+                    <encoding>UTF-8</encoding>
+                </configuration>  
+            </plugin>  
+		      
+			<!-- 自定义打包 运行方法，编译打包的时候会按照插件指定的配置生成文件 -->
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<descriptors>
+						<descriptor>assembly.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
         </plugins>
     </build>
 	

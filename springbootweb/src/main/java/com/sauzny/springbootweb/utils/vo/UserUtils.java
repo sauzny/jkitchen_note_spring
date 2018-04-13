@@ -20,7 +20,6 @@ public final class UserUtils {
         user4Manager.setCreateTime(TimeUtils.UDateToLocalDateTime(user.getCreateTime()).toString().replace("T", " "));
         user4Manager.setAccount(user.getAccount());
         user4Manager.setUserName(user.getUserName());
-        user4Manager.setCompany(user.getCompany());
         user4Manager.setPhone(user.getPhone());
         return user4Manager;
     }

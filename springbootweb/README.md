@@ -8,7 +8,7 @@
 `application.properties` 中增加
 
 ```
-audience.base64Secret=srC2KC4M
+audience.base64Secret=sbwjwtSecret
 audience.expiresSecond=864000
 ```
 
@@ -63,13 +63,13 @@ pagehelper.params=count=countSql
 
 相关配置文件目录`src/main/resources/mybatis/sqlmap`
 
-代码编写流程：
+## 四、代码编写流程：
 
 1. 使用`src/main/resources/mybatis/generatorConfig.xml`生成代码
 2. 使用 `com.sauzny.springbootweb.utils.PageHelpGen`，增加分页相关 XxxxDAO.java XxxxDao.xml
 3. 增加一些自定义SQL在 XxxxDAO.java XxxxDao.xml 中
 
-## 四、其他工具代码
+## 五、其他工具代码
 
 1. 下载excel
 2. 生成加密zip
@@ -78,3 +78,18 @@ pagehelper.params=count=countSql
 5. 生成盐值，sha512哈希
 6. 生成setXxx(getXxx());代码
 7. http接口返回json类型 `com.sauzny.springbootweb.controller.vo.`
+
+## 六、实现功能说明
+
+- 登录，验证码，jwt校验
+- 查询表格，分页
+- 表单提交
+- 下载excel
+
+## 七、打包和启动
+
+mvn install (-Dmaven.test.skip=true)，pom文件里已经配置了跳过测试
+
+打包生成
+
+http://localhost:9090/sbw/login.html

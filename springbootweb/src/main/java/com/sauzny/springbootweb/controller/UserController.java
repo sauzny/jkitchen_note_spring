@@ -53,9 +53,8 @@ public class UserController {
     }
     
     @PostMapping("")
-    public RestFulResult save(
-            @RequestParam(required=true) String account){
-        log.debug("account : {}", account);
+    public RestFulResult save(@RequestBody User user){
+        log.debug("user : {}", user);
         return RestFulResult.success();
     }
 }

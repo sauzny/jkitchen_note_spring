@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.sauzny.springbootweb.SbwConstant.FailureEnum;
 import com.sauzny.springbootweb.utils.JacksonUtils;
 
-import static com.sauzny.springbootweb.SbwConstant.RestFulResult.*;
+import static com.sauzny.springbootweb.SbwConstant.Result.*;
 
 import lombok.Data;
 
@@ -15,14 +15,22 @@ import lombok.Data;
 @JsonInclude(Include.NON_NULL)
 public class RestFulResult {
     
+    // 业务状态代码 0正常 其他异常
     private Integer status;
+    // 提示信息
     private String message;
+    // 返回结果为数字类型时使用
+    private Double number;
+    // 返回结果为字符串类型时使用
     private String content;
+    // 返回结果为波尔类型时使用
     private Boolean bool;
+    // 返回结果为对象类型时使用
     private Object entity;
+    // 返回结果为数组类型时使用
     private List<?> list;
     // 分页时填充结果
-    private PageContent page;
+    private PageContent<?> page;
     
     public static RestFulResult success(){
         RestFulResult result = new RestFulResult();

@@ -17,8 +17,14 @@ public class PageContent<T> {
     private int pageNum;
     // 页面大小
     private int pageSize;
+    
+    // 是否最后一页
     private boolean last;
+    
+    // 是否第一页
     private boolean first;
+    
+    // 数据内容
     private List<T> content = Lists.newArrayList();
     
 }

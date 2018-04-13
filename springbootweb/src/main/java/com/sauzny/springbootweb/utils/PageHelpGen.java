@@ -120,7 +120,7 @@ public class PageHelpGen {
     
     public static void main(String[] args) throws IOException {
         // 需要更新的 objectName
-        List<String> list = Lists.newArrayList("User","Product","Distribution");
+        List<String> list = Lists.newArrayList("User","Classes","School");
         // 自动补全分页相关的代码
         PageHelpGen.gen(list);
     }
