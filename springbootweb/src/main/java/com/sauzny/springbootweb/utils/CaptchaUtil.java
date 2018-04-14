@@ -12,10 +12,10 @@ public class CaptchaUtil {
     private static String randString = "0123456789";// 随机产生只有数字的字符串 private String
     // private String randString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";//随机产生只有字母的字符串
     // private String randString = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";//随机产生数字与字母组合的字符串
-    private static int width = 95;// 图片宽
-    private static int height = 25;// 图片高
-    private static int lineSize = 40;// 干扰线数量
-    private static int stringNum = 4;// 随机产生字符数量
+    private static int width = 150;// 图片宽
+    private static int height = 35;// 图片高
+    private static int lineSize = 80;// 干扰线数量
+    private static int stringNum = 6;// 随机产生字符数量
 
     private static Random random = new Random();
 
@@ -82,7 +82,7 @@ public class CaptchaUtil {
         String rand = String.valueOf(getRandomString(random.nextInt(randString.length())));
         randomString += rand;
         g.translate(random.nextInt(3), random.nextInt(3));
-        g.drawString(rand, 13 * i, 16);
+        g.drawString(rand, 20 * i, 20);
         return randomString;
     }
 

@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.Page;
+import com.sauzny.springbootweb.controller.vo.BjuiResult;
 import com.sauzny.springbootweb.controller.vo.RestFulResult;
 import com.sauzny.springbootweb.entity.pojo.User;
 import com.sauzny.springbootweb.service.UserService;
@@ -56,5 +58,19 @@ public class UserController {
     public RestFulResult save(@RequestBody User user){
         log.debug("user : {}", user);
         return RestFulResult.success();
+    }
+
+    @PutMapping("/updateInfo")
+    public RestFulResult updateInfo(@RequestBody User user){
+        log.debug("user : {}", user);
+        return RestFulResult.success();
+    }
+    
+    @PutMapping("/updatePassword")
+    public RestFulResult updatePassword(@RequestBody User user){
+        log.debug("user : {}", user);
+        BjuiResult result = BjuiResult.error();
+        result.setCloseCurrent(true);
+        return result;
     }
 }

@@ -37,12 +37,26 @@ public interface SbwConstant {
     }
 
 
-    interface Result{
+    interface Result {
         
-        int STATUS_CODE_SUCCESS = 0;
+        int STATUS_SUCCESS = 0;
         String MESSAGE_SUCCESS  = "操作成功";
-        int STATUS_CODE_FAILURE = 99999;
+        
+        int STATUS_FAILURE = 99999;
         String MESSAGE_FAILURE = "操作失败";
+    }
+    
+    interface BjuiResult {
+        
+         int STATUS_CODE_OK = 200; 
+         String MESSAGE_OK  = "操作成功";
+         
+         int STATUS_CODE_ERROR = 300; 
+         String MESSAGE_ERROR  = "操作失败";
+         
+         int STATUS_CODE_TIMEOUT = 301; 
+         String MESSAGE_TIMEOUT  = "需要重新登录";
+         
     }
     
     public enum FailureEnum {
