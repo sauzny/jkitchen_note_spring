@@ -11,7 +11,7 @@ import com.google.common.collect.Lists;
 
 public class PageHelpGen {
 
-    public static void gen(List<String> list) throws IOException {
+    public static void gen(List<String> list, int flag) throws IOException {
 
         String userDir = System.getProperty("user.dir");
 
@@ -62,8 +62,14 @@ public class PageHelpGen {
             String objectName = objectNames.get(i);
             if(list.contains(objectName)){
                 String tableName = tableNames.get(i);
-                PageHelpGen.daoWrite(daoPathSb.toString(), javaDaoPackageSb.toString(), javaModelPackageSb.toString(), objectName);
-                PageHelpGen.xmlWrite(xmlPathSb.toString(), javaDaoPackageSb.toString(), javaModelPackageSb.toString(), objectName, tableName);
+                if(flag == 1){
+                    PageHelpGen.daoWrite(daoPathSb.toString(), javaDaoPackageSb.toString(), javaModelPackageSb.toString(), objectName);
+                }else if(flag == 2){
+                    PageHelpGen.xmlWrite(xmlPathSb.toString(), javaDaoPackageSb.toString(), javaModelPackageSb.toString(), objectName, tableName);
+                }else if(flag == 3){
+                    PageHelpGen.daoWrite(daoPathSb.toString(), javaDaoPackageSb.toString(), javaModelPackageSb.toString(), objectName);
+                    PageHelpGen.xmlWrite(xmlPathSb.toString(), javaDaoPackageSb.toString(), javaModelPackageSb.toString(), objectName, tableName);
+                }
             }
         }
     }
@@ -76,7 +82,9 @@ public class PageHelpGen {
         lines.add("");
         lines.add("import com.github.pagehelper.Page;");
         lines.add("import "+javaModelPackage+"."+objectName+";");
+        //lines.add("import org.springframework.stereotype.Repository;");
         lines.add("");
+        //lines.add("@Repository");
         lines.add("public interface "+objectName+"Dao extends "+objectName+"Mapper{");
         lines.add("");
         lines.add("    // 获取所有数据");
@@ -112,7 +120,7 @@ public class PageHelpGen {
     
     public static void write(String path, List<String> lines) {
         try {
-            Files.write(Paths.get(path), lines, StandardCharsets.UTF_8, StandardOpenOption.CREATE_NEW);
+            Files.write(Paths.get(path), lines, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -122,7 +130,12 @@ public class PageHelpGen {
         // 需要更新的 objectName
         List<String> list = Lists.newArrayList("User","Classes","School");
         // 自动补全分页相关的代码
-        PageHelpGen.gen(list);
+        /*
+         * dao重写 1
+         * xml重写 2
+         * dao和xml都重新 3 
+         */
+        PageHelpGen.gen(list, 1);
     }
 
 }

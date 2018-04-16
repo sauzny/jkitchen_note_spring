@@ -44,7 +44,7 @@ debug: 当此属性设置为true时，将打印出logback内部日志信息，�
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- 按天归档，如果需要按小时归档，则设置为{yyyy-MM-dd_HH} -->
 			<FileNamePattern>${LOG_HOME}/springbootweb.%d{yyyy-MM-dd}.log</FileNamePattern>
-			<!-- 15天的日志周期 --> 
+			<!-- 15天的日志周期 建议为15~22天，也就是2~3周--> 
 			<maxHistory>15</maxHistory>
 		</rollingPolicy>
 		
