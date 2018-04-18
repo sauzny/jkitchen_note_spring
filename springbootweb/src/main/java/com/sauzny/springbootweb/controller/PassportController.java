@@ -41,7 +41,7 @@ public class PassportController {
     private UserService userService;
 
     @PostMapping("/login")
-    public RestFulResult login(@RequestBody User user, HttpSession session) {
+    public RestFulResult login(@RequestBody User user, HttpServletRequest request) {
         
         String account = user.getAccount();
         String password = user.getPassword();
@@ -54,7 +54,7 @@ public class PassportController {
         if(StringUtils.isBlank(salt)) return RestFulResult.failure(FailureEnum.CAPTCHA_EMPTY);
 
         // 校验验证码
-        if(!ControllerUtils.checkCaptcha(salt, session)){
+        if(!ControllerUtils.checkCaptcha(salt, request.getSession())){
             return RestFulResult.failure(FailureEnum.CAPTCHA_ILLEGAL);
         }
         
@@ -96,6 +96,12 @@ public class PassportController {
     public RestFulResult logout(HttpServletRequest request){
         //log.debug("JTI,{}", ControllerUtils.getJti(request));
         //stringRedisTemplate.delete(ControllerUtils.getJti(request));
+        return RestFulResult.success();
+    }
+    
+    @GetMapping("/isLogin")
+    public RestFulResult isLogin(HttpServletRequest request){
+        // 逻辑在JwtFilter实现
         return RestFulResult.success();
     }
 }

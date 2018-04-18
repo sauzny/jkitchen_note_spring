@@ -8,6 +8,7 @@ public interface SbwConstant {
         
         String API_PREFIX = "/api";
         String SYS_CONTROLLER_MAPPING = API_PREFIX + "/sys";
+        String MENU_CONTROLLER_MAPPING = API_PREFIX + "/menu";
         String PASSPORT_CONTROLLER_MAPPING = API_PREFIX + "/passport";
         String USER_CONTROLLER_MAPPING = API_PREFIX + "/users";
         String CLASSES_CONTROLLER_MAPPING = API_PREFIX + "/classes";

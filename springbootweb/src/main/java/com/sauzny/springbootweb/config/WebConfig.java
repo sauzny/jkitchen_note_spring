@@ -21,6 +21,7 @@ public class WebConfig {
         
         //添加需要拦截的url
         List<String>  urlPatterns = Lists.newArrayList();
+        urlPatterns.add(SbwConstant.Controller.PASSPORT_CONTROLLER_MAPPING+"/isLogin");
         urlPatterns.add(SbwConstant.Controller.PASSPORT_CONTROLLER_MAPPING+"/logout");
         urlPatterns.add(SbwConstant.Controller.USER_CONTROLLER_MAPPING+"/*");
         urlPatterns.add(SbwConstant.Controller.CLASSES_CONTROLLER_MAPPING+"/*");
