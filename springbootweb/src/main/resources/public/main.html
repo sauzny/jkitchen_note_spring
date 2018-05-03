@@ -6,6 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>管理系统</title>
 <!-- 自定义文件 开始 -->
+<script src="assets/js/core-min.js"></script>
+<script src="assets/js/enc-base64url-min.js"></script>
+<script src="assets/js/sha512.js"></script>
 <script src="assets/js/consumer.js"></script>
 <script src="assets/js/main.js"></script>
 <!-- 自定义文件 结束 -->
@@ -93,14 +96,22 @@ $(function() {
                        },
         debug        : true,    // [可选]调试模式 [true|false，默认false]
         theme        : 'green' // 若有Cookie['bjui_theme'],优先选择Cookie['bjui_theme']。皮肤[五种皮肤:default, orange, purple, blue, red, green]
-    })
+    });
+
     //时钟
     var today = new Date(), time = today.getTime()
     $('#bjui-date').html(today.formatDate('yyyy/MM/dd'))
     setInterval(function() {
         today = new Date(today.setSeconds(today.getSeconds() + 1))
         $('#bjui-clock').html(today.formatDate('HH:mm:ss'))
-    }, 1000)
+    }, 1000);
+
+    // 自定义初始化
+    var payload  = JSON.parse(CryptoJS.enc.Base64.parse(localStorage.token.split(".")[1]).toString(CryptoJS.enc.Utf8));
+    $('#account').text(payload.account);
+    $('#userName').text(payload.userName);
+    $('#roleName').text(payload.roleName);
+
 })
 
 /*window.onbeforeunload = function(){
@@ -159,10 +170,11 @@ function bjui_index_exchange() {
             <nav class="collapse navbar-collapse" id="bjui-top-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="datetime"><a><span id="bjui-date">0000/00/00</span> <span id="bjui-clock">00:00:00</span></a></li>
-                    <li><a href="#">账号：BJUI</a></li>
-                    <li><a href="#">角色：管理员</a></li>
+                    <li><a href="#">账号：<span id='account'></span></a></li>
+                    <li><a href="#">姓名：<span id='userName'></span></a></li>
+                    <li><a href="#">角色：<span id='roleName'></span></a></li>
                     <li><a href="changepassword.html" data-toggle="dialog" data-id="sys_user_changepass" data-mask="true" data-width="400" data-height="300">修改密码</a></li>
-                    <li><a href="login.html" style="font-weight:bold;">&nbsp;<i class="fa fa-power-off"></i> 注销登陆</a></li>
+                    <li><a href="javascript:;" onclick="logout()" style="font-weight:bold;">&nbsp;<i class="fa fa-power-off"></i> 注销登陆</a></li>
                     <li class="dropdown"><a href="#" class="dropdown-toggle bjui-fonts-tit" data-toggle="dropdown" title="更改字号"><i class="fa fa-font"></i> 大</a>
                         <ul class="dropdown-menu" role="menu" id="bjui-fonts">
                             <li><a href="javascript:;" class="bjui-font-a" data-toggle="fonts"><i class="fa fa-font"></i> 特大</a></li>
@@ -257,18 +269,19 @@ function bjui_index_exchange() {
                         <div class="bjui-pageContent">
                             <div class="highlight">
                                 <pre class="prettyprint">
-------------------------
-BJUI 更新至 V1.31
-------------------------
-[修复] datagrid参数templateWidth、dialogFilterW为0时默认为启用；修复排序bug；新增字段参数itemattr，为items参数指定key/value；新增方法filter，用于数据筛选。
-[修复] 分页组件。
-[更新] ajaxform、ajaxsearch新增参数validate，是否验证标记。
-[更新] 验证插件nice validate更新至1.0.7。
-[更新] 图标字体Font Awesome更新至4.7.0。
-[调整] CSS细微调整。
-------------------------
+----------------------------
+我喜欢的一个异步框架 Finagle
+----------------------------
+Finagle is an extensible RPC system for the JVM, used to construct high-concurrency servers. 
+Finagle implements uniform client and server APIs for several protocols, and is designed for high performance and concurrency. 
+Most of Finagle’s code is protocol agnostic, simplifying the implementation of new protocols.
+----------------------------
+Finagle是JVM的可扩展RPC系统，用于构建高并发服务器。
+Finagle为多个协议实现统一的客户端和服务器API，并被设计用于高性能和并发性。
+Finagle的代码大部分是协议无关的，简化了新协议的实现。
+----------------------------
 
-　　　　　　2016-11-01 by.萧克南
+　　　　　　                                                                                                              2018-04-23 by.LJX
                                 </pre>
                             </div>
                         </div>

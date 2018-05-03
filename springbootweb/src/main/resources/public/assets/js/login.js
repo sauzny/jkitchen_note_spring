@@ -61,6 +61,13 @@ function login_login_form_submit(){
 				localStorage.token = data.entity;
 				rememberme(account);
 				location.href = 'main.html'
+			}else{
+				$("#login_msg").text(data.message);
+				$("#j_password").val('');
+				$("#j_password").focus();
+				$("#j_captcha").val('');
+    			changeCode();
+				$("#login_ok").attr("disabled", false).val('登录');
 			}
 		}
 	});

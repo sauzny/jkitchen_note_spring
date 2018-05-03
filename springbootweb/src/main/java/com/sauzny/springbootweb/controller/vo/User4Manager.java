@@ -11,5 +11,6 @@ public class User4Manager {
     private String userName;
     private String phone;
     private String createTime;
+    private int roleId;
     
 }

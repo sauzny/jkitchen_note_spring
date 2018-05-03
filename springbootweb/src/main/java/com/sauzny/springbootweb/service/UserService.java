@@ -2,6 +2,7 @@ package com.sauzny.springbootweb.service;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,21 @@ public class UserService {
         PageHelper.startPage(pageNo, pageSize);
         return userDao.findByPage();
     }
+
+    public Page<User> findByExamplePage(int pageNo, int pageSize, String phone, Integer roleId, String account, String userName) {
+
+        //return null;
+        PageHelper.startPage(pageNo, pageSize);
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        
+        if(StringUtils.isNotBlank(phone)) criteria.andPhoneLike("%" + phone + "%");
+        if(roleId != null) criteria.andRoleIdEqualTo(roleId);
+        if(StringUtils.isNotBlank(account)) criteria.andAccountEqualTo(account);
+        if(StringUtils.isNotBlank(userName))criteria.andUserNameEqualTo(userName);
+        
+        return userDao.findByExamplePage(example);
+    }
     
     public List<User> selectByExample(){
         return userDao.selectByExample(null);
@@ -55,4 +71,17 @@ public class UserService {
         
         return user;
     }
+    
+    public User selectByPrimaryKey(long id){
+        return userDao.selectByPrimaryKey(id);
+    }
+    
+    public int updateByPrimaryKeySelective(User record){
+        return userDao.updateByPrimaryKeySelective(record);
+    }
+    
+    public int batchInsert(List<User> userList){
+        return userDao.batchInsert(userList);
+    }
+    
 }

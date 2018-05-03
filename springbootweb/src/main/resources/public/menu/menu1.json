@@ -6,19 +6,19 @@
         "id": "user-manage", 
         "name": "用户管理", 
         "target": "navtab", 
-        "url": "html/user-manage/datagrid.html"
+        "url": "html/user-manage/table.html"
       }, 
       {
         "id": "classes-manage", 
         "name": "班级管理", 
         "target": "navtab", 
-        "url": "html/classes-manage/datagrid.html"
+        "url": "html/classes-manage/table.html"
       }, 
       {
         "id": "school-manage", 
         "name": "学校管理", 
         "target": "navtab", 
-        "url": "html/school-manage/datagrid.html"
+        "url": "html/school-manage/table.html"
       }
     ]
   }, 

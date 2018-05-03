@@ -23,6 +23,7 @@ public interface SbwConstant {
         String USER_NAME = "userName";
         String ROLE_ID = "roleId";
         String ACCOUNT = "account";
+        String ROLE_NAME = "roleName";
     }
     
     interface UserRole{
@@ -74,6 +75,9 @@ public interface SbwConstant {
         TOKEN_ILLEGAL(1004, "请重新登录"),
         CAPTCHA_EMPTY(1005, "验证码为空"),
         CAPTCHA_ILLEGAL(1006, "请重新登录"),
+
+        // 2000+ userFailure ==================
+        USER_RESET_PASSWORD_NOT_MATCH(2001, "原密码错误，请重新输入"),
         
         ;
         

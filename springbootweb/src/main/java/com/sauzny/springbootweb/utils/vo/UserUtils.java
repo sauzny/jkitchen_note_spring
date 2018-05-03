@@ -21,6 +21,7 @@ public final class UserUtils {
         user4Manager.setAccount(user.getAccount());
         user4Manager.setUserName(user.getUserName());
         user4Manager.setPhone(user.getPhone());
+        user4Manager.setRoleId(user.getRoleId());
         return user4Manager;
     }
     
@@ -31,9 +32,9 @@ public final class UserUtils {
         return user4ManagerList;
     }
 
-    public static PageContent<User4Manager> user4ManagerList(Page<User> page){
+    public static PageContent<User4Manager> user4ManagerPage(Page<User> page){
         PageContent<User4Manager> pageContent = PageContentUtils.pageContent(page);
-        page.getResult().forEach(user -> pageContent.getContent().add(user4Manager(user)));
+        pageContent.setContent(user4ManagerList(page.getResult()));
         return pageContent;
     }
     

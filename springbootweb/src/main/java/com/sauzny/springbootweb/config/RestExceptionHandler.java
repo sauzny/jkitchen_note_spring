@@ -46,7 +46,7 @@ public class RestExceptionHandler {
         
         LogRecord logRecord = new LogRecord(ip, url, methodType, null, args, e.getMessage(), null);
         
-        log.error(logRecord.toJson());
+        log.error(logRecord.toJson(), e);
         //e.printStackTrace();
         return RestFulResult.failure();
     }
@@ -74,7 +74,7 @@ public class RestExceptionHandler {
         
         LogRecord logRecord = new LogRecord(ip, url, methodType, null, args, e.getMessage(), null);
         
-        log.error(logRecord.toJson());
+        log.error(logRecord.toJson(), e);
         
         return RestFulResult.failure(SbwConstant.FailureEnum.DB_DATA_ILLEGAL);
     }

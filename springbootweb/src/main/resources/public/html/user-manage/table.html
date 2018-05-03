@@ -1,0 +1,156 @@
+<script type="text/javascript">
+
+$("#userManager_searchform_submit").bind("click", function(){
+
+    var param = {};
+    param.pageCurrent = $("#userManager_searchform_pageCurrent").val();
+    param.pageSize = $("#userManager_searchform_pageSize").val();
+    console.log($("#userManager_searchform_phone").val());
+    if($("#userManager_searchform_phone") != "") param.account = $("#userManager_searchform_phone").val();
+    if($("#userManager_searchform_roleId") != "") param.userName = $("#userManager_searchform_roleId").val();
+    if($("#userManager_searchform_account") != "") param.account = $("#userManager_searchform_account").val();
+    if($("#userManager_searchform_userName") != "") param.userName = $("#userManager_searchform_userName").val();
+
+    ajax_data(param);
+})
+
+init();
+
+function init(data){
+    var param = {};
+    param.pageCurrent = $("#userManager_searchform_pageCurrent").val();
+    param.pageSize = $("#userManager_searchform_pageSize").val();
+    ajax_data(param);
+}
+
+// ajax请求
+function ajax_data(param){
+    api_get({
+        url : api_map().usersPage,
+        data : param,
+        success: function(result) {
+            create_table(result.page.content);
+            create_pagination(result.page.total, param.pageSize, result.page.pageNum);
+        },
+        error: function(result) {
+            console.log('error返回内容：\n'+ JSON.stringify(result))
+        }
+    });
+}
+
+// 列表制作
+function create_table(content){
+
+    $('#userManager_tbody').html('');
+
+    $.each(content, function(index, element){
+
+        var id = element.id;
+
+        var href_edit = '<a href="form.html?id='+id+'" class="btn btn-green" data-toggle="navtab" data-id="form" data-reload-warn="本页已有打开的内容，确定将刷新本页内容，是否继续？" data-title="编辑-孙悟空">编辑</a>';
+        var href_del = '<a href="ajaxDone2.html" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删</a>';
+        $('#userManager_tbody').append('<tr id="userManager_tr_'+index+'" data-id="'+index+'"></tr>'); 
+        $('#userManager_tr_'+index).append('<td><input type="checkbox" name="ids" data-toggle="icheck" value="'+id+'"></td>'); 
+        $('#userManager_tr_'+index).append('<td>'+element.account+'</td>'); 
+        $('#userManager_tr_'+index).append('<td>'+element.userName+'</td>'); 
+        $('#userManager_tr_'+index).append('<td>'+roleName(element.roleId)+'</td>'); 
+        $('#userManager_tr_'+index).append('<td>'+element.phone+'</td>'); 
+        $('#userManager_tr_'+index).append('<td>'+element.createTime+'</td>'); 
+        $('#userManager_tr_'+index).append('<td>'+href_edit+href_del+'</td>'); 
+    })
+}
+
+// 分页组件制作
+function create_pagination(total, pageSize, pageNum){
+
+    $('#userManager_pagination_footer').html('');
+    $('#userManager_pagination_footer').append('<div id="userManager_pagination"></div>');
+    
+    $('#userManager_pagination').pagination({
+        width: '100%',
+        total: total, 
+        pageSize: pageSize, 
+        pageCurrent: pageNum,
+        callback : function(pageCurrent, pageSize){
+            $("#userManager_searchform_pageCurrent").val(pageCurrent);
+            $("#userManager_searchform_submit").click();
+        }
+    });
+}
+
+function roleName(value){
+    var result = '';
+    if(value == 1) result = '管理员';
+    if(value == 2) result = '老师';
+    if(value == 3) result = '学生';
+    return result;
+}
+
+</script>
+
+<div class="bjui-pageHeader" style="background-color:#fefefe; border-bottom:none;">
+    <form id="pagerForm">
+        <input type="hidden" id="userManager_searchform_pageSize" name="pageSize" value="23">
+        <input type="hidden" id="userManager_searchform_pageCurrent" name="pageCurrent" value="1">
+        <input type="hidden" id="userManager_searchform_orderField" name="orderField" value="createTime">
+        <input type="hidden" id="userManager_searchform_orderDirection" name="orderDirection" value="DESC">
+        <div class="bjui-searchBar">
+            <label>角色：</label>
+            <select name="userManager_searchform_roleId" data-toggle="selectpicker">
+                <option value="">不限</option>
+                <option value="1">管理员</option>
+                <option value="2">老师</option>
+                <option value="3">学生</option>
+            </select>&nbsp;
+            <label>手机号：</label><input type="text" id="userManager_searchform_phone" value="" name="phone" class="form-control" size="10">&nbsp;
+            <!-- <input type="checkbox" id="j_table_chk" value="true" data-toggle="icheck" data-label="我的属下"> -->
+            <button type="button" class="showMoreSearch" data-toggle="moresearch" data-name="custom"><i class="fa fa-angle-double-down"></i></button>
+            <button id="userManager_searchform_submit" type="button" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+            <div class="pull-right">
+                <button type="button" class="btn-blue" data-url="ajaxDone2.html?id={#bjui-selected}" data-toggle="doajax" data-confirm-msg="确定要删除选中项吗？" data-icon="remove" title="可以在控制台(network)查看被删除ID">删除选中行</button>&nbsp;
+                <div class="btn-group">
+                    <button type="button" class="btn-default dropdown-toggle" data-toggle="dropdown" data-icon="copy">复选框-批量操作<span class="caret"></span></button>
+                    <ul class="dropdown-menu right" role="menu">
+                        <li><a href="book1.xlsx" data-toggle="doexport" data-confirm-msg="确定要导出信息吗？">导出<span style="color: green;">全部</span></a></li>
+                        <li><a href="book1.xlsx" data-toggle="doexportchecked" data-confirm-msg="确定要导出选中项吗？" data-idname="expids" data-group="ids">导出<span style="color: red;">选中</span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="ajaxDone2.html" data-toggle="doajaxchecked" data-confirm-msg="确定要删除选中项吗？" data-idname="delids" data-group="ids">删除选中</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bjui-moreSearch">
+            <label>账号：</label><input type="text" value="" id="userManager_searchform_account" name="account" size="14" />
+            <label>&nbsp;姓名:</label><input type="text" value="" id="userManager_searchform_userName" name="userName" size="14">
+            <!-- 
+            <label>&nbsp;性别:</label>
+            <select name="sex" data-toggle="selectpicker">
+                <option value="">全部</option>
+                <option value="true">男</option>
+                <option value="false">女</option>
+            </select>
+             -->
+        </div>
+    </form>
+</div>
+
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped" data-selected-multi="true">
+        <thead>
+            <tr>
+                <th width="26"><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>
+                <th data-order-field="account" align="center">账号</th>
+                <th data-order-field="userName">姓名</th>
+                <th>角色</th>
+                <th>手机号</th>
+                <th data-order-direction="asc" data-order-field="createTime">创建时间</th>
+                <th width="100">操作</th>
+            </tr>
+        </thead>
+        <tbody id="userManager_tbody"></tbody>
+    </table>
+</div>
+
+<div id="userManager_pagination_footer" class="bjui-pageFooter">
+</div>

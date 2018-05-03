@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.common.collect.Maps;
 import com.sauzny.springbootweb.SbwConstant;
 import com.sauzny.springbootweb.SbwConstant.FailureEnum;
+import com.sauzny.springbootweb.SbwConstant.UserRole;
 import com.sauzny.springbootweb.config.Audience;
 import com.sauzny.springbootweb.controller.vo.RestFulResult;
 import com.sauzny.springbootweb.entity.pojo.User;
@@ -74,10 +75,11 @@ public class PassportController {
         String jwtId = CodecUtils.uuid();
         LocalDateTime localDateTime = LocalDateTime.now().plusSeconds(audience.getExpiresSecond());
         Map<String, String> payloadClaims = Maps.newHashMap();
+        payloadClaims.put(SbwConstant.Jwt.ACCOUNT, targetUser.getAccount());
         payloadClaims.put(SbwConstant.Jwt.USER_ID, String.valueOf(targetUser.getId()));
         payloadClaims.put(SbwConstant.Jwt.USER_NAME, targetUser.getUserName());
         payloadClaims.put(SbwConstant.Jwt.ROLE_ID, String.valueOf(targetUser.getRoleId()));
-        payloadClaims.put(SbwConstant.Jwt.ACCOUNT, targetUser.getAccount());
+        payloadClaims.put(SbwConstant.Jwt.ROLE_NAME, UserRole.ZH[targetUser.getRoleId()]);
         
         String token = JwtUtils.create(
                 jwtId,

@@ -19,7 +19,8 @@ public final class PageContentUtils {
         pageContent.setLast(page.getPageNum() == page.getPages());
         pageContent.setFirst(page.getPageNum() == 1);
         
-        //pageContent.setContent(page.getContent());
+        //需要类型转换，单独在voUtils中写代码
+        //pageContent.setContent(page.getResult());
         
         return pageContent;
     }

@@ -16,11 +16,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.Page;
+import com.google.common.collect.Lists;
+import com.sauzny.springbootweb.SbwConstant;
+import com.sauzny.springbootweb.controller.vo.BjuiPageContent;
 import com.sauzny.springbootweb.controller.vo.BjuiResult;
+import com.sauzny.springbootweb.controller.vo.RePassword;
 import com.sauzny.springbootweb.controller.vo.RestFulResult;
 import com.sauzny.springbootweb.entity.pojo.User;
 import com.sauzny.springbootweb.service.UserService;
-import com.sauzny.springbootweb.utils.JacksonUtils;
+import com.sauzny.springbootweb.utils.CodecUtils;
+import com.sauzny.springbootweb.utils.TestDataUtils;
+import com.sauzny.springbootweb.utils.vo.BjuiPageContentUtils;
+import com.sauzny.springbootweb.utils.vo.PageContentUtils;
 import com.sauzny.springbootweb.utils.vo.UserUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,25 +40,63 @@ public class UserController {
     @Autowired
     private UserService userService;
     
-    @GetMapping("")
+    @GetMapping("/page")
     public RestFulResult page(
             HttpServletRequest request,
-            @RequestParam(required=true) Integer pageNo,
-            @RequestParam(required=true) Integer pageSize
+            @RequestParam(required=true) Integer pageCurrent,
+            @RequestParam(required=true) Integer pageSize,
+            @RequestParam(required=false) String phone,
+            @RequestParam(required=false) Integer roleId,
+            @RequestParam(required=false) String account,
+            @RequestParam(required=false) String userName
             ){
         
-        List<User> list = userService.selectByExample();
+        //Page<User> page = userService.findByPage(bjuiPageCurrent, bjuiPageSize);
+        Page<User> page = userService.findByExamplePage(pageCurrent, pageSize, phone, roleId, account, userName);
+        
+        //return BjuiPageContentUtils.user4ManagerPageContent(UserUtils.user4ManagerPage(page));
+        return RestFulResult.success(UserUtils.user4ManagerPage(page));
+        
+    }
+    
+    @PutMapping("/updatePassword")
+    public RestFulResult updatePassword(@RequestBody RePassword rePassword){
+        
+        BjuiResult result = null;
+        
+        long userId = rePassword.getUserId();
+        String oldPassword = rePassword.getOldPassword();
+        String newPassword = rePassword.getNewPassword();
+        
+        User targetUser = userService.selectByPrimaryKey(userId);
+        
+        if(targetUser.getPassword().equals(CodecUtils.sha512(oldPassword+targetUser.getSalt()))){
+            
+            User record = new User();
+            record.setId(userId);
+            record.setPassword(CodecUtils.sha512(newPassword+targetUser.getSalt()));
+            userService.updateByPrimaryKeySelective(record);
+            
+            result = BjuiResult.ok();
+            result.setCloseCurrent(true);
+        }else{
+            result = BjuiResult.error(SbwConstant.FailureEnum.USER_RESET_PASSWORD_NOT_MATCH);
+        }
 
-        log.info("list, {}", JacksonUtils.nonNull().toJson(list) );
+        return result;
+    }
+    
+    @GetMapping("/saveTest")
+    public RestFulResult saveTest(){
         
-        Page<User> page = userService.findByPage(pageNo, pageSize);
-
-        log.info("page, {}",JacksonUtils.nonNull().toJson(page) );
-        log.info("page, {}",page );
+        List<User> userList = Lists.newArrayList();
         
+        for(int i=0;i<100;i++){
+            userList.add(TestDataUtils.user());
+        }
         
-        
-        return RestFulResult.success(UserUtils.user4ManagerList(page));
+        userService.batchInsert(userList);
+        return RestFulResult.success();
     }
     
     @PostMapping("")
@@ -64,13 +109,5 @@ public class UserController {
     public RestFulResult updateInfo(@RequestBody User user){
         log.debug("user : {}", user);
         return RestFulResult.success();
-    }
-    
-    @PutMapping("/updatePassword")
-    public RestFulResult updatePassword(@RequestBody User user){
-        log.debug("user : {}", user);
-        BjuiResult result = BjuiResult.error();
-        result.setCloseCurrent(true);
-        return result;
     }
 }
