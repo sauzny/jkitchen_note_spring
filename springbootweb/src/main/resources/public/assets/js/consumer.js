@@ -5,7 +5,8 @@ function api_map(){
 		isLogin : "api/passport/isLogin?t="+ (new Date().getTime()),
 		logout : "api/passport/logout?t="+ (new Date().getTime()),
 		updatePassword : "api/users/updatePassword?t="+ (new Date().getTime()),
-		usersPage : "api/users/page"
+		usersPage : "api/users/page",
+		usersDel : "api/users/del"
 	}
 }
 

@@ -45,6 +45,10 @@ public class UserService {
         
         return userDao.findByExamplePage(example);
     }
+
+    public int deleteByPrimaryKey(long id){
+        return userDao.deleteByPrimaryKey(id);
+    }
     
     public List<User> selectByExample(){
         return userDao.selectByExample(null);
