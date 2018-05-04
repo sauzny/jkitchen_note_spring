@@ -1,4 +1,4 @@
-package com.sauzny.springbootweb.utils;
+package com.sauzny.sb_mybatis_mds.utils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -149,14 +149,14 @@ public class PageHelpGen {
     
     public static void main(String[] args) throws IOException {
         // 需要更新的 objectName
-        List<String> list = Lists.newArrayList("User","Classes","School");
+        List<String> list = Lists.newArrayList("User","Classes","Income");
         // 自动补全分页相关的代码
         /*
          * dao重写 1
          * xml重写 2
          * dao和xml都重新 3 
          */
-        PageHelpGen.gen(list, 1);
+        PageHelpGen.gen(list, 3);
     }
 
 }
