@@ -7,16 +7,27 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 
+import org.springframework.util.StopWatch;
+
 import com.google.common.collect.Lists;
 
 public class PageHelpGen {
 
     public static void gen(List<String> list, int flag) throws IOException {
-
+        
+        StopWatch clock = new StopWatch("PageHelpGen 分页插件代码生成器");
+        
+        clock.start("读取代码自动生成配置文件：mybatis/generatorConfig.xml");
+        
         String userDir = System.getProperty("user.dir");
 
         String daoBasePath = "/src/main/java/";
         String xmlBasePath = "/src/main/resources/";
+        
+        List<String> lines = Files.readAllLines(Paths.get(userDir + xmlBasePath + "mybatis/generatorConfig.xml"));
+        
+        clock.stop();
+        clock.start("解析配置文件，获取必要的信息");
 
         StringBuilder daoPathSb = new StringBuilder();
         StringBuilder xmlPathSb = new StringBuilder();
@@ -26,8 +37,6 @@ public class PageHelpGen {
 
         StringBuilder javaDaoPackageSb = new StringBuilder();
         StringBuilder javaModelPackageSb = new StringBuilder();
-        
-        List<String> lines = Files.readAllLines(Paths.get(userDir + xmlBasePath + "mybatis/generatorConfig.xml"));
         
         lines.forEach(line -> {
             
@@ -63,15 +72,39 @@ public class PageHelpGen {
             if(list.contains(objectName)){
                 String tableName = tableNames.get(i);
                 if(flag == 1){
+
+                    clock.stop();
+                    clock.start("生成文件：" + daoPathSb.toString()+"/"+objectName+"Dao.java");
+                    
                     PageHelpGen.daoWrite(daoPathSb.toString(), javaDaoPackageSb.toString(), javaModelPackageSb.toString(), objectName);
                 }else if(flag == 2){
+
+                    clock.stop();
+                    clock.start("生成文件：" + xmlPathSb.toString()+"/"+objectName+"Dao.xml");
+                    
                     PageHelpGen.xmlWrite(xmlPathSb.toString(), javaDaoPackageSb.toString(), javaModelPackageSb.toString(), objectName, tableName);
                 }else if(flag == 3){
+
+                    clock.stop();
+                    clock.start("生成文件：" + daoPathSb.toString()+"/"+objectName+"Dao.java");
+                    
                     PageHelpGen.daoWrite(daoPathSb.toString(), javaDaoPackageSb.toString(), javaModelPackageSb.toString(), objectName);
+
+                    clock.stop();
+                    clock.start("生成文件：" + xmlPathSb.toString()+"/"+objectName+"Dao.xml");
+                    
                     PageHelpGen.xmlWrite(xmlPathSb.toString(), javaDaoPackageSb.toString(), javaModelPackageSb.toString(), objectName, tableName);
                 }
             }
         }
+
+        clock.stop();
+        System.out.println(clock.prettyPrint());
+        
+        double seconds = clock.getTotalTimeSeconds();
+        long millis = clock.getTotalTimeMillis();
+        System.out.println("共耗费秒数=" + seconds);
+        System.out.println("共耗费毫秒数=" + millis);
     }
     
     public static void daoWrite(String path, String javaDaoPackage, String javaModelPackage, String objectName){
@@ -126,7 +159,7 @@ public class PageHelpGen {
         lines.add("         distinct");
         lines.add("     </if>");
         lines.add("     <include refid=\""+javaDaoPackage+"."+objectName+"Mapper.Base_Column_List\" />");
-        lines.add("     from tb_user");
+        lines.add("     from "+tableName);
         lines.add("     <if test=\"_parameter != null\">");
         lines.add("         <include refid=\""+javaDaoPackage+"."+objectName+"Mapper.Example_Where_Clause\" />");
         lines.add("     </if>");

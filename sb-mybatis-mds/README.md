@@ -8,7 +8,7 @@
 
 运行：右键点项目，`Run As`下边`Maven build...` 然后`goals`输入`mybatis-generator:generate -X`
 
-## 二、分页工具类
+## 二、分页插件
 
 `pom.xml`中引入`pagehelper-spring-boot-starter`
 
@@ -40,7 +40,7 @@
 
 ## 四、运行
 
-在完成前三个步骤之后，测试运行
+在完成前三个步骤之后，每个步骤都会生成代码，再测试运行
 
 测试代码在`com.sauzny.sb_mybatis_mds.junit.JunitMds`中
 
@@ -49,4 +49,4 @@
 注意：
 
 - `com.sauzny.sb_mybatis_mds.Sbmmds`中的类注解
-- `application.properties`配置文件
+- `application.properties`配置文件，数据源前缀

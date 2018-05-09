@@ -21,7 +21,7 @@
          distinct
      </if>
      <include refid="com.sauzny.sb_mybatis_mds.dao.IncomeMapper.Base_Column_List" />
-     from tb_user
+     from income
      <if test="_parameter != null">
          <include refid="com.sauzny.sb_mybatis_mds.dao.IncomeMapper.Example_Where_Clause" />
      </if>

@@ -21,7 +21,7 @@
          distinct
      </if>
      <include refid="com.sauzny.sb_mybatis_mds.dao.ClassesMapper.Base_Column_List" />
-     from tb_user
+     from tb_classes
      <if test="_parameter != null">
          <include refid="com.sauzny.sb_mybatis_mds.dao.ClassesMapper.Example_Where_Clause" />
      </if>
