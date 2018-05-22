@@ -1,5 +1,7 @@
 package com.sauzny.sb_neo4j_demo.marve01.service;
 
+import java.util.List;
+
 import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,4 +100,16 @@ public class PersonService {
         log.info("增加节点");
     }
 
+    
+    public void cleanAll(){
+        personRepository.deleteAll();
+    }
+    
+    public Person getPersonByName(String name){
+        return personRepository.getPersonByName(name);
+    }
+    
+    public List<Person> getPersonMateByName(String name){
+        return personRepository.getPersonMateByName(name);
+    }
 }

@@ -15,6 +15,8 @@
 
 	</appender>
 	
+	<logger name="org.neo4j.ogm.drivers" level="INFO" />
+	
 	<root level="INFO">
 		<appender-ref ref="STDOUT" />
 	</root>
