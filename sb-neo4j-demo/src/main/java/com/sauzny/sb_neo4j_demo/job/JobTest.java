@@ -30,9 +30,20 @@ public class JobTest {
         //consumerService.initData();
         
         // 修改
-        /*
-        consumerService.deleteByPrimaryKey(99L);
         
+        
+        Consumer consumer01 = new Consumer();
+        consumer01.setId(82L);
+        consumer01.setName("猎鹰");
+        consumer01.setLevel(3);
+        consumer01.setConsumers(Lists.newArrayList(consumerService.selectByPrimaryKey(54L)));
+        consumerService.updateByPrimaryKeySelective(consumer01);
+        
+        // 删除
+        //consumerService.deleteByPrimaryKey(99L);
+        
+        // 增加
+        /*
         Consumer consumer01 = new Consumer();
         consumer01.setName("灭霸");
         consumer01.setLevel(0);
@@ -54,9 +65,10 @@ public class JobTest {
         */
         
         // 两点间最短路径
+        /*
         List<Consumer> consumers = consumerService.leadShortestPath("冬兵", "猩红女巫");
         log.info("consumers : {}", consumers);
-        
         consumers.forEach(System.out::println);
+        */
     }
 }

@@ -88,6 +88,7 @@ public class ConsumerService {
         if(consumer.getLevel() != null) target.setLevel(consumer.getLevel());
         if(consumer.getName() != null) target.setName(consumer.getName());
         if(consumer.getCreateTime() != null) target.setCreateTime(consumer.getCreateTime());
+        if(consumer.getConsumers() != null) target.setConsumers(consumer.getConsumers());
         
         consumerRepository.save(target);
     }
@@ -112,5 +113,9 @@ public class ConsumerService {
     
     public List<Consumer> leadShortestPath(String mName, String nName){
         return consumerRepository.leadShortestPath(mName, nName);
+    }
+    
+    public Consumer selectByPrimaryKey(long id){
+        return consumerRepository.findById(id).orElse(null);
     }
 }
