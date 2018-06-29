@@ -12,6 +12,8 @@ import com.github.pagehelper.PageHelper;
 import com.sauzny.springbootweb.dao.UserDao;
 import com.sauzny.springbootweb.entity.pojo.User;
 import com.sauzny.springbootweb.entity.pojo.UserExample;
+import com.sauzny.springbootweb.entity.pojo.UserExample.Criterion;
+import com.sauzny.springbootweb.entity.pojo.UserExt;
 
 @Service
 public class UserService {
@@ -42,7 +44,7 @@ public class UserService {
         if(roleId != null) criteria.andRoleIdEqualTo(roleId);
         if(StringUtils.isNotBlank(account)) criteria.andAccountEqualTo(account);
         if(StringUtils.isNotBlank(userName))criteria.andUserNameEqualTo(userName);
-        
+        //criteria.getAllCriteria().add(UserExt.andMutilStatusExist(2));
         return userDao.findByExamplePage(example);
     }
 
