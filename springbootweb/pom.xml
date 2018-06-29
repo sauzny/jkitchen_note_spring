@@ -240,7 +240,23 @@
                     <encoding>UTF-8</encoding>
                 </configuration>  
             </plugin>  
-		      
+		      <plugin>
+                <groupId>com.sauzny</groupId>
+                <artifactId>myplugin</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+                <configuration>
+                    <port>8090</port>
+                </configuration>
+                <executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>drive</goal>
+						</goals>
+					</execution>
+				</executions>
+            </plugin>
+            
 			<!-- 自定义打包 运行方法，编译打包的时候会按照插件指定的配置生成文件 -->
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
