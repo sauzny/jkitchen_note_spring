@@ -1,0 +1,31 @@
+
+server: 
+  port: 18080
+  
+
+spring:
+  application:
+    name: sbc-demo-consumer
+  cloud:
+    consul:
+      host: 192.168.73.1
+      port: 8500
+
+# feign配置
+feign:
+  hystrix:
+    # 在feign中开启hystrix功能，默认情况下feign不开启hystrix功能
+    enabled: true
+    
+# 默认时间是1秒超时
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 9000
+
+ribbon:
+  # 连接时间超时
+  ConnectTimeout: 20
+  # 读取时间超时
+  ReadTimeout: 1100
+  # 同一个服务实例的最大重试次数（不包括第一次调用）
+  MaxAutoRetries: 1
+  # 最大重试服务实例数（不包括第一个服务实例）
+  MaxAutoRetriesNextServer: 1
