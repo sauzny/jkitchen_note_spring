@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: spc-demo-hystrixdashboard
+
+server: 
+  port: 58080
