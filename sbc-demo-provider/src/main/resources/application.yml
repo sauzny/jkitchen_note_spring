@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: sbc-demo-provider
+  cloud:
+    consul:
+      host: 192.168.73.1
+      port: 8500
+# 自定义监控路径，默认情况配合使用/actuator/health
+#      discovery:
+#        healthCheckPath: /
+#        healthCheckInterval: 5s
