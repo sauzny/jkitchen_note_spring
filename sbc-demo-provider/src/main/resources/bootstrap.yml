@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: sbc-demo-provider
+  cloud:
+    consul:
+      # 我的consul集群部署在我本地的虚拟机中，所以我这配置了虚拟机提供的虚拟网卡地址
+      # 一般来说此处应该配置 127.0.0.1
+      host: 192.168.73.1
+      port: 8500
+      enabled: true
+      config:
+        format: KEY_VALUE
+        # enabled将此值设置为“false”将禁用Consul配置
+        enabled: true
+        # prefix设置配置值的基本文件夹
+        #prefix: config
+        # defaultContext设置所有应用程序使用的文件夹名称
+        #defaultContext: apps
+        # profileSeparator设置分隔符的值，用于使用配置文件在属性源中分隔配置文件名称
+        #profileSeparator: '::'
+        
+#spring.cloud.consul.config.watch.delay: 1000
+#spring.cloud.consul.config.watch.enabled: true
