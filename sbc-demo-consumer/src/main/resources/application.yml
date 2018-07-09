@@ -8,6 +8,8 @@ spring:
     name: sbc-demo-consumer
   cloud:
     consul:
+      # 我的consul集群部署在我本地的虚拟机中，所以我这配置了虚拟机提供的虚拟网卡地址
+      # 一般来说此处应该配置 127.0.0.1
       host: 192.168.73.1
       port: 8500
 
