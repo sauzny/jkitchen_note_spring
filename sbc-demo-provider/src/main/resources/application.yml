@@ -1,17 +1,1 @@
-server: 
-  port: 8080
-
-spring:
-  cloud:
-    consul:
-      discovery:
-        # 默认值  ${spring.application.name}-${server.port}
-        instanceId: ${spring.application.name}-${server.port}
-        # 默认值  ${server.port}
-        port: ${server.port}
-        # 默认值  ${spring.application.name}
-        service-name: ${spring.application.name}
-
-# 自定义监控路径，默认情况配合使用/actuator/health
-#        healthCheckPath: /
-#        healthCheckInterval: 5s
+server.port: 8080

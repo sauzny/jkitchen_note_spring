@@ -1,5 +1,8 @@
 package com.sauzny.sbcdemoprovider;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,12 +14,24 @@ import lombok.extern.slf4j.Slf4j;
 public class MyController {
 
     @Autowired
-    private MyConfiguration myConfiguration;
+    private MyConfigurationDemo01 myConfigurationDemo01;
+    
+    @Autowired
+    private MyConfigurationDemo03 myConfigurationDemo03;
+    
     
     @GetMapping("/peizhi")
-    public String peizhi() {
+    public Map<String, Object> peizhi() {
         log.info("我想从配置中心获取配置");
-        return myConfiguration.getPeizhi();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("myConfigurationDemo01.getName()", myConfigurationDemo01.getName());
+        map.put("myConfigurationDemo01.getAddress()", myConfigurationDemo01.getAddress());
+        //map.put("myConfigurationDemo01.getUrl()", myConfigurationDemo01.getUrl());
+        map.put("MyConfigurationDemo02.number", MyConfigurationDemo02.number);
+        map.put("MyConfigurationDemo02.address", MyConfigurationDemo02.address);
+        map.put("myConfigurationDemo03.getAuthor()", myConfigurationDemo03.getAuthor());
+        map.put("myConfigurationDemo03.getName()", myConfigurationDemo03.getName());
+        return map;
     }
     
     @GetMapping("/ling")

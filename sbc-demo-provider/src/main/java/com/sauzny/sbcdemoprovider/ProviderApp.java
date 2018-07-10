@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableConfigurationProperties({MyConfiguration.class})
+@EnableConfigurationProperties({MyConfigurationDemo01.class})
 public class ProviderApp {
     
     public static void main(String[] args) {

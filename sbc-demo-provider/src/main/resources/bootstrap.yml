@@ -8,8 +8,19 @@ spring:
       host: 192.168.73.1
       port: 8500
       enabled: true
+      discovery:
+        # 默认值  ${spring.application.name}-${server.port}
+        instanceId: ${spring.application.name}-${server.port}
+        # 默认值  ${server.port}
+        port: ${server.port}
+        # 默认值  ${spring.application.name}
+        service-name: ${spring.application.name}
+        # 自定义监控路径，默认情况配合使用/actuator/health
+        # healthCheckPath: /
+        # healthCheckInterval: 5s
       config:
-        format: KEY_VALUE
+        format: YAML
+        data-key: demo1
         # enabled将此值设置为“false”将禁用Consul配置
         enabled: true
         # prefix设置配置值的基本文件夹
@@ -18,6 +29,19 @@ spring:
         #defaultContext: apps
         # profileSeparator设置分隔符的值，用于使用配置文件在属性源中分隔配置文件名称
         #profileSeparator: '::'
-        
+        # 为false时将导致配置模块记录一个警告而不是抛出异常，允许应用程序继续正常启动
+        # 为true时将快速启动失败
+        # failFast: false
+        # failFast: true时，重试，以下均为默认值
+        #retry:
+          # 最初重试间隔为 1000 毫秒
+          #initial-interval: 1000
+          # 最多重试 6 次
+          #max-attempts: 6
+          # 最长重试间隔为 2000 毫秒
+          #max-interval: 2000
+          # 每次重试失败后，重试间隔所增加的倍数
+          #multiplier: 1.1
+
 #spring.cloud.consul.config.watch.delay: 1000
 #spring.cloud.consul.config.watch.enabled: true
