@@ -31,6 +31,8 @@ public class MyController {
         map.put("MyConfigurationDemo02.address", MyConfigurationDemo02.address);
         map.put("myConfigurationDemo03.getAuthor()", myConfigurationDemo03.getAuthor());
         map.put("myConfigurationDemo03.getName()", myConfigurationDemo03.getName());
+        map.put("myConfigurationDemo03.getMysql1url()", myConfigurationDemo03.getMysql1url());
+        map.put("myConfigurationDemo03.getMysqlurl()", myConfigurationDemo03.getMysqlurl());
         return map;
     }
     

@@ -17,13 +17,16 @@ http://192.168.73.201:8500/ui/consul-cluster/kv
 
 默认创建方法规范：
 - 全局：顶层目录名是config，二级目录名是application（,环境），三级是文件名或者key名。如：
-	- config/application/key
-	- config/application,dev/key
+	- config/application/data
+	- config/application,dev/data
 - 指定服务：顶层目录名是config，二级目录名是服务名（,环境），三级是文件名或者key名。如：
-	- config/sbc-demo-provider/key
-	- config/sbc-demo-provider,dev/key
+	- config/sbc-demo-provider/data
+	- config/sbc-demo-provider,dev/data
 
-优先读取指定服务中的属性，再读取全局中的属性
+注意：
+- 优先读取指定服务指定环境中的数据
+- 优先读取指定服务中的属性，再读取全局中的属性
+- 使用文件的形式，默认文件名是data
 
 ## 二、 bootstrap.yml
 

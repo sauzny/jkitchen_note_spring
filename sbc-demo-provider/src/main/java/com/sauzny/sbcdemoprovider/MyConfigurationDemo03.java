@@ -16,4 +16,10 @@ public class MyConfigurationDemo03 {
     
     @Value("${name}")
     private String name;
+    
+    @Value("${mysql1.url}")
+    private String mysql1url;
+    
+    @Value("${mysql.url}")
+    private String mysqlurl;
 }

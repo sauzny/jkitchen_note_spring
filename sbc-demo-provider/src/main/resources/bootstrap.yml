@@ -1,3 +1,7 @@
+
+# 设置环境
+spring.profiles.active: dev
+
 spring:
   application:
     name: sbc-demo-provider
@@ -20,7 +24,8 @@ spring:
         # healthCheckInterval: 5s
       config:
         format: YAML
-        data-key: demo1
+        # 默认值是data
+        # data-key: data
         # enabled将此值设置为“false”将禁用Consul配置
         enabled: true
         # prefix设置配置值的基本文件夹
