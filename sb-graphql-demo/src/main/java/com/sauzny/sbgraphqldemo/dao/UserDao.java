@@ -16,4 +16,6 @@ public interface UserDao extends UserMapper{
 
     // 分页查询带参数
     Page<User> findByExamplePage(UserExample example);
+
+    int batchInsert(List<User> userList);
 }

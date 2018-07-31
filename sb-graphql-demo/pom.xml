@@ -30,6 +30,33 @@
 	</parent>
 
 	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/com.graphql-java/graphql-spring-boot-starter -->
+		<!-- 提供http接口 -->
+		<dependency>
+		    <groupId>com.graphql-java</groupId>
+		    <artifactId>graphql-spring-boot-starter</artifactId>
+		    <version>5.0.1</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.graphql-java/graphiql-spring-boot-starter -->
+		<!-- 提供文档页面 -->
+		<dependency>
+		    <groupId>com.graphql-java</groupId>
+		    <artifactId>graphiql-spring-boot-starter</artifactId>
+		    <version>5.0.1</version>
+		</dependency>
+				
+		<!-- https://mvnrepository.com/artifact/com.graphql-java/graphql-java-tools -->
+		<!--  -->
+		<dependency>
+		    <groupId>com.graphql-java</groupId>
+		    <artifactId>graphql-java-tools</artifactId>
+		    <version>5.2.3</version>
+		</dependency>
+
+	
+	
 		<!-- 开发过程中保存文件，自动重启 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -116,6 +143,12 @@
 		    <version>25.1-jre</version>
 		</dependency>
 				
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-text</artifactId>
+		    <version>1.2</version>
+		</dependency>
 
 	</dependencies>
 	
