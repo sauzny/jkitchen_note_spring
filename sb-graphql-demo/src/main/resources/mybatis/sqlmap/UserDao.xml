@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sauzny.sbgraphqldemo.dao.UserDao">
+
+ <select id="findAll" resultMap="com.sauzny.sbgraphqldemo.dao.UserMapper.BaseResultMap">
+     select
+     <include refid="com.sauzny.sbgraphqldemo.dao.UserMapper.Base_Column_List" />
+     from tb_user
+ </select>
+
+ <select id="findByPage" resultMap="com.sauzny.sbgraphqldemo.dao.UserMapper.BaseResultMap">
+     select
+     <include refid="com.sauzny.sbgraphqldemo.dao.UserMapper.Base_Column_List" />
+     from tb_user
+ </select>
+
+ <select id="findByExamplePage" parameterType="com.sauzny.sbgraphqldemo.entity.pojo.UserExample"
+     resultMap="com.sauzny.sbgraphqldemo.dao.UserMapper.BaseResultMap">
+     select
+     <if test="distinct">
+         distinct
+     </if>
+     <include refid="com.sauzny.sbgraphqldemo.dao.UserMapper.Base_Column_List" />
+     from tb_user
+     <if test="_parameter != null">
+         <include refid="com.sauzny.sbgraphqldemo.dao.UserMapper.Example_Where_Clause" />
+     </if>
+     <if test="orderByClause != null">
+         order by ${orderByClause}
+     </if>
+ </select>
+
+</mapper>
