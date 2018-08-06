@@ -3,32 +3,3 @@
 <mapper namespace="com.sauzny.sbgraphqldemo.dao.TbSalesByStoreDao">
 
 </mapper>
-="findAll" resultMap="com.sauzny.sbgraphqldemo.dao.TbSalesByStoreMapper.BaseResultMap">
-     select
-     <include refid="com.sauzny.sbgraphqldemo.dao.TbSalesByStoreMapper.Base_Column_List" />
-     from sales_by_store
- </select>
-
- <select id="findByPage" resultMap="com.sauzny.sbgraphqldemo.dao.TbSalesByStoreMapper.BaseResultMap">
-     select
-     <include refid="com.sauzny.sbgraphqldemo.dao.TbSalesByStoreMapper.Base_Column_List" />
-     from sales_by_store
- </select>
-
- <select id="findByExamplePage" parameterType="com.sauzny.sbgraphqldemo.entity.pojo.TbSalesByStoreExample"
-     resultMap="com.sauzny.sbgraphqldemo.dao.TbSalesByStoreMapper.BaseResultMap">
-     select
-     <if test="distinct">
-         distinct
-     </if>
-     <include refid="com.sauzny.sbgraphqldemo.dao.TbSalesByStoreMapper.Base_Column_List" />
-     from tb_user
-     <if test="_parameter != null">
-         <include refid="com.sauzny.sbgraphqldemo.dao.TbSalesByStoreMapper.Example_Where_Clause" />
-     </if>
-     <if test="orderByClause != null">
-         order by ${orderByClause}
-     </if>
- </select>
-
-</mapper>

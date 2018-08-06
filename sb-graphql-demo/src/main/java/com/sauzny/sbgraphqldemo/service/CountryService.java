@@ -17,7 +17,8 @@ public class CountryService {
     public Page<TbCountry> findByPage(int pageNum, int pageSize) {
 
         //return null;
-        PageHelper.startPage(pageNum, pageSize);
-        return tbCountryDao.findByPage();
+        
+
+        return PageHelper.startPage(pageNum, pageSize).doSelectPage(() -> tbCountryDao.selectByExample(null));
     }
 }

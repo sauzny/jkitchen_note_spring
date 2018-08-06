@@ -3,32 +3,3 @@
 <mapper namespace="com.sauzny.sbgraphqldemo.dao.TbActorInfoDao">
 
 </mapper>
-="findAll" resultMap="com.sauzny.sbgraphqldemo.dao.TbActorInfoMapper.BaseResultMap">
-     select
-     <include refid="com.sauzny.sbgraphqldemo.dao.TbActorInfoMapper.Base_Column_List" />
-     from actor_info
- </select>
-
- <select id="findByPage" resultMap="com.sauzny.sbgraphqldemo.dao.TbActorInfoMapper.BaseResultMap">
-     select
-     <include refid="com.sauzny.sbgraphqldemo.dao.TbActorInfoMapper.Base_Column_List" />
-     from actor_info
- </select>
-
- <select id="findByExamplePage" parameterType="com.sauzny.sbgraphqldemo.entity.pojo.TbActorInfoExample"
-     resultMap="com.sauzny.sbgraphqldemo.dao.TbActorInfoMapper.BaseResultMap">
-     select
-     <if test="distinct">
-         distinct
-     </if>
-     <include refid="com.sauzny.sbgraphqldemo.dao.TbActorInfoMapper.Base_Column_List" />
-     from tb_user
-     <if test="_parameter != null">
-         <include refid="com.sauzny.sbgraphqldemo.dao.TbActorInfoMapper.Example_Where_Clause" />
-     </if>
-     <if test="orderByClause != null">
-         order by ${orderByClause}
-     </if>
- </select>
-
-</mapper>

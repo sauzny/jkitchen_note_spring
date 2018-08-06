@@ -1,5 +1,6 @@
 package com.sauzny.sbgraphqldemo.uitls;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -101,6 +102,8 @@ public class MyMybatisGen {
     
     public static void write(String path, List<String> lines) {
         try {
+            File file = new File(path);
+            if(file.isFile()) file.delete();
             Files.write(Paths.get(path), lines, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
             System.out.println("生成文件：" + path);
         } catch (IOException e) {

@@ -3,32 +3,3 @@
 <mapper namespace="com.sauzny.sbgraphqldemo.dao.TbCategoryDao">
 
 </mapper>
-="findAll" resultMap="com.sauzny.sbgraphqldemo.dao.TbCategoryMapper.BaseResultMap">
-     select
-     <include refid="com.sauzny.sbgraphqldemo.dao.TbCategoryMapper.Base_Column_List" />
-     from category
- </select>
-
- <select id="findByPage" resultMap="com.sauzny.sbgraphqldemo.dao.TbCategoryMapper.BaseResultMap">
-     select
-     <include refid="com.sauzny.sbgraphqldemo.dao.TbCategoryMapper.Base_Column_List" />
-     from category
- </select>
-
- <select id="findByExamplePage" parameterType="com.sauzny.sbgraphqldemo.entity.pojo.TbCategoryExample"
-     resultMap="com.sauzny.sbgraphqldemo.dao.TbCategoryMapper.BaseResultMap">
-     select
-     <if test="distinct">
-         distinct
-     </if>
-     <include refid="com.sauzny.sbgraphqldemo.dao.TbCategoryMapper.Base_Column_List" />
-     from tb_user
-     <if test="_parameter != null">
-         <include refid="com.sauzny.sbgraphqldemo.dao.TbCategoryMapper.Example_Where_Clause" />
-     </if>
-     <if test="orderByClause != null">
-         order by ${orderByClause}
-     </if>
- </select>
-
-</mapper>
