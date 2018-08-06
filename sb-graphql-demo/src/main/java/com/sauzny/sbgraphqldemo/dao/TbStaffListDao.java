@@ -1,9 +1,9 @@
 package com.sauzny.sbgraphqldemo.dao;
 
-import java.util.List;
+public interface TbStaffListDao extends TbStaffListMapper{
 
-import com.github.pagehelper.Page;
-import com.sauzny.sbgraphqldemo.entity.pojo.TbStaffList;
+}
+ort com.sauzny.sbgraphqldemo.entity.pojo.TbStaffList;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbStaffListExample;
 
 public interface TbStaffListDao extends TbStaffListMapper{

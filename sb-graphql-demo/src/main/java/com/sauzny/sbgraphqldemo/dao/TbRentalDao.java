@@ -1,8 +1,9 @@
 package com.sauzny.sbgraphqldemo.dao;
 
-import java.util.List;
+public interface TbRentalDao extends TbRentalMapper{
 
-import com.github.pagehelper.Page;
+}
+;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbRental;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbRentalExample;
 

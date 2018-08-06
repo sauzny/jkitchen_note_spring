@@ -1,9 +1,9 @@
 package com.sauzny.sbgraphqldemo.dao;
 
-import java.util.List;
+public interface TbInventoryDao extends TbInventoryMapper{
 
-import com.github.pagehelper.Page;
-import com.sauzny.sbgraphqldemo.entity.pojo.TbInventory;
+}
+ort com.sauzny.sbgraphqldemo.entity.pojo.TbInventory;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbInventoryExample;
 
 public interface TbInventoryDao extends TbInventoryMapper{

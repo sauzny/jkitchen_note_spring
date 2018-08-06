@@ -1,9 +1,9 @@
 package com.sauzny.sbgraphqldemo.dao;
 
-import java.util.List;
+public interface TbFilmTextDao extends TbFilmTextMapper{
 
-import com.github.pagehelper.Page;
-import com.sauzny.sbgraphqldemo.entity.pojo.TbFilmText;
+}
+mport com.sauzny.sbgraphqldemo.entity.pojo.TbFilmText;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbFilmTextExample;
 
 public interface TbFilmTextDao extends TbFilmTextMapper{

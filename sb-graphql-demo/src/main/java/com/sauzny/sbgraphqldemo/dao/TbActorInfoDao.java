@@ -1,9 +1,9 @@
 package com.sauzny.sbgraphqldemo.dao;
 
-import java.util.List;
+public interface TbActorInfoDao extends TbActorInfoMapper{
 
-import com.github.pagehelper.Page;
-import com.sauzny.sbgraphqldemo.entity.pojo.TbActorInfo;
+}
+ort com.sauzny.sbgraphqldemo.entity.pojo.TbActorInfo;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbActorInfoExample;
 
 public interface TbActorInfoDao extends TbActorInfoMapper{

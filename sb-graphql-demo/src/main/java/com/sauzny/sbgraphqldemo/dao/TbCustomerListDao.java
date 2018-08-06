@@ -1,9 +1,9 @@
 package com.sauzny.sbgraphqldemo.dao;
 
-import java.util.List;
+public interface TbCustomerListDao extends TbCustomerListMapper{
 
-import com.github.pagehelper.Page;
-import com.sauzny.sbgraphqldemo.entity.pojo.TbCustomerList;
+}
+m.sauzny.sbgraphqldemo.entity.pojo.TbCustomerList;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbCustomerListExample;
 
 public interface TbCustomerListDao extends TbCustomerListMapper{

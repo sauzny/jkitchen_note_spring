@@ -1,9 +1,9 @@
 package com.sauzny.sbgraphqldemo.dao;
 
-import java.util.List;
+public interface TbLanguageDao extends TbLanguageMapper{
 
-import com.github.pagehelper.Page;
-import com.sauzny.sbgraphqldemo.entity.pojo.TbLanguage;
+}
+mport com.sauzny.sbgraphqldemo.entity.pojo.TbLanguage;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbLanguageExample;
 
 public interface TbLanguageDao extends TbLanguageMapper{

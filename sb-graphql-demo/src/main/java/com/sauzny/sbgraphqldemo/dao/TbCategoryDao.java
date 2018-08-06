@@ -1,9 +1,9 @@
 package com.sauzny.sbgraphqldemo.dao;
 
-import java.util.List;
+public interface TbCategoryDao extends TbCategoryMapper{
 
-import com.github.pagehelper.Page;
-import com.sauzny.sbgraphqldemo.entity.pojo.TbCategory;
+}
+mport com.sauzny.sbgraphqldemo.entity.pojo.TbCategory;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbCategoryExample;
 
 public interface TbCategoryDao extends TbCategoryMapper{

@@ -1,8 +1,9 @@
 package com.sauzny.sbgraphqldemo.dao;
 
-import java.util.List;
+public interface TbStoreDao extends TbStoreMapper{
 
-import com.github.pagehelper.Page;
+}
+ge;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbStore;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbStoreExample;
 

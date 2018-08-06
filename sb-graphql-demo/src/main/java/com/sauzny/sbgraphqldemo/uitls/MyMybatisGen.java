@@ -1,4 +1,4 @@
-package com.sauzny.sb_mybatis_mds.utils;
+package com.sauzny.sbgraphqldemo.uitls;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -33,8 +33,8 @@ public class MyMybatisGen {
         List<String> lines = Files.readAllLines(Paths.get(userDir + xmlBasePath + "mybatis/generatorConfig.xml"));
         
         lines.forEach(line -> {
-            
-            String temp = line.replace("<", "").replace(">", "").replace("        ", "");
+
+            String temp = line.replace("<", "").replace(">", "").replace("        ", "").replace("\t\t", "");
             
             if(temp.startsWith("javaModelGenerator")){
                 String daoPath = temp.split(" ")[1].split("=")[1].replaceAll("\"", "");
@@ -64,6 +64,7 @@ public class MyMybatisGen {
         for(int i=0; i<objectNames.size(); i++){
             String objectName = objectNames.get(i);
             if(list.contains(objectName)){
+                System.out.println("处理对象：" + objectName);
                 String tableName = tableNames.get(i);
                 if(flag == 1){
                     MyMybatisGen.daoWrite(daoPathSb.toString(), javaDaoPackageSb.toString(), javaModelPackageSb.toString(), objectName);
@@ -73,6 +74,7 @@ public class MyMybatisGen {
                     MyMybatisGen.daoWrite(daoPathSb.toString(), javaDaoPackageSb.toString(), javaModelPackageSb.toString(), objectName);
                     MyMybatisGen.xmlWrite(xmlPathSb.toString(), javaDaoPackageSb.toString(), javaModelPackageSb.toString(), objectName, tableName);
                 }
+                System.out.println("");
             }
         }
     }
@@ -100,6 +102,7 @@ public class MyMybatisGen {
     public static void write(String path, List<String> lines) {
         try {
             Files.write(Paths.get(path), lines, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
+            System.out.println("生成文件：" + path);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -107,7 +110,7 @@ public class MyMybatisGen {
     
     public static void main(String[] args) throws IOException {
         // 需要更新的 objectName
-        List<String> list = Lists.newArrayList("User","Classes","Income");
+        List<String> list = Lists.newArrayList("TbActor", "TbActorInfo", "TbAddress", "TbCategory", "TbCity", "TbCountry", "TbCustomer", "TbCustomerList", "TbFilm", "TbFilmActor", "TbFilmCategory", "TbFilmList", "TbFilmText", "TbInventory", "TbLanguage", "TbNicerButSlowerFilmList", "TbPayment", "TbRental", "TbSalesByFilmCategory", "TbSalesByStore", "TbStaff", "TbStaffList", "TbStore");
         // 自动补全分页相关的代码
         /*
          * dao重写 1

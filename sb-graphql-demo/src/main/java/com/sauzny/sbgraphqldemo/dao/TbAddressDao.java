@@ -1,8 +1,9 @@
 package com.sauzny.sbgraphqldemo.dao;
 
-import java.util.List;
+public interface TbAddressDao extends TbAddressMapper{
 
-import com.github.pagehelper.Page;
+}
+
 import com.sauzny.sbgraphqldemo.entity.pojo.TbAddress;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbAddressExample;
 

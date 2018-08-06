@@ -1,8 +1,9 @@
 package com.sauzny.sbgraphqldemo.dao;
 
-import java.util.List;
+public interface TbCountryDao extends TbCountryMapper{
 
-import com.github.pagehelper.Page;
+}
+
 import com.sauzny.sbgraphqldemo.entity.pojo.TbCountry;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbCountryExample;
 

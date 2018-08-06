@@ -1,8 +1,9 @@
 package com.sauzny.sbgraphqldemo.dao;
 
-import java.util.List;
+public interface TbCityDao extends TbCityMapper{
 
-import com.github.pagehelper.Page;
+}
+Page;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbCity;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbCityExample;
 

@@ -1,8 +1,9 @@
 package com.sauzny.sbgraphqldemo.dao;
 
-import java.util.List;
+public interface TbPaymentDao extends TbPaymentMapper{
 
-import com.github.pagehelper.Page;
+}
+
 import com.sauzny.sbgraphqldemo.entity.pojo.TbPayment;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbPaymentExample;
 

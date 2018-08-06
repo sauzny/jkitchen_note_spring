@@ -1,9 +1,9 @@
 package com.sauzny.sbgraphqldemo.dao;
 
-import java.util.List;
+public interface TbNicerButSlowerFilmListDao extends TbNicerButSlowerFilmListMapper{
 
-import com.github.pagehelper.Page;
-import com.sauzny.sbgraphqldemo.entity.pojo.TbNicerButSlowerFilmList;
+}
+mo.entity.pojo.TbNicerButSlowerFilmList;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbNicerButSlowerFilmListExample;
 
 public interface TbNicerButSlowerFilmListDao extends TbNicerButSlowerFilmListMapper{

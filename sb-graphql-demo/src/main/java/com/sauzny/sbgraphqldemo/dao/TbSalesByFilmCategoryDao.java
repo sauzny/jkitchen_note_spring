@@ -1,9 +1,9 @@
 package com.sauzny.sbgraphqldemo.dao;
 
-import java.util.List;
+public interface TbSalesByFilmCategoryDao extends TbSalesByFilmCategoryMapper{
 
-import com.github.pagehelper.Page;
-import com.sauzny.sbgraphqldemo.entity.pojo.TbSalesByFilmCategory;
+}
+phqldemo.entity.pojo.TbSalesByFilmCategory;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbSalesByFilmCategoryExample;
 
 public interface TbSalesByFilmCategoryDao extends TbSalesByFilmCategoryMapper{
