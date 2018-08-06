@@ -66,7 +66,7 @@ pagehelper.params=count=countSql
 ## 四、代码编写流程：
 
 1. 使用`src/main/resources/mybatis/generatorConfig.xml`生成代码
-2. 使用 `com.sauzny.springbootweb.utils.PageHelpGen`，增加分页相关 XxxxDAO.java XxxxDao.xml
+2. 使用 `com.sauzny.springbootweb.utils.MyMybatisGen`，增加自定义 XxxxDAO.java XxxxDao.xml
 3. 增加一些自定义SQL在 XxxxDAO.java XxxxDao.xml 中
 
 ## 五、其他工具代码
