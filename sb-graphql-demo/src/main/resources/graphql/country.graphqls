@@ -1,0 +1,20 @@
+# 国家
+type Country {
+  # 主键id
+  countryId: Int!
+  # 名字
+  country: String!
+  # 最后修改时间
+  lastUpdate: String!
+  
+	# 城市列表
+	cities: [City!]!
+}
+
+extend type Query {
+    country(paging: Pagination!): [Country!]!
+}
+
+extend type Mutation {
+    newCountry(country: String!): Boolean!
+}

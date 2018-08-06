@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sauzny.sbgraphqldemo.dao.TbCityDao">
+
+ <select id="findAll" resultMap="com.sauzny.sbgraphqldemo.dao.TbCityMapper.BaseResultMap">
+     select
+     <include refid="com.sauzny.sbgraphqldemo.dao.TbCityMapper.Base_Column_List" />
+     from city
+ </select>
+
+ <select id="findByPage" resultMap="com.sauzny.sbgraphqldemo.dao.TbCityMapper.BaseResultMap">
+     select
+     <include refid="com.sauzny.sbgraphqldemo.dao.TbCityMapper.Base_Column_List" />
+     from city
+ </select>
+
+ <select id="findByExamplePage" parameterType="com.sauzny.sbgraphqldemo.entity.pojo.TbCityExample"
+     resultMap="com.sauzny.sbgraphqldemo.dao.TbCityMapper.BaseResultMap">
+     select
+     <if test="distinct">
+         distinct
+     </if>
+     <include refid="com.sauzny.sbgraphqldemo.dao.TbCityMapper.Base_Column_List" />
+     from tb_user
+     <if test="_parameter != null">
+         <include refid="com.sauzny.sbgraphqldemo.dao.TbCityMapper.Example_Where_Clause" />
+     </if>
+     <if test="orderByClause != null">
+         order by ${orderByClause}
+     </if>
+ </select>
+
+</mapper>

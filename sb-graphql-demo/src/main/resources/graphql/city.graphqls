@@ -1,0 +1,10 @@
+# 地区
+type City{
+	# 主键
+	cityId: Int!
+	# 城市
+	city: String!
+	
+	# 地址列表
+	addresses: [Address!]!
+}

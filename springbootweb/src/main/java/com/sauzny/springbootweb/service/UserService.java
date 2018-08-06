@@ -12,8 +12,6 @@ import com.github.pagehelper.PageHelper;
 import com.sauzny.springbootweb.dao.UserDao;
 import com.sauzny.springbootweb.entity.pojo.User;
 import com.sauzny.springbootweb.entity.pojo.UserExample;
-import com.sauzny.springbootweb.entity.pojo.UserExample.Criterion;
-import com.sauzny.springbootweb.entity.pojo.UserExt;
 
 @Service
 public class UserService {
@@ -23,20 +21,19 @@ public class UserService {
 
     public List<User> findAll() {
         //return null;
-        return userDao.findAll();
+        return userDao.selectByExample(null);
     }
 
     public Page<User> findByPage(int pageNo, int pageSize) {
 
         //return null;
-        PageHelper.startPage(pageNo, pageSize);
-        return userDao.findByPage();
+        return PageHelper.startPage(pageNo, pageSize).doSelectPage(() -> userDao.selectByExample(null));
     }
 
     public Page<User> findByExamplePage(int pageNo, int pageSize, String phone, Integer roleId, String account, String userName) {
 
         //return null;
-        PageHelper.startPage(pageNo, pageSize);
+        //PageHelper.startPage(pageNo, pageSize);
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
         
@@ -45,7 +42,9 @@ public class UserService {
         if(StringUtils.isNotBlank(account)) criteria.andAccountEqualTo(account);
         if(StringUtils.isNotBlank(userName))criteria.andUserNameEqualTo(userName);
         //criteria.getAllCriteria().add(UserExt.andMutilStatusExist(2));
-        return userDao.findByExamplePage(example);
+        
+
+        return PageHelper.startPage(pageNo, pageSize).doSelectPage(() -> userDao.selectByExample(example));
     }
 
     public int deleteByPrimaryKey(long id){

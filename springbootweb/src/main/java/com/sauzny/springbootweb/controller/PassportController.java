@@ -67,6 +67,7 @@ public class PassportController {
         }
         
         // 密码不匹配
+        log.info("{}", CodecUtils.sha512(password+targetUser.getSalt()));
         if(!targetUser.getPassword().equals(CodecUtils.sha512(password+targetUser.getSalt()))){
             return RestFulResult.failure(FailureEnum.LOGIN_NOT_MATCH);
         }

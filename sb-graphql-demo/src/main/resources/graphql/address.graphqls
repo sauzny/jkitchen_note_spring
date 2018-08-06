@@ -1,0 +1,7 @@
+# 地区
+type Address{
+	# 主键
+	addressId: Int!
+	# 地址
+	address: String!
+}

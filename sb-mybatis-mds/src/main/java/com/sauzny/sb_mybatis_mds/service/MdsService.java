@@ -42,7 +42,7 @@ public class MdsService {
         IncomeExample.Criteria criteria = example.createCriteria();
         criteria.andUserIdEqualTo(116L);
         
-        Page<Income> income1 = PageHelper.startPage(1, 10).doSelectPage(() -> incomeDao.findByExamplePage(example));
+        Page<Income> income1 = PageHelper.startPage(1, 10).doSelectPage(() -> incomeDao.selectByExample(example));
 
         log.info("income1 {}", income1);
         log.info("income1 {}", income1.getResult().get(0).getUserId());
@@ -57,7 +57,7 @@ public class MdsService {
         UserExample.Criteria criteria1 = example1.createCriteria();
         criteria1.andIdEqualTo(1L);
         
-        Page<User> user1 = PageHelper.startPage(1, 10).doSelectPage(() -> userDao.findByExamplePage(example1));
+        Page<User> user1 = PageHelper.startPage(1, 10).doSelectPage(() -> userDao.selectByExample(example1));
 
         log.info("user1 {}", user1);
         log.info("user1 {}", user1.getResult().get(0).getId());
@@ -69,7 +69,7 @@ public class MdsService {
         
         // 切换数据源，自行理解
         DynamicDataSourceHolder.setDataSource(DDS.mds);
-        Page<Income> income1 = PageHelper.startPage(1, 10).doSelectPage(() -> incomeDao.findByExamplePage(example));
+        Page<Income> income1 = PageHelper.startPage(1, 10).doSelectPage(() -> incomeDao.selectByExample(example));
 
         log.info("income1 {}", income1);
         log.info("income1 {}", income1.getResult().get(0).getUserId());

@@ -1,8 +1,7 @@
 package com.sauzny.springbootweb.utils.vo;
 
-import com.sauzny.springbootweb.controller.vo.PageContent;
-
 import com.github.pagehelper.Page;
+import com.sauzny.springbootweb.controller.vo.PageContent;
 
 public final class PageContentUtils {
 

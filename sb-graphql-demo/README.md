@@ -10,9 +10,9 @@ graphql web工具 ： https://developer.github.com/v4/explorer/
 
 ### 1.1 核心思想：
 
-只有一个http接口：https://api.github.com/graphql 使用post方式访问，参数分为两类
-- query，查询
-- mutation，更新
+只有一个http接口：https://api.github.com/graphql 使用get或post方式访问，参数分为两类
+- query，查询，可以get或者post，考虑到缓存问题，应该使用get方式吧
+- mutation，更新，post
 
 还有一种是websocket接口，如：ws://localhost:9090/subscriptions
 - subscription， websocket使用
@@ -29,14 +29,21 @@ graphql web工具 ： https://developer.github.com/v4/explorer/
 
 ## 二、 spring boot 实际编码
 
-### 2.1 graphql文件编写
+### 2.1 graphqls文件编写
 
 在 `src/main/resources/graphql` 下编写
 
 - root.graphqls，编写Query和Mutation接口
 - scheme.graphqls，编写struct结构体
 
+https://github.com/jerry-jx/incubator-skywalking/blob/master/apm-protocol/apm-ui-protocol/src/main/resources/ui-graphql/trace.graphqls
+
 ### 2.2 代码编写
 
 源码地址： https://github.com/graphql-java/graphql-java-servlet
-HTTP接口类： `graphql.servlet.AbstractGraphQLHttpServlet`
+
+HTTP接口类：
+- `com.oembedler.moon.graphql.boot.GraphQLWebAutoConfiguration`
+- `graphql.servlet.AbstractGraphQLHttpServlet`
+
+代码实现接口

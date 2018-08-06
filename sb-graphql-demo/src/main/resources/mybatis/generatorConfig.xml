@@ -19,7 +19,7 @@
     
     	<!-- 设置数据库连接属性 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/springbootweb?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false"
+                        connectionURL="jdbc:mysql://localhost:3306/sakila?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false"
                         userId="root"
                         password="root">
         </jdbcConnection>
@@ -45,8 +45,33 @@
         </javaClientGenerator>
 
 		<!-- 要生成的表 -->
-        <table tableName="tb_user" domainObjectName="User" schema="springbootweb"/>
+        <!-- <table tableName="tb_user" domainObjectName="User" schema="sakila"/> -->
         
+        
+		<table tableName="actor" domainObjectName="TbActor" schema="sakila"/>
+		<table tableName="actor_info" domainObjectName="TbActorInfo" schema="sakila"/>
+		<table tableName="address" domainObjectName="TbAddress" schema="sakila"/>
+		<table tableName="category" domainObjectName="TbCategory" schema="sakila"/>
+		<table tableName="city" domainObjectName="TbCity" schema="sakila"/>
+		<table tableName="country" domainObjectName="TbCountry" schema="sakila"/>
+		<table tableName="customer" domainObjectName="TbCustomer" schema="sakila"/>
+		<table tableName="customer_list" domainObjectName="TbCustomerList" schema="sakila"/>
+		<table tableName="film" domainObjectName="TbFilm" schema="sakila"/>
+		<table tableName="film_actor" domainObjectName="TbFilmActor" schema="sakila"/>
+		<table tableName="film_category" domainObjectName="TbFilmCategory" schema="sakila"/>
+		<table tableName="film_list" domainObjectName="TbFilmList" schema="sakila"/>
+		<table tableName="film_text" domainObjectName="TbFilmText" schema="sakila"/>
+		<table tableName="inventory" domainObjectName="TbInventory" schema="sakila"/>
+		<table tableName="language" domainObjectName="TbLanguage" schema="sakila"/>
+		<table tableName="nicer_but_slower_film_list" domainObjectName="TbNicerButSlowerFilmList" schema="sakila"/>
+		<table tableName="payment" domainObjectName="TbPayment" schema="sakila"/>
+		<table tableName="rental" domainObjectName="TbRental" schema="sakila"/>
+		<table tableName="sales_by_film_category" domainObjectName="TbSalesByFilmCategory" schema="sakila"/>
+		<table tableName="sales_by_store" domainObjectName="TbSalesByStore" schema="sakila"/>
+		<table tableName="staff" domainObjectName="TbStaff" schema="sakila"/>
+		<table tableName="staff_list" domainObjectName="TbStaffList" schema="sakila"/>
+		<table tableName="store" domainObjectName="TbStore" schema="sakila"/>
+		        
     </context>
     
 </generatorConfiguration>

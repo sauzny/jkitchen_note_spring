@@ -1,8 +1,23 @@
 
-type Query {
-  getGreeting(id: String!): Greeting
+schema {
+    query: Query
+    mutation: Mutation
 }
 
+# 查询类型
+type Query {
+	version: String
+}
+
+# 修改类型
 type Mutation {
-  newGreeting(message: String!): Greeting!
+	version: String
+}
+
+input Pagination {
+    # pageNum starts in 1, the default is 1.
+    pageNum: Int
+    pageSize: Int!
+    # default false
+    needTotal: Boolean
 }

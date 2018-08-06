@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 public class SbGraphqlApp {
     public static void main(String[] args) {
+        //GraphQLWebAutoConfiguration
+        //AbstractGraphQLHttpServlet
+        //SimpleGraphQLHttpServlet
         SpringApplication app = new SpringApplication(SbGraphqlApp.class);
         app.run(args);
     }

@@ -9,6 +9,9 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
+// 废弃
+// 分页不需要增加额外的xml
+
 public class PageHelpGen {
 
     public static void gen(List<String> list, int flag) throws IOException {
