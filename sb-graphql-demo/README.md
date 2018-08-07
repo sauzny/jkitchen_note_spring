@@ -19,7 +19,7 @@ GraphQL的一些优点:
 - 代码即文档
 - 参数类型强校验
 
-只有一个http接口：https://api.github.com/graphql （此接口并不能直接访问） 使用get或post方式访问，参数分为两类
+只有一个http接口：https://api.github.com/graphql （github的此接口直接访问会报错） 使用get或post方式访问，参数分为两类
 - query，查询，可以get或者post，考虑到缓存问题，应该使用get方式吧
 - mutation，更新，post
 
@@ -36,6 +36,10 @@ GraphQL的一些优点:
 - inline Fragments，内联片段
 
 ## 二、 spring boot 实际编码
+
+推荐文章：
+
+https://www.pluralsight.com/guides/building-a-graphql-server-with-spring-boot
 
 ### 2.1 graphqls文件编写
 
@@ -70,11 +74,30 @@ Subscriptions allows you to subscribe to a reactive source. They won't be review
 - `com.sauzny.sbgraphqldemo.controller.CountryController`
 - `com.sauzny.sbgraphqldemo.controller.connections.CountryConnections`
 
-### 2.3 graphiql
+### 2.3 graphiql，测试
 
 pom中引入`graphiql-spring-boot-starter`
 
-启动程序，可访问 http://localhost:9090/sbg/graphiql
+启动程序，可访问 http://localhost:9090/sbg/graphiql 使用此工具可以进行web测试，测试脚本记录在`src\test\java\test.graphql`
+
+也可以使用postman进行测试，get或者post方式，
+
+get：
+```
+http://localhost:9090/sbg/graphql?query=%7bcity(paging%3a%7bpageNum%3a1%2cpageSize%3a10%7d)%7bcityId+city%7d%7d
+```
+
+post:
+```
+http://localhost:9090/sbg/graphql
+
+header 设置
+Content-Type ： application/json
+
+body
+{"query":"{city(paging:{pageNum:1,pageSize:10}){cityId city}}","variables":null}
+
+```
 
 ## 三、分页实现遗留问题
 
