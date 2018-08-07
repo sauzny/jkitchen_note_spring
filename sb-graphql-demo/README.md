@@ -54,10 +54,21 @@ HTTP接口类：
 - `com.oembedler.moon.graphql.boot.GraphQLWebAutoConfiguration`
 - `graphql.servlet.AbstractGraphQLHttpServlet`
 
+```
+GraphQL Java Tools works with four types of Resolver classes:
+
+GraphQLResolver<T> to resolve complex types.
+GraphQLQueryResolver to define the operations of the root Query type.
+GraphQLMutationResolver to define the operations of the root Mutation type.
+GraphQLSubscriptionResolver to define the operations of the root Subscription type.
+
+Subscriptions allows you to subscribe to a reactive source. They won't be reviewed in this tutorial, but the repositories for the Author and Book entities, and the GraphQLQueryResolver and GraphQLMutationResolver classes will be in the next section.
+```
+
 代码实现主要
 
 - `com.sauzny.sbgraphqldemo.controller.CountryController`
-- `com.sauzny.sbgraphqldemo.controller.vo.Country`
+- `com.sauzny.sbgraphqldemo.controller.connections.CountryConnections`
 
 ### 2.3 graphiql
 
@@ -65,15 +76,6 @@ pom中引入`graphiql-spring-boot-starter`
 
 启动程序，可访问 http://localhost:9090/sbg/graphiql
 
-## 三、graphql-spring-boot-starter遗留问题
-
-### 3.1 实现
-
-graphql只是规范了前端与服务端交互的部分，并不规范服务端如何从数据库中查询数据。所以后端服务需要自己实现与数据库的交互。
-
-- 最优实现，前端需要什么字段就查询什么字段。按照现在的ORM框架，这个实现不了。
-- 折中实现，对于查询一张表即可获取的字段，则将此表中的所有字段都查询出来。对于需要查询其他表的情况，按照实际传参进行查询。
-
-### 3.2 分页
+## 三、分页实现遗留问题
 
 graphql的分页与现有的分页想法不同，需要再考虑怎么实现。

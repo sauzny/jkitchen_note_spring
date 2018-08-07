@@ -8,3 +8,11 @@ type City{
 	# 地址列表
 	addresses: [Address!]!
 }
+
+extend type Query {
+    city(paging: Pagination!): [City!]!
+}
+
+extend type Mutation {
+    newCity(city: String!): Boolean!
+}

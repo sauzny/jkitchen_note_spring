@@ -1,0 +1,48 @@
+
+query{
+  country(paging:{pageNum:1,pageSize:10}){
+    countryId
+    country
+    lastUpdate
+  }
+}
+
+query{
+  country(paging:{pageNum:1,pageSize:10}){
+    countryId
+    country
+    lastUpdate
+    cities{
+      cityId
+      city
+    }
+  }
+}
+
+
+
+query{
+  city(paging:{pageNum:1,pageSize:10}){
+    cityId
+    city
+  }
+}
+
+
+query{
+  city(paging:{pageNum:1,pageSize:10}){
+    cityId
+    city
+    addresses{
+      addressId
+      address
+    }
+  }
+}
+
+query{
+  address(paging:{pageNum:1,pageSize:10}){
+    addressId
+    address
+  }
+}

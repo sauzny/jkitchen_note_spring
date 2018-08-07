@@ -5,3 +5,11 @@ type Address{
 	# 地址
 	address: String!
 }
+
+extend type Query {
+    address(paging: Pagination!): [Address!]!
+}
+
+extend type Mutation {
+    newAddress(address: String!): Boolean!
+}
