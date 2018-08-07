@@ -34,19 +34,18 @@ public class CountryController implements GraphQLQueryResolver, GraphQLMutationR
     @Autowired
     private AddressService addressService;
     
-    @Autowired
-    private GraphQLContext graphQLContext;
-    
     public List<Country> country(Pagination pagination){
-
         
-        System.out.println(graphQLContext.getFiles().get());
-
         Page<TbCountry> page = countryService.findByPage(pagination.getPageNum(), pagination.getPageSize());
         List<Country> list = CountryConvert.countryList(page.getResult());
+        
+        // 每次都要获取所有的cities，这样明显有问题
+        // 理论上应该根据参数情趣判断是否要执行数据库的查询
+        // 但是现在我使用graphql-spring-boot-starter，并不能获取到http访问时的参数
         list.forEach(country -> {
             country.setCities(CityConvert.cityList(cityService.findByCountryId(country.getCountryId())));
         });
+        
         return list;
     }
     /*

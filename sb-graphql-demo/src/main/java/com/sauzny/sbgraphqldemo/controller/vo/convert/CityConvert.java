@@ -11,15 +11,15 @@ public final class CityConvert {
     private CityConvert(){}
     
     public static City city(TbCity tbCity){
-        City country = new City();
-        country.setCityId(tbCity.getCityId());
-        country.setCity(tbCity.getCity());
-        return country;
+        City city = new City();
+        city.setCityId(tbCity.getCityId());
+        city.setCity(tbCity.getCity());
+        return city;
     }
     
     public static List<City> cityList(List<TbCity> tbCityList){
-        List<City> countryList = Lists.newArrayList();
-        tbCityList.forEach(tbCity -> countryList.add(city(tbCity)));
-        return countryList;
+        List<City> cityList = Lists.newArrayList();
+        tbCityList.forEach(tbCity -> cityList.add(city(tbCity)));
+        return cityList;
     }
 }

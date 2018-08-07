@@ -11,15 +11,15 @@ public final class AddressConvert {
     private AddressConvert(){}
     
     public static Address address(TbAddress tbAddress){
-        Address country = new Address();
-        country.setAddressId(tbAddress.getAddressId());
-        country.setAddress(tbAddress.getAddress());
-        return country;
+        Address address = new Address();
+        address.setAddressId(tbAddress.getAddressId());
+        address.setAddress(tbAddress.getAddress());
+        return address;
     }
     
     public static List<Address> addressList(List<TbAddress> tbAddressList){
-        List<Address> countryList = Lists.newArrayList();
-        tbAddressList.forEach(tbAddress -> countryList.add(address(tbAddress)));
-        return countryList;
+        List<Address> addressList = Lists.newArrayList();
+        tbAddressList.forEach(tbAddress -> addressList.add(address(tbAddress)));
+        return addressList;
     }
 }
