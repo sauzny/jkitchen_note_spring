@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.sauzny.sbgraphqldemo.controller.vo.City;
+import com.sauzny.sbgraphqldemo.controller.vo.input.NewCityInput;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbCity;
 
 public final class CityConvert {
@@ -21,5 +22,12 @@ public final class CityConvert {
         List<City> cityList = Lists.newArrayList();
         tbCityList.forEach(tbCity -> cityList.add(city(tbCity)));
         return cityList;
+    }
+    
+    public static TbCity tbCity(NewCityInput input){
+        TbCity tbCity = new TbCity();
+        tbCity.setCity(input.getCity());
+        tbCity.setCountryId((short)input.getCountryId());
+        return tbCity;
     }
 }

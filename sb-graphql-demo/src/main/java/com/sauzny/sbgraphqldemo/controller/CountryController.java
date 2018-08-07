@@ -11,6 +11,7 @@ import com.github.pagehelper.Page;
 import com.sauzny.sbgraphqldemo.controller.vo.Country;
 import com.sauzny.sbgraphqldemo.controller.vo.Pagination;
 import com.sauzny.sbgraphqldemo.controller.vo.convert.CountryConvert;
+import com.sauzny.sbgraphqldemo.controller.vo.input.NewCountryInput;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbCountry;
 import com.sauzny.sbgraphqldemo.service.CountryService;
 
@@ -31,7 +32,7 @@ public class CountryController implements GraphQLQueryResolver, GraphQLMutationR
         return list;
     }
     
-    public Boolean newCountry(String country){
+    public Boolean newCountry(NewCountryInput input){
         return true;
     }
 }

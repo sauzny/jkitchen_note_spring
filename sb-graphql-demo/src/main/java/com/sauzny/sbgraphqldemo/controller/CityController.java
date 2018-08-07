@@ -11,6 +11,7 @@ import com.github.pagehelper.Page;
 import com.sauzny.sbgraphqldemo.controller.vo.City;
 import com.sauzny.sbgraphqldemo.controller.vo.Pagination;
 import com.sauzny.sbgraphqldemo.controller.vo.convert.CityConvert;
+import com.sauzny.sbgraphqldemo.controller.vo.input.NewCityInput;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbCity;
 import com.sauzny.sbgraphqldemo.service.CityService;
 
@@ -27,7 +28,8 @@ public class CityController implements GraphQLQueryResolver, GraphQLMutationReso
         return list;
     }
     
-    public Boolean newCity(String city){
-        return true;
+    public Boolean newCity(NewCityInput input){
+        int result = cityService.addCity(CityConvert.tbCity(input));
+        return result > 0;
     }
 }

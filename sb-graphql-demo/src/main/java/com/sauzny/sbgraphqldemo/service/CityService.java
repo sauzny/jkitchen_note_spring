@@ -30,4 +30,8 @@ public class CityService {
     public Page<TbCity> findByPage(int pageNum, int pageSize) {
         return PageHelper.startPage(pageNum, pageSize).doSelectPage(() -> tbCityDao.selectByExample(null));
     }
+    
+    public int addCity(TbCity tbCity){
+        return tbCityDao.insertSelective(tbCity);
+    }
 }

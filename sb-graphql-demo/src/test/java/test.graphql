@@ -19,13 +19,16 @@ query{
   }
 }
 
-
-
 query{
   city(paging:{pageNum:1,pageSize:10}){
     cityId
     city
   }
+}
+
+
+mutation{
+  newCity(input:{city:"我的城市",countryId:1})
 }
 
 

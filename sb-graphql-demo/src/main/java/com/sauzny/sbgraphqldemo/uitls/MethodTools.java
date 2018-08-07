@@ -2,7 +2,8 @@ package com.sauzny.sbgraphqldemo.uitls;
 
 import java.lang.reflect.Method;
 
-import com.sauzny.sbgraphqldemo.controller.vo.Country;
+import com.sauzny.sbgraphqldemo.controller.vo.*;
+import com.sauzny.sbgraphqldemo.entity.pojo.*;
 
 public class MethodTools {
 
@@ -18,6 +19,6 @@ public class MethodTools {
     }
     
     public static void main(String[] args) {
-        MethodTools.setget(Country.class, "tbCountry");
+        MethodTools.setget(TbCity.class, "input");
     }
 }

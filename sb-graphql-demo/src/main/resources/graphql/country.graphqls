@@ -11,10 +11,15 @@ type Country {
 	cities: [City!]!
 }
 
+input NewCountryInput {
+	# 城市名字
+    country: String!
+}
+
 extend type Query {
     country(paging: Pagination!): [Country!]!
 }
 
 extend type Mutation {
-    newCountry(country: String!): Boolean!
+    newCountry(input: NewCountryInput!): Boolean!
 }
