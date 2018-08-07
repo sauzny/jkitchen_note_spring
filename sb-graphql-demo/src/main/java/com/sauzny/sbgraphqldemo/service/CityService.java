@@ -10,7 +10,6 @@ import com.github.pagehelper.PageHelper;
 import com.sauzny.sbgraphqldemo.dao.TbCityDao;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbCity;
 import com.sauzny.sbgraphqldemo.entity.pojo.TbCityExample;
-import com.sauzny.sbgraphqldemo.entity.pojo.TbCountry;
 
 @Service
 public class CityService {
