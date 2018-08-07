@@ -41,6 +41,8 @@ GraphQL的一些优点:
 
 https://www.pluralsight.com/guides/building-a-graphql-server-with-spring-boot
 
+https://blog.csdn.net/kikajack/article/category/7404296
+
 ### 2.1 graphqls文件编写
 
 在 `src/main/resources/graphql` 下编写
