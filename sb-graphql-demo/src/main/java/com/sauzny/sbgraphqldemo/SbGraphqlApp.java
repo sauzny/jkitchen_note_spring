@@ -15,6 +15,7 @@ public class SbGraphqlApp {
         //GraphQLWebAutoConfiguration
         //AbstractGraphQLHttpServlet
         //SimpleGraphQLHttpServlet
+    	//DataLoaderDispatcherInstrumentation
         SpringApplication app = new SpringApplication(SbGraphqlApp.class);
         app.run(args);
     }
