@@ -40,7 +40,7 @@ public class CityRestController {
 
     @RequestMapping(method = RequestMethod.POST)
     public Mono<Long> createCity(@RequestBody City city, ServerHttpRequest request) {
-    	log.info(request.getMethodValue());
+    	log.info("在注解方式下获取request，getMethodValue = {}", request.getMethodValue());
         return Mono.create(cityMonoSink -> cityMonoSink.success(cityService.saveCity(city)));
     }
 
