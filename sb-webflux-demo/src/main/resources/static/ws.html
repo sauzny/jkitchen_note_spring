@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>My WebSocket</title>
+   <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+   <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<script type="text/javascript">
+    
+    // 获取未被push过的消息
+    function unPushedList(){
+        var userName = document.getElementById('userName').value;
+        
+        $.ajax({ 
+           type: "post", 
+           url: "/api/v1.0/message/unPushedList/"+userName, 
+           dataType: "json", 
+           success: function (data) { 
+           		
+           		$.each(data,function(n,innerHTML){
+           			document.getElementById('message').innerHTML += innerHTML + '<br/>';
+		        });
+           }, 
+           error: function (XMLHttpRequest, textStatus, errorThrown) { 
+           		alert(errorThrown); 
+           } 
+        });
+        
+    }
+    
+    
+    // 获取被push过的消息
+    function pushedList(){
+        var userName = document.getElementById('userName').value;
+        
+        $.ajax({ 
+           type: "post", 
+           url: "/api/v1.0/message/pushedList/"+userName, 
+           dataType: "json", 
+           success: function (data) { 
+           		
+           		document.getElementById('pushedList').innerHTML = "";
+           			
+           		$.each(data,function(n,innerHTML){
+           			document.getElementById('pushedList').innerHTML += innerHTML + '<br/>';
+		        });
+           }, 
+           error: function (XMLHttpRequest, textStatus, errorThrown) { 
+           		alert(errorThrown); 
+           } 
+        });
+    }
+    
+</script>
+
+<body>
+
+<div class="alert alert-warning">先【确认用户】，再【发送】消息。【发送】按钮没有token校验，点击就会发送消息。</div>
+
+  <div class="">
+    <div class="col-sm-2">
+      <input type="text" class="form-control" id="userName" placeholder="请输入用户" value="demo_user">
+    </div>
+    <div class="col-sm-2">
+      <button onclick="user()" class="btn btn-success">确认用户</button>
+    </div>
+  </div>
+  
+  
+  
+  <div class="">
+    <div class="col-sm-2">
+      <input type="text" class="form-control" id="text" placeholder="请输入消息">
+    </div>
+    <div class="col-sm-2">
+      <button onclick="send()" class="btn btn-info">发送</button>    
+      <!-- <button onclick="closeWebSocket()" class="btn btn-warning">关闭消息通道</button> -->
+	  <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="pushedList()" >查看全部历史数据</button>
+    </div>
+  </div>
+
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					全部历史数据
+				</h4>
+			</div>
+			<div class="modal-body" id="pushedList">
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+
+<div id="message" class="col-sm-12" style="margin-top:20px; width="99%">
+</div>
+
+</body>
+
+<script type="text/javascript">
+    var websocket = null;
+
+    //判断当前浏览器是否支持WebSocket
+    if('WebSocket' in window){
+        websocket = new WebSocket("wss://localhost:8443/websocket");
+    }
+    else{
+        alert('Not support websocket')
+    }
+
+    //连接发生错误的回调方法
+    websocket.onerror = function(){
+        setMessageInnerHTML("error");
+    };
+
+    //连接成功建立的回调方法
+    websocket.onopen = function(event){
+        setMessageInnerHTML("html页面：websocket成功open，以下信息均来源于服务器<br/>");
+    }
+
+    //接收到消息的回调方法
+    websocket.onmessage = function(event){
+        setMessageInnerHTML(event.data);
+    }
+
+    //连接关闭的回调方法
+    websocket.onclose = function(){
+        setMessageInnerHTML("close");
+    }
+
+    //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+    window.onbeforeunload = function(){
+        websocket.close();
+    }
+
+    //将消息显示在网页上
+    function setMessageInnerHTML(innerHTML){
+        document.getElementById('message').innerHTML += innerHTML + '<br/>';
+    }
+
+    //关闭连接
+    function closeWebSocket(){
+        websocket.close();
+    }
+
+    //发送消息
+    function send(){
+        var userName = document.getElementById('userName').value;
+        var message = document.getElementById('text').value;
+        websocket.send(userName+"@@@"+message);
+    }
+    
+    //确认用户
+    function user(){
+        var userName = document.getElementById('userName').value;
+        websocket.send(userName+"~~~confirmuser");
+        unPushedList();
+    }
+    
+    
+    
+</script>
+</html>
