@@ -11,11 +11,23 @@ import com.sauzny.sbwebfluxdemo.entity.City;
 public class CityService {
 
 	public City findCityById(long id) {
-		return null;
+		City city = new City();
+		city.setId(1001);
+		city.setName("Auckland");
+		return city;
 	}
 	
 	public List<City> findAllCity(){
-		return Lists.newArrayList();
+		
+		City city1 = new City();
+		city1.setId(1001);
+		city1.setName("Auckland");
+		
+		City city2 = new City();
+		city2.setId(1002);
+		city2.setName("Waikato");
+		
+		return Lists.newArrayList(city1, city2);
 	}
 	
 	public long saveCity(City city) {

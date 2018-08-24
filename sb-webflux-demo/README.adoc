@@ -4,11 +4,11 @@ https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reacti
 
 ==  一、技术名词解释
 
-==== Backpressure(背压)
+=== 1.1 Backpressure(背压)
 
 背压是一种常用策略，使得发布者拥有无限制的缓冲区存储元素，用于确保发布者发布元素太快时，不会去压制订阅者。
 
-==== Reactive Streams 响应式流
+=== 1.2 Reactive Streams 响应式流
 
 JVM 中面向流的库标准和规范：
 
@@ -24,7 +24,7 @@ JVM 中面向流的库标准和规范：
 * 订阅：在发布者中，订阅被创建时，将与订阅者共享
 * 处理器：发布者与订阅者之间处理数据
 
-==== Reactive programming 响应式编程
+=== 1.3 Reactive programming 响应式编程
 
 响应式编程是基于异步和事件驱动的非阻塞程序，只是垂直通过在 JVM 内启动少量线程扩展，而不是水平通过集群扩展。
 

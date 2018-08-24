@@ -36,22 +36,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
-			<exclusions>
-				<!-- 排除 netty -->
-				
-				<exclusion>
-			      <groupId>io.projectreactor.ipc</groupId>
-			      <artifactId>reactor-netty</artifactId>
-				</exclusion>
-				
-			</exclusions>
 		</dependency>
-		
-		
-		<!-- 更换容器为 undertow -->
+
+		<!--reactor的测试依赖-->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-undertow</artifactId>
+		    <groupId>io.projectreactor</groupId>
+		    <artifactId>reactor-test</artifactId>
+		    <scope>test</scope>
 		</dependency>
 
 		<!-- 开发过程中保存文件，自动重启 -->

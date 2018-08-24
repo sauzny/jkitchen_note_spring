@@ -33,6 +33,7 @@ public class WebRoutes {
 		return route(POST("/echo3").and(accept(MediaType.APPLICATION_JSON)), echoController::echo3);
 	}
 	
+	// 路由器的定义应该有更简单的语法
 	@Bean
 	public RouterFunction<ServerResponse> monoRouterFunction4(EchoController echoController) {
 		
