@@ -17,11 +17,6 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- 编译时的编码 -->
 		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-		<!-- 常用软件版本 -->
-		<junit>4.12</junit>
-		<aspectjrt>1.8.13</aspectjrt>
-		<slf4j>1.7.25</slf4j>
-		<logback>1.2.3</logback>
 	</properties>
 
 	<parent>
@@ -44,6 +39,14 @@
 		    <artifactId>reactor-test</artifactId>
 		    <scope>test</scope>
 		</dependency>
+
+<!-- 
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+	    </dependency>
+ -->
+		<!-- ==== 分割线，以上为本次demo使用的jar包，以下为常用jar包 ==== -->
 
 		<!-- 开发过程中保存文件，自动重启 -->
 		<dependency>
@@ -93,8 +96,6 @@
 		    <artifactId>commons-text</artifactId>
 		    <version>1.2</version>
 		</dependency>
-
-		
 
 	</dependencies>
 </project>
