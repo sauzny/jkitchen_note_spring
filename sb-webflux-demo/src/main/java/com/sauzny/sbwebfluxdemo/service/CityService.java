@@ -5,40 +5,29 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
+import com.sauzny.sbwebfluxdemo.demodata.CityData;
 import com.sauzny.sbwebfluxdemo.entity.City;
 
 @Service
 public class CityService {
-
+	
 	public City findCityById(long id) {
-		City city = new City();
-		city.setId(1001);
-		city.setName("Auckland");
-		return city;
+		return CityData.data.get(id);
 	}
-	
+
 	public List<City> findAllCity(){
-		
-		City city1 = new City();
-		city1.setId(1001);
-		city1.setName("Auckland");
-		
-		City city2 = new City();
-		city2.setId(1002);
-		city2.setName("Waikato");
-		
-		return Lists.newArrayList(city1, city2);
+		return Lists.newArrayList(CityData.data.values());
 	}
 	
-	public long saveCity(City city) {
-		return 1L;
+	public City saveCity(City city) {
+		return CityData.data.put(city.getId(), city);
+	}
+
+	public City updateCity(City city) {
+		return CityData.data.put(city.getId(), city);
 	}
 	
-	public long updateCity(City city) {
-		return 1L;
-	}
-	
-	public long deleteCity(long id) {
-		return 1L;
+	public City deleteCity(long id) {
+		return CityData.data.remove(id);
 	}
 }
