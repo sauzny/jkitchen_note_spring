@@ -1,5 +1,6 @@
 package com.sauzny.sbfluxdemo;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
@@ -13,12 +14,23 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.sauzny.sbwebfluxdemo.entity.City;
 
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Slf4j
 public class CityTest {
 
 	private static final WebClient client = WebClient.create("http://127.0.0.1:8080");
+	
+	@Test
+    public void findAll() throws InterruptedException {
+		client.get().uri("/city")
+	        .accept(MediaType.APPLICATION_STREAM_JSON) // 2
+	        .exchange() // 3
+	        .flatMapMany(response -> response.bodyToFlux(City.class))   // 4
+	        .doOnNext(System.out::println)  // 5
+	        .blockLast();   // 6
+    }
 	
 	@Test
 	public void findOneCity() throws InterruptedException {
@@ -43,7 +55,7 @@ public class CityTest {
 	public void saveCity() throws InterruptedException {
 		
 		City city = new City();
-		city.setId(1);
+		city.setId(System.currentTimeMillis());
 		city.setName("加利福尼亚");
 		
 		Mono<City> cityMono = Mono.just(city);
@@ -86,4 +98,16 @@ public class CityTest {
 		// 犹豫是异步的获取数据，这里sleep1秒，保证在Console中能看见打印
 		TimeUnit.SECONDS.sleep(1);
 	}
+	
+    @Test
+    public void times() throws InterruptedException {
+		client.get().uri("/city/times")
+	        .accept(MediaType.TEXT_EVENT_STREAM)    // 1
+	        .retrieve()
+	        .bodyToFlux(String.class)
+	        .log()  // 2
+	        .take(10)   // 3
+	        .blockLast();
+    }
+	
 }

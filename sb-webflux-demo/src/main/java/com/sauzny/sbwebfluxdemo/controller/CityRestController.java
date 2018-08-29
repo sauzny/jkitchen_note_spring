@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -42,7 +43,7 @@ public class CityRestController {
 	
 	@Autowired
     private CityService cityService;
-
+	
 	@GetMapping("/{id}")
     public Mono<City> findOneCity(@PathVariable("id") Long id) {
     	
@@ -60,6 +61,7 @@ public class CityRestController {
     }
 */
 	// 使用浏览器访问此接口，可以看见每个元素间隔1秒的时间输出
+	// 测试用例也能查看出效果CityTest findAll1()
     @GetMapping(value = "", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
     public Flux<City> findAll() {
         //return this.userService.findAll().delayElements(Duration.ofSeconds(2));
@@ -90,4 +92,14 @@ public class CityRestController {
         return Mono.create(cityMonoSink -> cityMonoSink.success(cityService.deleteCity(id)));
     }
 
+    // 单向无限流
+    // 1.MediaType.TEXT_EVENT_STREAM表示Content-Type为text/event-stream，即SSE；
+    // 2.利用interval生成每秒一个数据的流。
+    @GetMapping(value = "/times", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<String> sendTimePerSec(ServerHttpRequest request) {
+        return Flux.interval(Duration.ofSeconds(1)).   // 2
+                map(l -> new SimpleDateFormat("HH:mm:ss").format(new Date()));
+    }
+
 }
+
