@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -32,7 +31,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping(value = "/city")
 @Slf4j
 public class CityRestController {
-	
+	/*
 	@InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -40,7 +39,7 @@ public class CityRestController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
         binder.registerCustomEditor(LocalDateTime.class, new CustomDateEditor(dateFormat, false));
     }
-	
+	*/
 	@Autowired
     private CityService cityService;
 	

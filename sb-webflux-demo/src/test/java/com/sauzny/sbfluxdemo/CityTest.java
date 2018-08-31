@@ -1,6 +1,6 @@
 package com.sauzny.sbfluxdemo;
 
-import java.time.Duration;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
@@ -11,16 +11,19 @@ import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.github.javafaker.Faker;
+import com.sauzny.sbwebfluxdemo.controller.vo.WebFluxResult;
 import com.sauzny.sbwebfluxdemo.entity.City;
+import com.sauzny.sbwebfluxdemo.entity.User;
 
 import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Slf4j
 public class CityTest {
 
 	private static final WebClient client = WebClient.create("http://127.0.0.1:8080");
+	public static Faker faker = new Faker(new Locale("zh","CN"));
 	
 	@Test
     public void findAll() throws InterruptedException {
@@ -53,22 +56,30 @@ public class CityTest {
 	
 	@Test
 	public void saveCity() throws InterruptedException {
+		/*
+		City data = new City();
+		data.setId(System.currentTimeMillis());
+		data.setName("加利福尼亚");
+		*/
+		User data = new User(
+				faker.idNumber().invalid(),
+				faker.name().name(),
+				faker.name().fullName(),
+				faker.phoneNumber().phoneNumber(),
+				faker.date().birthday()
+				);
+
+		Mono<User> cityMono = Mono.just(data);
 		
-		City city = new City();
-		city.setId(System.currentTimeMillis());
-		city.setName("加利福尼亚");
-		
-		Mono<City> cityMono = Mono.just(city);
-		
-		Mono<Long> result = client.post()
+		Mono<City> result = client.post()
 				.uri("/city")
 				.accept(MediaType.APPLICATION_JSON)
-				.body(cityMono, City.class)
+				.body(cityMono, User.class)
 				.retrieve()
-				.bodyToMono(Long.class);
+				.bodyToMono(City.class);
 		
-		result.subscribe(id -> {
-			log.info("saveCity result = {}", id);
+		result.subscribe(city -> {
+			log.info("saveCity result = {}", city);
 		});
 		
 		// 犹豫是异步的获取数据，这里sleep1秒，保证在Console中能看见打印
