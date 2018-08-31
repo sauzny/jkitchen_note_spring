@@ -9,10 +9,10 @@ import com.sauzny.sbwebfluxdemo.entity.User;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-//@Service
+@Service
 public class UserService {
 
-	//@Autowired
+	@Autowired
 	private UserRepository userRepository;
 	
     /**
@@ -20,7 +20,7 @@ public class UserService {
      * 如果传入的user没有id属性，由于username是unique的，在重复的情况下有可能报错，
      * 这时找到以保存的user记录用传入的user更新它。
      */
-	/*
+	
     public Mono<User> save(User user) {
         return userRepository.save(user)
                 .onErrorResume(e ->     // 1
@@ -42,5 +42,5 @@ public class UserService {
     public Flux<User> findAll() {
         return userRepository.findAll();
     }
-    */
+    
 }
