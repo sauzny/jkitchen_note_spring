@@ -106,9 +106,6 @@ public class UserController {
     @PostMapping("")
     public RestFulResult save(@RequestBody User user){
         log.debug("user : {}", user);
-        // 在出现异常的情况下，因为request中的inputstream只能读取一次的原因，目前统一异常处理并不能打印出参数。需要修改代码。
-        // 增加一个filter，将request替换为自己编写的requestWrapper，
-        // 预先读取出inputstream，并放入自定义的body属性中，使之后的操作可以多次读取inputstream（其实就是读取body中的内容）
         //Integer.parseInt("aaaa");
         return RestFulResult.success();
     }
