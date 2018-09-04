@@ -1,4 +1,4 @@
-package com.sauzny.springbootweb.config;
+package com.sauzny.springbootweb.system.log;
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.google.common.collect.Lists;
+import com.sauzny.springbootweb.system.log.LogRecord;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +19,10 @@ import com.google.common.collect.Maps;
 import com.sauzny.springbootweb.SbwConstant;
 import com.sauzny.springbootweb.SbwConstant.FailureEnum;
 import com.sauzny.springbootweb.SbwConstant.UserRole;
-import com.sauzny.springbootweb.config.Audience;
 import com.sauzny.springbootweb.controller.vo.RestFulResult;
 import com.sauzny.springbootweb.entity.pojo.User;
 import com.sauzny.springbootweb.service.UserService;
+import com.sauzny.springbootweb.system.jwt.Audience;
 import com.sauzny.springbootweb.utils.CodecUtils;
 import com.sauzny.springbootweb.utils.ControllerUtils;
 import com.sauzny.springbootweb.utils.JwtUtils;

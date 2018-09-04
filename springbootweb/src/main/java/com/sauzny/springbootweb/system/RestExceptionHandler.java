@@ -1,4 +1,4 @@
-package com.sauzny.springbootweb.config;
+package com.sauzny.springbootweb.system;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.google.common.collect.Lists;
 import com.sauzny.springbootweb.SbwConstant;
 import com.sauzny.springbootweb.controller.vo.RestFulResult;
+import com.sauzny.springbootweb.system.log.LogRecord;
 
 import lombok.extern.slf4j.Slf4j;
 

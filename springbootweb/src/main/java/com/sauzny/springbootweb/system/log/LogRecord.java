@@ -1,4 +1,4 @@
-package com.sauzny.springbootweb.config;
+package com.sauzny.springbootweb.system.log;
 
 import java.util.Iterator;
 import java.util.List;

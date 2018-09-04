@@ -1,4 +1,4 @@
-package com.sauzny.springbootweb.config;
+package com.sauzny.springbootweb.system.jwt;
 
 import javax.annotation.PostConstruct;
 
@@ -21,7 +21,7 @@ public class Audience {
 	
 	@PostConstruct
 	public void init() {
-		System.out.println(this.aaa);
+		//System.out.println(this.aaa);
 	}
 
 }

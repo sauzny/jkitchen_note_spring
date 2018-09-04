@@ -1,4 +1,4 @@
-package com.sauzny.springbootweb.config;
+package com.sauzny.springbootweb.system.jwt;
 
 import java.io.IOException;
 import java.io.PrintWriter;
