@@ -1,37 +1,48 @@
 package com.sauzny.sbwebfluxdemo.system;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import org.springframework.core.io.buffer.DataBuffer;
-import org.springframework.core.io.buffer.DataBufferUtils;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerResponse;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.WebExceptionHandler;
 
 import com.google.common.collect.Lists;
 import com.sauzny.sbwebfluxdemo.controller.vo.WebFluxResult;
+import com.sauzny.sbwebfluxdemo.system.log.WebFluxLogRecord;
+import com.sauzny.sbwebfluxdemo.utils.ServerWebExchangeUtils;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-@ControllerAdvice
+@Component
+@Order(-2)
 @Slf4j
-public class WebFluxExceptionHandler {
+public class WebFluxExceptionHandler implements WebExceptionHandler{
+
+	@Override
+	public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
+		
+        if(ex instanceof ResponseStatusException) {
+        	return responseStatusException(exchange, (ResponseStatusException) ex);
+        }else {
+        	return Mono.empty();
+        }
+
+	}
 	
-	@ExceptionHandler
-    @ResponseBody
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    private WebFluxResult runtimeExceptionHandler(
-    		ServerHttpRequest request, Exception e) {
+	private static Mono<Void> responseStatusException (ServerWebExchange exchange, ResponseStatusException ex){
+
+		ServerHttpRequest request = exchange.getRequest();
 		
 		InetSocketAddress remoteAddress = request.getRemoteAddress();
 		URI uri = request.getURI();
@@ -40,33 +51,20 @@ public class WebFluxExceptionHandler {
         // 组织参数
         List<Object> args = Lists.newArrayList("runtime error");
         args.add(request.getHeaders());
-        /*
-        try {
-            String requestStr = IOUtils.toString(request.getInputStream(), StandardCharsets.UTF_8);
-            args.add(request.getBody().);
-        } catch (IOException e1) {
-        }
-        */
-        Flux<DataBuffer> flux = request.getBody();
-        String body = "";
-        try(ByteArrayOutputStream  swos = new ByteArrayOutputStream()){
-            DataBufferUtils.write(flux, swos);
-            byte[] byteArray = swos.toByteArray();
-            body = new String(byteArray, StandardCharsets.UTF_8);
-            System.out.println(body);
-        } catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+        
+        String body = ServerWebExchangeUtils.body2String(request.getBody());
         args.add(body);
+
+        // 打印error日志
+        WebFluxLogRecord logRecord = new WebFluxLogRecord(remoteAddress, uri, methodValue, null, args, ex.getMessage(), null);
+        log.error(logRecord.toJson());
+        //ServerWebInputException
         
+        // 处理返回结果
+        ServerHttpResponse response = exchange.getResponse();
+        response.setStatusCode(HttpStatus.OK);
+        return response.writeWith(Flux.just(response.bufferFactory().wrap(WebFluxResult.failure().toJson().getBytes(StandardCharsets.UTF_8))));
         
-        WebFluxLogRecord logRecord = new WebFluxLogRecord(remoteAddress, uri, methodValue, null, args, e.getMessage(), null);
-        
-        
-        
-        log.error(logRecord.toJson(), e);
-        //e.printStackTrace();
-        return WebFluxResult.failure();
-    }
+        //return response.setComplete();
+	}
 }

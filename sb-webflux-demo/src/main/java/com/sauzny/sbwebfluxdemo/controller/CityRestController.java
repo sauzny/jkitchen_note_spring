@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sauzny.sbwebfluxdemo.controller.vo.WebFluxResult;
 import com.sauzny.sbwebfluxdemo.entity.City;
 import com.sauzny.sbwebfluxdemo.service.CityService;
 
@@ -76,18 +77,19 @@ public class CityRestController {
     }
     
     @PostMapping
-    public Mono<City> createCity(@RequestBody City city, ServerHttpRequest request) {
+    public Mono<WebFluxResult> createCity(@RequestBody City city, ServerHttpRequest request) {
     	log.info("在注解方式下获取request，getMethodValue = {}", request.getMethodValue());
-        return Mono.create(cityMonoSink -> cityMonoSink.success(cityService.saveCity(city)));
+        Mono.create(cityMonoSink -> cityMonoSink.success(cityService.saveCity(city)));
+        return Mono.create(cityMonoSink -> cityMonoSink.success(WebFluxResult.success()));
     }
 
     @PutMapping
-    public Mono<City> modifyCity(@RequestBody City city) {
+    public Mono<Long> modifyCity(@RequestBody City city) {
         return Mono.create(cityMonoSink -> cityMonoSink.success(cityService.updateCity(city)));
     }
 
     @DeleteMapping("/{id}")
-    public Mono<City> modifyCity(@PathVariable("id") Long id) {
+    public Mono<Long> modifyCity(@PathVariable("id") Long id) {
         return Mono.create(cityMonoSink -> cityMonoSink.success(cityService.deleteCity(id)));
     }
 
