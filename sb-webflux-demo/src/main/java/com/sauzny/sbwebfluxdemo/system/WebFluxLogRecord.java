@@ -1,4 +1,4 @@
-package com.sauzny.sbwebfluxdemo.config;
+package com.sauzny.sbwebfluxdemo.system;
 
 import java.net.InetSocketAddress;
 import java.net.URI;

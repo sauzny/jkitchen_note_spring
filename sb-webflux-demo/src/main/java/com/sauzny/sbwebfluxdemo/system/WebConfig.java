@@ -1,4 +1,4 @@
-package com.sauzny.sbwebfluxdemo.config;
+package com.sauzny.sbwebfluxdemo.system;
 
 import java.util.HashMap;
 import java.util.Map;

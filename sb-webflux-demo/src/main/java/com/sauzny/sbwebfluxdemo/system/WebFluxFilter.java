@@ -1,4 +1,4 @@
-package com.sauzny.sbwebfluxdemo.config;
+package com.sauzny.sbwebfluxdemo.system;
 
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
