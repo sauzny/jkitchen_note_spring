@@ -1,8 +1,10 @@
 package com.sauzny.sbwebfluxdemo.utils;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
 
@@ -22,8 +24,9 @@ public final class ServerWebExchangeUtils {
 		body.subscribe(buffer -> {
 			
 			try {
-				byte[] resultBytes = buffer.asByteBuffer().array();
-				result.add(new String(resultBytes, StandardCharsets.UTF_8));
+				result.add(new String(IOUtils.toByteArray(buffer.asInputStream()), StandardCharsets.UTF_8));
+			} catch (IOException igone) {
+				
 			} finally {
 				DataBufferUtils.release(buffer);	
 			}
@@ -38,7 +41,9 @@ public final class ServerWebExchangeUtils {
 		
 		body.subscribe(buffer -> {
 			try {
-				result.add(Bytes.asList(buffer.asByteBuffer().array()));
+				result.add(Bytes.asList(IOUtils.toByteArray(buffer.asInputStream())));
+			} catch (IOException igone) {
+				
 			}finally {
 				DataBufferUtils.release(buffer);
 			}
