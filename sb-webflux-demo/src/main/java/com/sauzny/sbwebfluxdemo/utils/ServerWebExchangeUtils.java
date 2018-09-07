@@ -1,10 +1,8 @@
 package com.sauzny.sbwebfluxdemo.utils;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
 
@@ -17,17 +15,15 @@ public final class ServerWebExchangeUtils {
 
 	private ServerWebExchangeUtils() {}
 	
-	public static List<String> body2String(Flux<DataBuffer> flux) {
+	public static List<String> body2String(Flux<DataBuffer> body) {
 		
 		List<String> result = Lists.newArrayList();
         
-		flux.subscribe(buffer -> {
+		body.subscribe(buffer -> {
 			
 			try {
-				byte[] resultBytes = IOUtils.toByteArray(buffer.asInputStream());
+				byte[] resultBytes = buffer.asByteBuffer().array();
 				result.add(new String(resultBytes, StandardCharsets.UTF_8));
-			} catch (IOException ignore) {
-				
 			} finally {
 				DataBufferUtils.release(buffer);	
 			}
@@ -36,15 +32,13 @@ public final class ServerWebExchangeUtils {
         return result;
 	}
 	
-	public static List<List<Byte>> body2byteList(Flux<DataBuffer> flux) {
+	public static List<List<Byte>> body2byteList(Flux<DataBuffer> body) {
 		
 		List<List<Byte>> result = Lists.newArrayList();
 		
-		flux.subscribe(buffer -> {
+		body.subscribe(buffer -> {
 			try {
-				result.add(Bytes.asList(IOUtils.toByteArray(buffer.asInputStream())));
-			} catch (IOException ignore) {
-				
+				result.add(Bytes.asList(buffer.asByteBuffer().array()));
 			}finally {
 				DataBufferUtils.release(buffer);
 			}
