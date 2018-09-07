@@ -79,8 +79,10 @@ public class CityRestController {
     @PostMapping
     public Mono<WebFluxResult> createCity(@RequestBody City city, ServerHttpRequest request) {
     	log.info("在注解方式下获取request，getMethodValue = {}", request.getMethodValue());
-        Mono.create(cityMonoSink -> cityMonoSink.success(cityService.saveCity(city)));
-        return Mono.create(cityMonoSink -> cityMonoSink.success(WebFluxResult.success()));
+    	Mono<Long> idMono = Mono.create(cityMonoSink -> cityMonoSink.success(cityService.saveCity(city)));
+        return idMono.map(id -> {
+    		return WebFluxResult.success(id);
+    	});
     }
 
     @PutMapping

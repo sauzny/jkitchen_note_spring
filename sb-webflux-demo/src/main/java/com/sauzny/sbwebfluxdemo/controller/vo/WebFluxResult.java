@@ -5,6 +5,11 @@ import static com.sauzny.sbwebfluxdemo.SbwfConstant.Result.MESSAGE_SUCCESS;
 import static com.sauzny.sbwebfluxdemo.SbwfConstant.Result.STATUS_FAILURE;
 import static com.sauzny.sbwebfluxdemo.SbwfConstant.Result.STATUS_SUCCESS;
 
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+
+import org.springframework.http.server.reactive.ServerHttpResponse;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.sauzny.sbwebfluxdemo.SbwfConstant.FailureEnum;
@@ -24,10 +29,10 @@ public class WebFluxResult {
     private String message;
 
     // 返回结果为对象类型时使用
-    private Mono<?> mono;
+    private Object object;
     
     // 返回结果为数组类型时使用
-    private Flux<?> flux;
+    private List<?> list;
     
     public static WebFluxResult success(){
         WebFluxResult result = new WebFluxResult();
@@ -36,15 +41,15 @@ public class WebFluxResult {
         return result;
     }
     
-    public static WebFluxResult success(Mono<?> mono){
+    public static WebFluxResult success(Object object){
         WebFluxResult result = WebFluxResult.success();
-        result.setMono(mono);
+        result.setObject(object);
         return result;
     }
     
-    public static WebFluxResult success(Flux<?> flux){
+    public static WebFluxResult success(List<?> list){
         WebFluxResult result = WebFluxResult.success();
-        result.setFlux(flux);
+        result.setList(list);
         return result;
     }
     /*
@@ -81,5 +86,9 @@ public class WebFluxResult {
     
     public Mono<WebFluxResult> toMono(){
     	return Mono.just(this);
+    }
+    
+    public Mono<Void> toMonoWithResponse(ServerHttpResponse response){
+    	return response.writeWith(Flux.just(response.bufferFactory().wrap(this.toJson().getBytes(StandardCharsets.UTF_8))));
     }
 }
