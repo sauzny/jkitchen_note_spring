@@ -36,13 +36,21 @@ public class FileUploadController {
 
         //NOTE 方法一
         AsynchronousFileChannel channel = AsynchronousFileChannel.open(tempFile, StandardOpenOption.WRITE);
+        
         DataBufferUtils.write(filePart.content(), channel, 0)
                 .doOnComplete(() -> {
                     System.out.println("finish");
                 })
             .subscribe();
-
-    	
+        
+        if (channel != null && channel.isOpen()) {
+			try {
+				channel.close();
+			}
+			catch (IOException ignored) {
+			}
+		}
+        
     	// 方法二、直接转换成文件
         // filePart.transferTo(new File("aaa"));
     	
