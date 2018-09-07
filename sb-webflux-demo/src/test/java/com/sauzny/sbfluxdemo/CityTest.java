@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Test;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.util.MultiValueMap;
@@ -39,7 +40,7 @@ public class CityTest {
 	public void findOneCity() throws InterruptedException {
 		
 		Mono<City> result = client.get()
-				.uri("/city/{id}", 1003L)
+				.uri("/city/{id}", 1536142001943L)
 				.accept(MediaType.APPLICATION_JSON)
 				.retrieve()
 				.bodyToMono(City.class);
@@ -56,30 +57,35 @@ public class CityTest {
 	
 	@Test
 	public void saveCity() throws InterruptedException {
-		/*
+		
 		City data = new City();
 		data.setId(System.currentTimeMillis());
 		data.setName("加利福尼亚");
-		*/
-		User data = new User(
-				faker.idNumber().invalid(),
-				faker.name().name(),
-				faker.name().fullName(),
-				faker.phoneNumber().phoneNumber(),
-				faker.date().birthday()
-				);
-
-		Mono<User> cityMono = Mono.just(data);
 		
-		Mono<City> result = client.post()
+		Mono<City> cityMono = Mono.just(data);
+		
+		Mono<WebFluxResult> webFluxResult = client.post()
 				.uri("/city")
 				.accept(MediaType.APPLICATION_JSON)
-				.body(cityMono, User.class)
+				.body(cityMono, City.class)
 				.retrieve()
-				.bodyToMono(City.class);
-		
-		result.subscribe(city -> {
-			log.info("saveCity result = {}", city);
+				.onStatus(HttpStatus::is4xxClientError, clientResponse -> {
+					log.info("saveCity is4xxClientError result = {}", clientResponse.statusCode());
+					
+					//return clientResponse.bodyToMono(WebFluxResult.class);
+					
+					return Mono.empty();
+				})
+				.onStatus(HttpStatus::is2xxSuccessful, clientResponse -> {
+					log.info("saveCity is2xxSuccessful result = {}", clientResponse.statusCode());
+					
+					//return clientResponse.bodyToMono(WebFluxResult.class);
+					return Mono.empty();
+				})
+				.bodyToMono(WebFluxResult.class);
+
+		webFluxResult.subscribe(result -> {
+			log.info("saveCity result = {}", result);
 		});
 		
 		// 犹豫是异步的获取数据，这里sleep1秒，保证在Console中能看见打印
