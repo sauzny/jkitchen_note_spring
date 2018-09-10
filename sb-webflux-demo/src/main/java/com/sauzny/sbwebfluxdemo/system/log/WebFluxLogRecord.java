@@ -2,11 +2,10 @@ package com.sauzny.sbwebfluxdemo.system.log;
 
 import java.net.InetSocketAddress;
 import java.net.URI;
-import java.util.Iterator;
 import java.util.List;
 
-import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
 
 import com.google.common.collect.Lists;
 import com.sauzny.sbwebfluxdemo.utils.JacksonUtils;
@@ -22,12 +21,15 @@ public class WebFluxLogRecord {
     private URI uri;
     private String methodValue;
     //private String classMethod;
-    private List<String> args = Lists.newArrayList();
-    private Object result;
+    private MediaType requestMediaType;
+    private MultiValueMap<String, String> queryParams;
+    private List<String> requestBody = Lists.newArrayList();
+    private MediaType responseMediaType;
+    private String result;
     private Long timing;
     
     public String toJson(){
-/*
+    	/*
         List<String> args = this.getArgs();
         List<String> argsTemp = Lists.newArrayList();
         
@@ -46,7 +48,8 @@ public class WebFluxLogRecord {
             
         }
         args.addAll(argsTemp);
-*/        
+ 		*/
+    	
         return JacksonUtils.nonNull().toJson(this);
     }
 }

@@ -21,13 +21,20 @@ public class WebFluxExceptionHandler implements WebExceptionHandler{
 	@Override
 	public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
 		
-		exchange.getAttributes().put("WebFluxExceptionHandler", ex);
 		
         // 处理返回结果
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(HttpStatus.OK);
         response.getHeaders().setContentType(MediaType.APPLICATION_JSON_UTF8);
-        return WebFluxResult.failure().toMonoWithResponse(response);
+        WebFluxResult webFluxResult = WebFluxResult.failure();
+
+        log.error("WebFluxExceptionHandler : ", ex);
+        
+        // 统一日志打印log使用
+		exchange.getAttributes().put("WebFluxExceptionMessage", ex.getMessage());
+		exchange.getAttributes().put("WebFluxExceptionResult", webFluxResult.toJson());
+        
+        return webFluxResult.toMonoWithResponse(response);
 	}
 	
 }

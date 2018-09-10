@@ -5,9 +5,11 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.core.annotation.Order;
+import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
@@ -34,20 +36,30 @@ public class WebFluxLogFilter implements WebFilter{
 	    InetSocketAddress remoteAddress = request.getRemoteAddress();
 	    URI uri = request.getURI();
 	    String methodValue = request.getMethodValue();
-	    List<String> args = ServerWebExchangeUtils.body2String(request.getBody());
+	    MediaType requestMediaType = request.getHeaders().getContentType();
 	    
-	    Object result = new Object();
+	    //exchange.getFormData();
+	    
+	    // query params
+	    MultiValueMap<String, String> queryParams = request.getQueryParams();
+	    
+	    // body
+	    List<String> requestBody = ServerWebExchangeUtils.body2String(request.getBody());
+	    
 	    
 	    response.beforeCommit(() -> {
 	    	
-		    Long timing = System.currentTimeMillis() - startTime;
-		    
-		    Object ex = exchange.getAttribute("WebFluxExceptionHandler");
-		    if(ex != null) {
-		    	log.error("WebFluxExceptionHandler", ex);
+	    	MediaType responseMediaType = response.getHeaders().getContentType();
+	    	
+		    String result = response.toString();
+	    	
+		    Object exMessage = exchange.getAttribute("WebFluxExceptionMessage");
+		    Object exResult = exchange.getAttribute("WebFluxExceptionResult");
+		    if(exMessage != null) {
+		    	result = exMessage + " | " + exResult;
 		    }
 		    
-			WebFluxLogRecord logRecord = new WebFluxLogRecord(remoteAddress, uri, methodValue, args, result, timing);
+			WebFluxLogRecord logRecord = new WebFluxLogRecord(remoteAddress, uri, methodValue, requestMediaType, queryParams, requestBody, responseMediaType, result, System.currentTimeMillis() - startTime);
 	        
 	        log.info(logRecord.toJson());
 	        
