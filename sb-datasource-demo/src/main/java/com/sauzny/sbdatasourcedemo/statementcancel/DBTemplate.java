@@ -43,6 +43,10 @@ public class DBTemplate {
 		} catch (SQLException sqle) {
 			// sql异常
 			sqle.printStackTrace();
+			
+			// ps.cancel()，会出现此异常
+			// com.mysql.jdbc.exceptions.MySQLStatementCancelledException: Statement cancelled due to client request
+			
 		} finally {
 			// close
 			try{
