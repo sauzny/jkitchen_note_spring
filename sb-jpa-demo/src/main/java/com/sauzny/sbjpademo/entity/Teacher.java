@@ -27,6 +27,9 @@ public class Teacher {
 
 	private String name;
 
+	@Column(name = "university_id")
+	private Long universityId;
+	
 	@Column(name = "create_time")
 	private Date createTime;
 	

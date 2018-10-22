@@ -1,5 +1,8 @@
 package com.sauzny.sbjpademo.entity;
 
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,5 +21,10 @@ public class Student {
 	private Long id;
 	
 	private String name;
-	
+
+	@Column(name = "create_time")
+	private Date createTime;
+
+	@Column(name = "teacher_id")
+	private Long teacherId;
 }

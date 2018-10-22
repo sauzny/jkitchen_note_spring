@@ -1,9 +1,17 @@
 package com.sauzny.sbjpademo.entity;
 
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 import lombok.Data;
 
@@ -18,4 +26,13 @@ public class University {
 	private Long id;
 	
 	private String name;
+	
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "university_id")
+	private List<Teacher> teachers;
+	
+
+	@Column(name = "create_time")
+	private Date createTime;
 }
