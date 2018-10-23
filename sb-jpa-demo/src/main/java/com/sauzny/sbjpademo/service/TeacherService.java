@@ -2,8 +2,8 @@ package com.sauzny.sbjpademo.service;
 
 import java.util.List;
 
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,7 +22,7 @@ public class TeacherService {
 
 	@Autowired
 	private TeacherRepository teacherRepository;
-
+	
 	public List<Teacher> addTeacher(List<Teacher> entities) {
 		return teacherRepository.saveAll(entities);
 	}

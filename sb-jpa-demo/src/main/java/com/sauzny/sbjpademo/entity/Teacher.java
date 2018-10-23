@@ -1,7 +1,7 @@
 package com.sauzny.sbjpademo.entity;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,10 +15,14 @@ import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 
-import lombok.Data;
+import com.google.common.collect.Sets;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NamedEntityGraph(name = "teacherWithStudents", attributeNodes = {@NamedAttributeNode("students")})
 public class Teacher {
 
@@ -38,5 +42,5 @@ public class Teacher {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "teacher_id")
-	private List<Student> students;
+	private Set<Student> students = Sets.newHashSet();
 }

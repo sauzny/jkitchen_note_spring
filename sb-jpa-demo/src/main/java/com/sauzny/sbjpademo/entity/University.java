@@ -1,7 +1,7 @@
 package com.sauzny.sbjpademo.entity;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,10 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-import lombok.Data;
+import com.google.common.collect.Sets;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class University {
 
     // 声明主键。
@@ -30,7 +34,7 @@ public class University {
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "university_id")
-	private List<Teacher> teachers;
+	private Set<Teacher> teachers = Sets.newHashSet();
 	
 
 	@Column(name = "create_time")

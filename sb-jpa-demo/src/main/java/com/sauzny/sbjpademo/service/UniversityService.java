@@ -12,9 +12,13 @@ import com.sauzny.sbjpademo.jpa.UniversityRepository;
 public class UniversityService {
 
 	@Autowired
-	private UniversityRepository UniversityRepository;
+	private UniversityRepository universityRepository;
 	
 	public List<University> addUniversity(List<University> entities) {
-		return UniversityRepository.saveAll(entities);
+		return universityRepository.saveAll(entities);
+	}
+	
+	public University findWithTeachersById(Long id) {
+		return universityRepository.findWithTeachersById(id);
 	}
 }
