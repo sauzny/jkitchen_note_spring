@@ -3,6 +3,7 @@ package com.sauzny.sbjpademo.service;
 import java.util.List;
 
 import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.CriteriaBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,8 +31,16 @@ public class TeacherService {
 		return teacherRepository.saveAndFlush(entity);
 	}
 	
-	public List<Teacher> findAll(){
-		return teacherRepository.findAll();
+	public Teacher findWithTeachersById(Long id) {
+		return teacherRepository.findWithStudentsById(id);
+	}
+	
+	public Teacher findByIdAndFetchStudentsEagerly(Long id) {
+		return teacherRepository.findByIdAndFetchStudentsEagerly(id);
+	}
+	
+	public List<Teacher> findAll(List<String> names){
+		return teacherRepository.findAll(TeacherSpecification.queryWithNames(names));
 	}
 	
 	public Page<Teacher> findAll(Pageable pageable){
@@ -47,6 +56,22 @@ public class TeacherService {
 
 //查询参数详细
 class TeacherSpecification {
+	
+	public static Specification<Teacher> queryWithNames(List<String> names){
+	     
+	     return ((root, query, criteriaBuilder) -> {
+	         
+	         List<Predicate> predicates = Lists.newLinkedList();
+	         
+	         if (names != null && names.size() > 0) {
+	        	 CriteriaBuilder.In<String> in = criteriaBuilder.in(root.get("name"));
+	        	 names.forEach(name -> in.value(name));
+	        	 predicates.add(in);
+	         }
+	         
+	         return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+	     });
+	}
 	
 	public static Specification<Teacher> query(String name){
      
