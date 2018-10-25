@@ -75,6 +75,16 @@ public class AppTest {
 		}
 		studentService.addStudent(students);
 	}
+	
+	@Test
+	public void updateTeacher() {
+		Teacher whereEntity = new Teacher();
+		whereEntity.setId(5L);
+		whereEntity.setUniversityId(16L);
+		Teacher setEntity = new Teacher();
+		setEntity.setName("修改成功");
+		teacherService.entityManagerUpdate(setEntity, whereEntity);
+	}
 
 	// N+1问题 三层结构的查询  学校 == 老师 == 学生
 	@Test
