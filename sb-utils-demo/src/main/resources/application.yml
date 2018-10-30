@@ -1,0 +1,4 @@
+# https://docs.spring.io/spring-boot/docs/2.0.3.RELEASE/reference/html/common-application-properties.html
+
+# 指定输出pid的位置
+# spring.pid.file: app.pid 
