@@ -2,3 +2,13 @@
 
 # 指定输出pid的位置
 # spring.pid.file: app.pid 
+
+# 自定义参数 for SpringAnnotation1
+# 这个前缀似乎不能含有大写字母
+springannotation1.aaa : aaa
+springannotation1.bbb : 123
+
+
+# 自定义参数 for SpringAnnotation2
+# springAnnotation2.value : 
+springAnnotation2.names : aaa,bbb,ccc,ddd
