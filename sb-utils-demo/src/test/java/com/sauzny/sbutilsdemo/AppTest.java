@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.sauzny.sbutilsdemo.other.SpringAssert;
 import com.sauzny.sbutilsdemo.resouce.SpringAnnotation1;
 import com.sauzny.sbutilsdemo.resouce.SpringAnnotation2;
 
@@ -21,6 +22,9 @@ public class AppTest {
 
 	@Autowired
 	private SpringAnnotation2 springAnnotation2;
+
+	@Autowired
+	private SpringAssert springAssert;
 	
 	@Test
 	public void test001() throws InterruptedException {
@@ -35,5 +39,10 @@ public class AppTest {
 	public void resource() {
 		springAnnotation1.demo();
 		springAnnotation2.demo();
+	}
+	
+	@Test
+	public void other() throws InterruptedException {
+
 	}
 }
