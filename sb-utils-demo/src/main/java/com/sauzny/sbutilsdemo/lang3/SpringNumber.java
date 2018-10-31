@@ -1,4 +1,4 @@
-package com.sauzny.sbutilsdemo.other;
+package com.sauzny.sbutilsdemo.lang3;
 
 import org.springframework.stereotype.Component;
 
