@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.sauzny.sbutilsdemo.other.SpringAssert;
+import com.sauzny.sbutilsdemo.other.SpringPropertyPlaceholderHelper;
+import com.sauzny.sbutilsdemo.other.SpringSystemProperty;
 import com.sauzny.sbutilsdemo.resouce.SpringAnnotation1;
 import com.sauzny.sbutilsdemo.resouce.SpringAnnotation2;
+import com.sauzny.sbutilsdemo.web.SpringHtml;
+import com.sauzny.sbutilsdemo.web.SpringJavaScript;
+import com.sauzny.sbutilsdemo.web.SpringWeb;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,7 +28,19 @@ public class AppTest {
 	private SpringAnnotation2 springAnnotation2;
 
 	@Autowired
-	private SpringAssert springAssert;
+	private SpringSystemProperty springSystemProperty;
+	
+	@Autowired
+	private SpringPropertyPlaceholderHelper springPropertyPlaceholderHelper;
+	
+	@Autowired
+	private SpringHtml springHtml;
+	
+	@Autowired
+	private SpringJavaScript springJavaScript;
+	
+	@Autowired
+	private SpringWeb springWeb;
 	
 	@Test
 	public void test001() throws InterruptedException {
@@ -42,7 +58,14 @@ public class AppTest {
 	}
 	
 	@Test
-	public void other() throws InterruptedException {
-
+	public void other() {
+		springSystemProperty.demo();
+		springPropertyPlaceholderHelper.demo();
+	}
+	@Test
+	public void web() {
+		springHtml.demo();
+		springJavaScript.demo();
+		springWeb.demo();
 	}
 }
