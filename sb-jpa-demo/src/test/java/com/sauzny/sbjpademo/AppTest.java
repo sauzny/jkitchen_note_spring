@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.javafaker.Faker;
@@ -117,5 +118,15 @@ public class AppTest {
 		List<Teacher> teachers = teacherService.findAll(names);
 		
 		teachers.forEach(teacher -> log.info("teacher.id = {}", teacher.getId()) );
+	}
+	
+	// 多表动态查询，分页 页码从0开始
+	@Test
+	public void queryTeachersWithStudentNames() {
+
+		List<String> names = Lists.newArrayList("周博文", "周瑞霖", "李金鑫");
+		Page<Teacher> teachers = teacherService.findAll(names, 0, 10);
+
+		teachers.getContent().forEach(teacher -> log.info("teacher.id = {}", teacher.getId()));
 	}
 }
