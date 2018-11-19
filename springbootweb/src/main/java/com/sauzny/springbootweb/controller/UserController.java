@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.sauzny.springbootweb.controller.vo.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.pagehelper.Page;
 import com.google.common.collect.Lists;
 import com.sauzny.springbootweb.SbwConstant;
-import com.sauzny.springbootweb.controller.vo.BjuiResult;
 import com.sauzny.springbootweb.controller.vo.RePassword;
 import com.sauzny.springbootweb.controller.vo.RestFulResult;
 import com.sauzny.springbootweb.entity.pojo.User;
@@ -56,11 +56,20 @@ public class UserController {
         return RestFulResult.success(UserUtils.user4ManagerPage(page));
         
     }
+
+    @GetMapping("/info")
+    public RestFulResult userInfo(){
+        User user = userService.selectByPrimaryKey(1L);
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUsername(user.getUserName());
+        userInfo.setRoles(Lists.newArrayList(1));
+        return RestFulResult.success(userInfo);
+    }
     
     @PutMapping("/updatePassword")
     public RestFulResult updatePassword(@RequestBody RePassword rePassword){
-        
-        BjuiResult result = null;
+
+        RestFulResult result = RestFulResult.failure();
         
         long userId = rePassword.getUserId();
         String oldPassword = rePassword.getOldPassword();
@@ -75,10 +84,9 @@ public class UserController {
             record.setPassword(CodecUtils.sha512(newPassword+targetUser.getSalt()));
             userService.updateByPrimaryKeySelective(record);
             
-            result = BjuiResult.ok();
-            result.setCloseCurrent(true);
+            result = RestFulResult.success();
         }else{
-            result = BjuiResult.error(SbwConstant.FailureEnum.USER_RESET_PASSWORD_NOT_MATCH);
+            result = RestFulResult.failure(SbwConstant.FailureEnum.USER_RESET_PASSWORD_NOT_MATCH);
         }
 
         return result;
@@ -87,7 +95,7 @@ public class UserController {
     @PostMapping("/del/{id}")
     public RestFulResult del(@PathVariable("id") long id){
         int result = userService.deleteByPrimaryKey(id);
-        return BjuiResult.ok(result);
+        return RestFulResult.success(result);
     }
     
     @GetMapping("/saveTest")

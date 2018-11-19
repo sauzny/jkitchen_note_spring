@@ -10,6 +10,9 @@ import com.google.common.collect.Lists;
 import com.sauzny.springbootweb.SbwConstant;
 import com.sauzny.springbootweb.system.bodyreader.BodyReaderHttpServletRequestWrapperFilter;
 import com.sauzny.springbootweb.system.jwt.JwtFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 public class WebConfig {
@@ -22,6 +25,19 @@ public class WebConfig {
         registrationBean.setOrder(1); 
         return registrationBean;
 	}
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("*")
+                        .allowedMethods("GET", "HEAD", "POST","PUT", "DELETE", "OPTIONS")
+                        .allowCredentials(false).maxAge(3600);
+            }
+        };
+    }
+
 	
     //@Bean
     public FilterRegistrationBean<JwtFilter> jwtFilter() {

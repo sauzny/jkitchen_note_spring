@@ -8,8 +8,8 @@ debug: 当此属性设置为true时，将打印出logback内部日志信息，�
  -->
 <configuration debug="false">
 
-	<!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 -->
-	<property name="LOG_HOME" value="/data/log" />
+	<!--定义日志文件的存储地址 实际使用时 最好在 LogBack 的配置中使用绝对路径 -->
+	<property name="LOG_NAME" value="log/springbootweb.%d{yyyy-MM-dd}.log" />
 	
 	<!-- 控制台输出 -->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -43,7 +43,7 @@ debug: 当此属性设置为true时，将打印出logback内部日志信息，�
 		<!-- 文件大小和时间限制策略 -->
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- 按天归档，如果需要按小时归档，则设置为{yyyy-MM-dd_HH} -->
-			<FileNamePattern>${LOG_HOME}/springbootweb.%d{yyyy-MM-dd}.log</FileNamePattern>
+			<FileNamePattern>${LOG_NAME}</FileNamePattern>
 			<!-- 15天的日志周期 建议为15~22天，也就是2~3周--> 
 			<maxHistory>15</maxHistory>
 		</rollingPolicy>

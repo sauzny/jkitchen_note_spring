@@ -1,43 +1,46 @@
 package com.sauzny.springbootweb;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 public interface SbwConstant {
 
     interface Controller{
         
         String CAPTCHA = "SBW_CAPTCHA";
-        
-        String API_PREFIX = "/api";
-        String SYS_CONTROLLER_MAPPING = API_PREFIX + "/sys";
-        String MENU_CONTROLLER_MAPPING = API_PREFIX + "/menu";
-        String PASSPORT_CONTROLLER_MAPPING = API_PREFIX + "/passport";
-        String USER_CONTROLLER_MAPPING = API_PREFIX + "/users";
-        String CLASSES_CONTROLLER_MAPPING = API_PREFIX + "/classes";
-        String SCHOOL_CONTROLLER_MAPPING = API_PREFIX + "/school";
+
+        String SYS_CONTROLLER_MAPPING = "/sys";
+        String MENU_CONTROLLER_MAPPING = "/menu";
+        String PASSPORT_CONTROLLER_MAPPING = "/passport";
+        String USER_CONTROLLER_MAPPING = "/users";
+        String CLASSES_CONTROLLER_MAPPING = "/classes";
+        String SCHOOL_CONTROLLER_MAPPING = "/school";
     }
     
     interface Jwt{
-        String TOKEN = "token";
+        String TOKEN = "X-Token";
         String JTI = "jti";
         String EXP = "exp";
         String USER_ID = "userId";
         String USER_NAME = "userName";
-        String ROLE_ID = "roleId";
         String ACCOUNT = "account";
         String ROLE_NAME = "roleName";
     }
-    
+
     interface UserRole{
-        
+
         // 管理员
         int MANAGER = 1;
         // 老师
         int TEACHER = 2;
         // 学生
         int STUDENT = 3;
-        
+
         String[] ZH = {"", "管理员", "老师", "学生"};
     }
 
+
+    ///////////////////////////////////////////////////
 
     interface Result {
         
@@ -47,22 +50,10 @@ public interface SbwConstant {
         int STATUS_FAILURE = 99999;
         String MESSAGE_FAILURE = "操作失败";
     }
-    
-    interface BjuiResult {
-        
-         int STATUS_CODE_OK = 200; 
-         String MESSAGE_OK  = "操作成功";
-         
-         int STATUS_CODE_ERROR = 300; 
-         String MESSAGE_ERROR  = "操作失败";
-         
-         int STATUS_CODE_TIMEOUT = 301; 
-         String MESSAGE_TIMEOUT  = "需要重新登录";
-         
-    }
-    
-    public enum FailureEnum {
 
+    enum FailureEnum {
+
+        @ApiModelProperty("99998 输入数据不符合要求")
         DB_DATA_ILLEGAL(99998, "输入数据不符合要求"),
         ACCESS_ILLEGAL(99997, "访问非法"),
         LOGIC_ILLEGAL(99996, "逻辑非法"),

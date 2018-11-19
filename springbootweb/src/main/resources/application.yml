@@ -1,4 +1,4 @@
-# https://docs.spring.io/spring-boot/docs/2.0.0.RELEASE/reference/html/common-application-properties.html
+# https://docs.spring.io/spring-boot/docs/2.1.0.RELEASE/reference/html/common-application-properties.html
 
 # server
 server.port: 9090
@@ -11,10 +11,10 @@ spring.aop.auto: true
 spring.aop.proxy-target-class: true
 
 # JDBC
-spring.datasource.url: jdbc:mysql://localhost:3306/springbootweb?autoReconnect: true&useUnicode: true&characterEncoding: utf8&zeroDateTimeBehavior: convertToNull&useSSL: false
+spring.datasource.url: jdbc:mysql://localhost:3306/springbootweb?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT
 spring.datasource.username: root
 spring.datasource.password: root
-spring.datasource.driver-class-name: com.mysql.jdbc.Driver
+spring.datasource.driver-class-name: com.mysql.cj.jdbc.Driver
 
 # 请查看pom文件中的注解，说明 jdbc pool的使用顺序
 # HikariCP settings
@@ -26,7 +26,7 @@ spring.datasource.driver-class-name: com.mysql.jdbc.Driver
 spring.datasource.hikari.connection-timeout: 60000
 # max 5
 spring.datasource.hikari.maximum-pool-size: 5
-
+# 连接检测
 spring.datasource.hikari.connection-test-query: select 1
 
 # mybatis
@@ -34,8 +34,7 @@ spring.datasource.hikari.connection-test-query: select 1
 mybatis.mapper-locations: classpath:mybatis/sqlmap/*.xml
 # entity扫描的包名
 mybatis.type-aliases-package: com.sauzny.springbootweb.entity.pojo
-# 连接检测
-spring.datasource.hikari.connection-test-query: select 1
+
 # 打印sql
 #logging.level.com.sauzny.springbootweb.dao: debug
 
@@ -43,14 +42,16 @@ spring.datasource.hikari.connection-test-query: select 1
 pagehelper.helperDialect: mysql
 pagehelper.reasonable: true
 pagehelper.supportMethodsArguments: true
-pagehelper.params: count: countSql
+pagehelper.params: count=countSql
 
-# : : : : : : : : : : : : : : : : : : : : system: : : : : : : : : : : : : : : : : : : : 
+# ====================system====================
 audience.base64Secret: sbwjwtSecret
 audience.expiresSecond: 864000
+audience.needCaptcha: false
 
-# : : : : : : : : : : : : : : : : : : : : springbootadmin: : : : : : : : : : : : : : : : : : : : 
-spring.boot.admin.client.url: http://localhost:8000  
-spring.boot.admin.client.name: springbootweb
-management.endpoints.web.exposure.include: *
+# ====================springbootadmin====================
+#spring.boot.admin.client.url: http://localhost:8000
+#spring.boot.admin.client.name: springbootweb
+#management.endpoints.web.exposure.include: "*"
+
 

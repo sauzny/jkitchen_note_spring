@@ -29,15 +29,6 @@ public final class ControllerUtils {
         return 0L;
     }
     
-    public static int getLoginRoleId(HttpServletRequest request){
-        
-        if(request.getAttribute(SbwConstant.Jwt.ROLE_ID) != null){
-            return Integer.parseInt(String.valueOf(request.getAttribute(SbwConstant.Jwt.ROLE_ID)));
-        }
-        
-        return 0;
-    }
-    
     
     public static void exportExcel(HttpServletResponse response, String fileName, List<List<String>> excelData) throws IOException {
         // 告诉浏览器用什么软件可以打开此文件

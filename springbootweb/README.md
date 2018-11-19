@@ -1,20 +1,21 @@
 # spring boot web
 
-## 一、Filter + JWT
+![图标](https://img.shields.io/badge/jdk-11-blue.svg) ![图标](https://img.shields.io/badge/orm-mybatis-yellow.svg) ![图标](https://img.shields.io/badge/db-mysql-yellow.svg) ![图标](https://img.shields.io/badge/cache-redis-yellow.svg)
 
+## 一、Filter + JWT
 
 `pom.xml` 中增加 `java-jwt`
 
 `application.properties` 中增加
 
-```
+```properties
 audience.base64Secret=sbwjwtSecret
 audience.expiresSecond=864000
 ```
 
 相关java文件
 
-```
+```java
 com.sauzny.springbootweb.config.JwtFilter
 com.sauzny.springbootweb.config.Audience
 com.sauzny.springbootweb.config.WebConfig
@@ -28,7 +29,7 @@ com.sauzny.springbootweb.config.WebConfig
 
 相关java文件
 
-```
+```java
 com.sauzny.springbootweb.config.LogAspect
 com.sauzny.springbootweb.config.LogAspect
 ```
@@ -37,7 +38,7 @@ com.sauzny.springbootweb.config.LogAspect
 
 `pom.xml` 中增加
 
-```
+```xml
 mybatis-spring-boot-starter
 mybatis-generator-maven-plugin
 pagehelper-spring-boot-starter
@@ -45,7 +46,7 @@ pagehelper-spring-boot-starter
 
 `application.properties` 中增加
 
-```
+```properties
 # mybatis
 # mapper.xml所在的位置
 mybatis.mapper-locations=classpath:mybatis/sqlmap/*.xml

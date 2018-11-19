@@ -40,6 +40,4 @@ public class SysController {
         Object[] imageAndCode = CaptchaUtil.getCaptchaImage();
         ControllerUtils.exportCaptcha(request, response, imageAndCode);//输出验证码图片方法
     }
-
-
 }

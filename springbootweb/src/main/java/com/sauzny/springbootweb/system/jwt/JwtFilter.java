@@ -90,8 +90,7 @@ public class JwtFilter extends GenericFilterBean {
                 request.setAttribute(SbwConstant.Jwt.TOKEN, jwt);
                 request.setAttribute(SbwConstant.Jwt.JTI, jwt.getId());
                 request.setAttribute(SbwConstant.Jwt.USER_ID, jwt.getClaim(SbwConstant.Jwt.USER_ID).asString());
-                request.setAttribute(SbwConstant.Jwt.ROLE_ID, jwt.getClaim(SbwConstant.Jwt.ROLE_ID).asString());
-                
+
             } catch (final Exception e) {
                 // 验证不通过
                 this.tokenIllegal(response, "jwt解析异常");

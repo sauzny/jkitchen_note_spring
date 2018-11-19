@@ -7,6 +7,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.sauzny.springbootweb.controller.vo.User4Passport;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +32,8 @@ import com.sauzny.springbootweb.utils.JwtUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
-@RestController
-@RequestMapping(value = SbwConstant.Controller.PASSPORT_CONTROLLER_MAPPING)
+@Api("账户服务")
+@RestController(value = SbwConstant.Controller.PASSPORT_CONTROLLER_MAPPING)
 @Slf4j
 public class PassportController {
 
@@ -40,21 +43,21 @@ public class PassportController {
     @Autowired
     private UserService userService;
 
+    @ApiOperation(value="登录")
     @PostMapping("/login")
-    public RestFulResult login(@RequestBody User user, HttpServletRequest request) {
+    public RestFulResult login(@RequestBody User4Passport user, HttpServletRequest request) {
         
-        String account = user.getAccount();
+        String account = user.getUsername();
         String password = user.getPassword();
-        // 用盐值这个字段 顶替 验证码
-        String salt = user.getSalt();
+        String captcha = user.getCaptcha();
         
         // 参数合法性校验
         if(StringUtils.isBlank(account)) return RestFulResult.failure(FailureEnum.LOGIN_ACCOUNT_EMPTY);
         if(StringUtils.isBlank(password)) return RestFulResult.failure(FailureEnum.LOGIN_PASSWORD_EMPTY);
-        if(StringUtils.isBlank(salt)) return RestFulResult.failure(FailureEnum.CAPTCHA_EMPTY);
+        if(audience.isNeedCaptcha() && StringUtils.isBlank(captcha)) return RestFulResult.failure(FailureEnum.CAPTCHA_EMPTY);
 
         // 校验验证码
-        if(!ControllerUtils.checkCaptcha(salt, request.getSession())){
+        if(audience.isNeedCaptcha() && !ControllerUtils.checkCaptcha(captcha, request.getSession())){
             return RestFulResult.failure(FailureEnum.CAPTCHA_ILLEGAL);
         }
         
@@ -78,8 +81,6 @@ public class PassportController {
         payloadClaims.put(SbwConstant.Jwt.ACCOUNT, targetUser.getAccount());
         payloadClaims.put(SbwConstant.Jwt.USER_ID, String.valueOf(targetUser.getId()));
         payloadClaims.put(SbwConstant.Jwt.USER_NAME, targetUser.getUserName());
-        payloadClaims.put(SbwConstant.Jwt.ROLE_ID, String.valueOf(targetUser.getRoleId()));
-        payloadClaims.put(SbwConstant.Jwt.ROLE_NAME, UserRole.ZH[targetUser.getRoleId()]);
         
         String token = JwtUtils.create(
                 jwtId,
