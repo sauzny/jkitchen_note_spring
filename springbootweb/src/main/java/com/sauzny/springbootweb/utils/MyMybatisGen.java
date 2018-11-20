@@ -113,7 +113,7 @@ public class MyMybatisGen {
     
     public static void main(String[] args) throws IOException {
         // 需要更新的 objectName
-        List<String> list = Lists.newArrayList("TbActor", "TbActorInfo", "TbAddress", "TbCategory", "TbCity", "TbCountry", "TbCustomer", "TbCustomerList", "TbFilm", "TbFilmActor", "TbFilmCategory", "TbFilmList", "TbFilmText", "TbInventory", "TbLanguage", "TbNicerButSlowerFilmList", "TbPayment", "TbRental", "TbSalesByFilmCategory", "TbSalesByStore", "TbStaff", "TbStaffList", "TbStore");
+        List<String> list = Lists.newArrayList("User", "Role", "Food", "Bill");
         // 自动补全分页相关的代码
         /*
          * dao重写 1

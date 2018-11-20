@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sauzny.springbootweb.dao.ClassesMapper">
-  <resultMap id="BaseResultMap" type="com.sauzny.springbootweb.entity.pojo.Classes">
+<mapper namespace="com.sauzny.springbootweb.dao.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.sauzny.springbootweb.entity.pojo.Role">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +64,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, create_time, last_update_time
+    id, name
   </sql>
-  <select id="selectByExample" parameterType="com.sauzny.springbootweb.entity.pojo.ClassesExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.sauzny.springbootweb.entity.pojo.RoleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from tb_classes
+    from tb_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -82,26 +80,20 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.sauzny.springbootweb.entity.pojo.ClassesExample">
-    delete from tb_classes
+  <delete id="deleteByExample" parameterType="com.sauzny.springbootweb.entity.pojo.RoleExample">
+    delete from tb_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insertSelective" parameterType="com.sauzny.springbootweb.entity.pojo.Classes">
-    insert into tb_classes
+  <insert id="insertSelective" parameterType="com.sauzny.springbootweb.entity.pojo.Role">
+    insert into tb_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
       <if test="name != null">
         name,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="lastUpdateTime != null">
-        last_update_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -111,22 +103,16 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastUpdateTime != null">
-        #{lastUpdateTime,jdbcType=TIMESTAMP},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.sauzny.springbootweb.entity.pojo.ClassesExample" resultType="java.lang.Long">
-    select count(*) from tb_classes
+  <select id="countByExample" parameterType="com.sauzny.springbootweb.entity.pojo.RoleExample" resultType="java.lang.Long">
+    select count(*) from tb_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update tb_classes
+    update tb_role
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
@@ -134,38 +120,24 @@
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.lastUpdateTime != null">
-        last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update tb_classes
+    update tb_role
     set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP}
+      name = #{record.name,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.sauzny.springbootweb.entity.pojo.Classes">
-    update tb_classes
+  <update id="updateByPrimaryKeySelective" parameterType="com.sauzny.springbootweb.entity.pojo.Role">
+    update tb_role
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastUpdateTime != null">
-        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}

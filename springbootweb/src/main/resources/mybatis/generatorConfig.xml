@@ -3,7 +3,8 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
-<!-- 右键点项目，Run As下边Maven build... 然后goals输入mybatis-generator:generate -X -->
+<!-- eclipse 中 右键点项目，Run As下边Maven build... 然后goals输入mybatis-generator:generate -X -->
+<!-- idea中右侧maven plugins执行mybatis-generator:generate -->
 <generatorConfiguration>
 	
 	<!-- 设置数据库连接需要的jar包位置 -->
@@ -46,8 +47,9 @@
 
 		<!-- 要生成的表 -->
         <table tableName="tb_user" domainObjectName="User" schema="springbootweb"/>
-        <table tableName="tb_classes" domainObjectName="Classes" schema="springbootweb"/>
-        <table tableName="tb_school" domainObjectName="School" schema="springbootweb"/>
+        <table tableName="tb_role" domainObjectName="Role" schema="springbootweb"/>
+        <table tableName="tb_food" domainObjectName="Food" schema="springbootweb"/>
+        <table tableName="tb_bill" domainObjectName="Bill" schema="springbootweb"/>
         
     </context>
     

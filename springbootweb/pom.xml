@@ -244,12 +244,19 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+			<!-- 自己编写的代码生成插件 - 开始 -->
 			<plugin>
 				<groupId>com.sauzny</groupId>
-				<artifactId>myplugin</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<artifactId>supplementmybatisgen</artifactId>
+				<version>1.0-SNAPSHOT</version>
 				<configuration>
-					<port>8090</port>
+					<flag>all</flag>
+					<objectNames>
+						<objectName>User</objectName>
+						<objectName>Role</objectName>
+						<objectName>Food</objectName>
+						<objectName>Bill</objectName>
+					</objectNames>
 				</configuration>
 				<executions>
 					<execution>
@@ -260,6 +267,7 @@
 					</execution>
 				</executions>
 			</plugin>
+            <!-- 自己编写的代码生成插件 - 结束 -->
 
 			<!-- 自定义打包 运行方法，编译打包的时候会按照插件指定的配置生成文件 -->
 			<plugin>

@@ -30,7 +30,7 @@ public class UserService {
         return PageHelper.startPage(pageNo, pageSize).doSelectPage(() -> userDao.selectByExample(null));
     }
 
-    public Page<User> findByExamplePage(int pageNo, int pageSize, String phone, Integer roleId, String account, String userName) {
+    public Page<User> findByExamplePage(int pageNo, int pageSize, String phone, Integer roleId, String account, String username) {
 
         //return null;
         //PageHelper.startPage(pageNo, pageSize);
@@ -38,16 +38,16 @@ public class UserService {
         UserExample.Criteria criteria = example.createCriteria();
         
         if(StringUtils.isNotBlank(phone)) criteria.andPhoneLike("%" + phone + "%");
-        if(roleId != null) criteria.andRoleIdEqualTo(roleId);
+        //if(roleId != null) criteria.andRoleIdEqualTo(roleId);
         if(StringUtils.isNotBlank(account)) criteria.andAccountEqualTo(account);
-        if(StringUtils.isNotBlank(userName))criteria.andUserNameEqualTo(userName);
+        if(StringUtils.isNotBlank(username))criteria.andUsernameEqualTo(username);
         //criteria.getAllCriteria().add(UserExt.andMutilStatusExist(2));
         
 
         return PageHelper.startPage(pageNo, pageSize).doSelectPage(() -> userDao.selectByExample(example));
     }
 
-    public int deleteByPrimaryKey(long id){
+    public int deleteByPrimaryKey(int id){
         return userDao.deleteByPrimaryKey(id);
     }
     
@@ -77,7 +77,7 @@ public class UserService {
         return user;
     }
     
-    public User selectByPrimaryKey(long id){
+    public User selectByPrimaryKey(int id){
         return userDao.selectByPrimaryKey(id);
     }
     

@@ -2,16 +2,20 @@ package com.sauzny.springbootweb.entity.pojo;
 
 import java.util.Date;
 
-public class School {
+public class Food {
     private Integer id;
 
     private String name;
 
-    private String address;
+    private Integer price;
+
+    private Integer sellerId;
 
     private Date createTime;
 
     private Date lastUpdateTime;
+
+    private Integer createrId;
 
     public Integer getId() {
         return id;
@@ -29,12 +33,20 @@ public class School {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getAddress() {
-        return address;
+    public Integer getPrice() {
+        return price;
     }
 
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Integer getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Integer sellerId) {
+        this.sellerId = sellerId;
     }
 
     public Date getCreateTime() {
@@ -51,5 +63,13 @@ public class School {
 
     public void setLastUpdateTime(Date lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public Integer getCreaterId() {
+        return createrId;
+    }
+
+    public void setCreaterId(Integer createrId) {
+        this.createrId = createrId;
     }
 }
