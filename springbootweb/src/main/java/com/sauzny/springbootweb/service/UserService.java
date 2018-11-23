@@ -2,6 +2,8 @@ package com.sauzny.springbootweb.service;
 
 import java.util.List;
 
+import com.sauzny.springbootweb.entity.dto.UserExt;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import com.sauzny.springbootweb.entity.pojo.User;
 import com.sauzny.springbootweb.entity.pojo.UserExample;
 
 @Service
+@Slf4j
 public class UserService {
     
     @Autowired
@@ -30,7 +33,7 @@ public class UserService {
         return PageHelper.startPage(pageNo, pageSize).doSelectPage(() -> userDao.selectByExample(null));
     }
 
-    public Page<User> findByExamplePage(int pageNo, int pageSize, String phone, Integer roleId, String account, String username) {
+    public Page<User> findByExamplePage(int pageNo, int pageSize, String phone, String account, String username) {
 
         //return null;
         //PageHelper.startPage(pageNo, pageSize);
@@ -60,13 +63,13 @@ public class UserService {
         userDao.insert(user);
     }
     
-    public User findByAccount(String account){
-        
+    public User findByUsername(String username){
+
         User user = null;
         
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
-        criteria.andAccountEqualTo(account);
+        criteria.andUsernameEqualTo(username);
         
         List<User> userList = userDao.selectByExample(example);
         
@@ -76,7 +79,11 @@ public class UserService {
         
         return user;
     }
-    
+
+    public UserExt findUserInfoByUserId(int userId){
+        return userDao.findUserInfo(userId);
+    }
+
     public User selectByPrimaryKey(int id){
         return userDao.selectByPrimaryKey(id);
     }

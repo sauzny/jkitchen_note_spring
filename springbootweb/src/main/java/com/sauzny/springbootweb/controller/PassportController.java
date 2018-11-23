@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,7 +34,7 @@ import com.sauzny.springbootweb.utils.JwtUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Api("账户服务")
+@Api(description = "账户服务")
 @RestController(value = SbwConstant.Controller.PASSPORT_CONTROLLER_MAPPING)
 @Slf4j
 public class PassportController {
@@ -43,25 +45,28 @@ public class PassportController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
     @ApiOperation(value="登录")
     @PostMapping("/login")
     public RestFulResult login(@RequestBody User4Passport user, HttpServletRequest request) {
         
-        String account = user.getUsername();
+        String username = user.getUsername();
         String password = user.getPassword();
         String captcha = user.getCaptcha();
         
         // 参数合法性校验
-        if(StringUtils.isBlank(account)) return RestFulResult.failure(FailureEnum.LOGIN_ACCOUNT_EMPTY);
+        if(StringUtils.isBlank(username)) return RestFulResult.failure(FailureEnum.LOGIN_ACCOUNT_EMPTY);
         if(StringUtils.isBlank(password)) return RestFulResult.failure(FailureEnum.LOGIN_PASSWORD_EMPTY);
-        if(audience.isNeedCaptcha() && StringUtils.isBlank(captcha)) return RestFulResult.failure(FailureEnum.CAPTCHA_EMPTY);
+        if(audience.getNeedCaptcha() && StringUtils.isBlank(captcha)) return RestFulResult.failure(FailureEnum.CAPTCHA_EMPTY);
 
         // 校验验证码
-        if(audience.isNeedCaptcha() && !ControllerUtils.checkCaptcha(captcha, request.getSession())){
+        if(audience.getNeedCaptcha() && !ControllerUtils.checkCaptcha(captcha, request.getSession())){
             return RestFulResult.failure(FailureEnum.CAPTCHA_ILLEGAL);
         }
         
-        User targetUser = userService.findByAccount(account);
+        User targetUser = userService.findByUsername(username);
         
         // 账号为空
         if(targetUser == null){
@@ -69,7 +74,7 @@ public class PassportController {
         }
         
         // 密码不匹配
-        log.info("{}", CodecUtils.sha512(password+targetUser.getSalt()));
+        log.debug("{}", CodecUtils.sha512(password+targetUser.getSalt()));
         if(!targetUser.getPassword().equals(CodecUtils.sha512(password+targetUser.getSalt()))){
             return RestFulResult.failure(FailureEnum.LOGIN_NOT_MATCH);
         }
@@ -80,7 +85,7 @@ public class PassportController {
         Map<String, String> payloadClaims = Maps.newHashMap();
         payloadClaims.put(SbwConstant.Jwt.ACCOUNT, targetUser.getAccount());
         payloadClaims.put(SbwConstant.Jwt.USER_ID, String.valueOf(targetUser.getId()));
-        payloadClaims.put(SbwConstant.Jwt.USER_NAME, targetUser.getUserName());
+        payloadClaims.put(SbwConstant.Jwt.USER_NAME, targetUser.getUsername());
         
         String token = JwtUtils.create(
                 jwtId,
@@ -90,7 +95,7 @@ public class PassportController {
                 );
         
         // 退出的时候会删除redis中的数据
-        //stringRedisTemplate.opsForValue().set(jwtId, token, audience.getExpiresSecond(), TimeUnit.SECONDS);
+        stringRedisTemplate.opsForValue().set(jwtId, token, audience.getExpiresSecond(), TimeUnit.SECONDS);
 
         return RestFulResult.success(token);
     }

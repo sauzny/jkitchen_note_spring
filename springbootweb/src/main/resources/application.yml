@@ -36,7 +36,7 @@ mybatis.mapper-locations: classpath:mybatis/sqlmap/*.xml
 mybatis.type-aliases-package: com.sauzny.springbootweb.entity.pojo
 
 # 打印sql
-#logging.level.com.sauzny.springbootweb.dao: debug
+logging.level.com.sauzny.springbootweb.dao: debug
 
 # pagehelper
 pagehelper.helperDialect: mysql
@@ -44,14 +44,16 @@ pagehelper.reasonable: true
 pagehelper.supportMethodsArguments: true
 pagehelper.params: count=countSql
 
-# ====================system====================
-audience.base64Secret: sbwjwtSecret
-audience.expiresSecond: 864000
-audience.needCaptcha: false
-
 # ====================springbootadmin====================
 #spring.boot.admin.client.url: http://localhost:8000
 #spring.boot.admin.client.name: springbootweb
 #management.endpoints.web.exposure.include: "*"
+
+# ====================sbw system====================
+audience.base64Secret: sbwjwtSecret
+audience.expiresSecond: 864000
+audience.needCaptcha: false
+audience.needjump: true
+audience.jumppassword: jump
 
 

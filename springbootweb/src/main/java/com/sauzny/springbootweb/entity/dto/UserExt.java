@@ -1,9 +1,12 @@
-package com.sauzny.springbootweb.controller.vo;
+package com.sauzny.springbootweb.entity.dto;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.google.common.collect.Sets;
+import com.sauzny.springbootweb.entity.pojo.Role;
+import com.sauzny.springbootweb.entity.pojo.User;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Set;
 
 /***************************************************************************
  *
@@ -14,23 +17,14 @@ import lombok.Setter;
  * ███████║██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║   
  * ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝   
  *
- * @时间: 2018/11/19 - 11:24
+ * @时间: 2018/11/20 - 14:59
  *
  * @描述: TODO
  *
  ***************************************************************************/
+public class UserExt extends User {
 
-@Getter
-@Setter
-@ApiModel(description = "登录")
-public class User4Passport {
-
-    @ApiModelProperty(value = "账号")
-    private String username;
-
-    @ApiModelProperty(value = "sha512(明文密码)")
-    private String password;
-
-    @ApiModelProperty(value = "验证码")
-    private String captcha;
+    @Getter
+    @Setter
+    private Set<Role> roles = Sets.newHashSet();
 }

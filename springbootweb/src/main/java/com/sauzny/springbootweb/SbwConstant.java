@@ -10,11 +10,8 @@ public interface SbwConstant {
         String CAPTCHA = "SBW_CAPTCHA";
 
         String SYS_CONTROLLER_MAPPING = "/sys";
-        String MENU_CONTROLLER_MAPPING = "/menu";
         String PASSPORT_CONTROLLER_MAPPING = "/passport";
         String USER_CONTROLLER_MAPPING = "/users";
-        String CLASSES_CONTROLLER_MAPPING = "/classes";
-        String SCHOOL_CONTROLLER_MAPPING = "/school";
     }
     
     interface Jwt{
@@ -24,7 +21,7 @@ public interface SbwConstant {
         String USER_ID = "userId";
         String USER_NAME = "userName";
         String ACCOUNT = "account";
-        String ROLE_NAME = "roleName";
+        String JUMP_TOKEN = "jump";
     }
 
     interface UserRole{

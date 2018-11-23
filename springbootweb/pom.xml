@@ -26,8 +26,15 @@
 	</parent>
 
 	<dependencies>
+		<!-- logback使用JaninoEventEvaluator需要的jar -->
+        <!-- https://mvnrepository.com/artifact/org.codehaus.janino/janino -->
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+            <version>3.0.11</version>
+        </dependency>
 
-		<!-- swagger2 -->
+        <!-- swagger2 -->
 		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -54,7 +61,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
-			<optional>false</optional>
+			<optional>true</optional>
 		</dependency>
 
 		<dependency>

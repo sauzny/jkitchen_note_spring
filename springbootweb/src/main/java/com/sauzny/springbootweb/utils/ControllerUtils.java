@@ -20,13 +20,13 @@ public final class ControllerUtils {
         return String.valueOf(request.getAttribute(SbwConstant.Jwt.JTI));
     }
     
-    public static long getLoginUserId(HttpServletRequest request){
+    public static int getLoginUserId(HttpServletRequest request){
         
         if(request.getAttribute(SbwConstant.Jwt.USER_ID) != null){
-            return Long.parseLong(String.valueOf(request.getAttribute(SbwConstant.Jwt.USER_ID)));
+            return Integer.parseInt(String.valueOf(request.getAttribute(SbwConstant.Jwt.USER_ID)));
         }
         
-        return 0L;
+        return 0;
     }
     
     

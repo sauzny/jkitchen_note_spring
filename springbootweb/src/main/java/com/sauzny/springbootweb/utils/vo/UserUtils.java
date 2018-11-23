@@ -19,9 +19,8 @@ public final class UserUtils {
         user4Manager.setId(String.valueOf(user.getId()));
         user4Manager.setCreateTime(TimeUtils.UDateToLocalDateTime(user.getCreateTime()).toString().replace("T", " "));
         user4Manager.setAccount(user.getAccount());
-        user4Manager.setUserName(user.getUserName());
+        user4Manager.setUserName(user.getUsername());
         user4Manager.setPhone(user.getPhone());
-        user4Manager.setRoleId(user.getRoleId());
         return user4Manager;
     }
     

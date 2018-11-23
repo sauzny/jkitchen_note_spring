@@ -1,9 +1,6 @@
-package com.sauzny.springbootweb.controller.vo;
+package com.sauzny.springbootweb.utils;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import org.slf4j.MDC;
 
 /***************************************************************************
  *
@@ -14,23 +11,12 @@ import lombok.Setter;
  * ███████║██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║   
  * ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝   
  *
- * @时间: 2018/11/19 - 11:24
+ * @时间: 2018/11/21 - 11:07
  *
  * @描述: TODO
  *
  ***************************************************************************/
+public class MDCUtil {
 
-@Getter
-@Setter
-@ApiModel(description = "登录")
-public class User4Passport {
 
-    @ApiModelProperty(value = "账号")
-    private String username;
-
-    @ApiModelProperty(value = "sha512(明文密码)")
-    private String password;
-
-    @ApiModelProperty(value = "验证码")
-    private String captcha;
 }

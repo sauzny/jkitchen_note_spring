@@ -2,34 +2,31 @@ package com.sauzny.springbootweb.controller;
 
 import static com.sauzny.springbootweb.SbwConstant.Controller.USER_CONTROLLER_MAPPING;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
-import com.sauzny.springbootweb.controller.vo.UserInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.github.pagehelper.Page;
-import com.google.common.collect.Lists;
+import com.sauzny.springbootweb.controller.vo.UserInfo;
+import com.sauzny.springbootweb.entity.dto.UserExt;
+import com.sauzny.springbootweb.entity.pojo.Role;
+import com.sauzny.springbootweb.utils.ControllerUtils;
+import com.sauzny.springbootweb.utils.JacksonUtils;
+import com.sauzny.springbootweb.utils.vo.UserUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import com.sauzny.springbootweb.SbwConstant;
 import com.sauzny.springbootweb.controller.vo.RePassword;
 import com.sauzny.springbootweb.controller.vo.RestFulResult;
 import com.sauzny.springbootweb.entity.pojo.User;
 import com.sauzny.springbootweb.service.UserService;
 import com.sauzny.springbootweb.utils.CodecUtils;
-import com.sauzny.springbootweb.utils.TestDataUtils;
-import com.sauzny.springbootweb.utils.vo.UserUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
+@Api(description = "用户服务")
 @RestController
 @RequestMapping(value=USER_CONTROLLER_MAPPING)
 @Slf4j
@@ -37,41 +34,31 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    
-    @GetMapping("/page")
-    public RestFulResult page(
-            HttpServletRequest request,
-            @RequestParam(required=true) Integer pageCurrent,
-            @RequestParam(required=true) Integer pageSize,
-            @RequestParam(required=false) String phone,
-            @RequestParam(required=false) Integer roleId,
-            @RequestParam(required=false) String account,
-            @RequestParam(required=false) String userName
-            ){
-        
-        //Page<User> page = userService.findByPage(bjuiPageCurrent, bjuiPageSize);
-        Page<User> page = userService.findByExamplePage(pageCurrent, pageSize, phone, roleId, account, userName);
-        
-        //return BjuiPageContentUtils.user4ManagerPageContent(UserUtils.user4ManagerPage(page));
-        return RestFulResult.success(UserUtils.user4ManagerPage(page));
-        
-    }
 
+    @ApiOperation(value="用户信息", response = UserInfo.class)
     @GetMapping("/info")
-    public RestFulResult userInfo(){
-        User user = userService.selectByPrimaryKey(1L);
+    public RestFulResult userInfo(HttpServletRequest request){
+
+        int userId = ControllerUtils.getLoginUserId(request);
+
+        UserExt user = userService.findUserInfoByUserId(userId);
+        log.info("{}", JacksonUtils.nonNull().toJson(user));
         UserInfo userInfo = new UserInfo();
-        userInfo.setUsername(user.getUserName());
-        userInfo.setRoles(Lists.newArrayList(1));
+        userInfo.setUsername(user.getUsername());
+        for (Role role : user.getRoles()) {
+            userInfo.getRoles().add(role.getName());
+        }
+
         return RestFulResult.success(userInfo);
     }
-    
+
+    @ApiOperation(value="修改用户密码")
     @PutMapping("/updatePassword")
     public RestFulResult updatePassword(@RequestBody RePassword rePassword){
 
         RestFulResult result = RestFulResult.failure();
         
-        long userId = rePassword.getUserId();
+        int userId = rePassword.getUserId();
         String oldPassword = rePassword.getOldPassword();
         String newPassword = rePassword.getNewPassword();
         
@@ -91,36 +78,27 @@ public class UserController {
 
         return result;
     }
-    
-    @PostMapping("/del/{id}")
-    public RestFulResult del(@PathVariable("id") long id){
-        int result = userService.deleteByPrimaryKey(id);
-        return RestFulResult.success(result);
-    }
-    
-    @GetMapping("/saveTest")
-    public RestFulResult saveTest(){
-        
-        List<User> userList = Lists.newArrayList();
-        
-        for(int i=0;i<100;i++){
-            userList.add(TestDataUtils.user());
-        }
-        
-        userService.batchInsert(userList);
-        return RestFulResult.success();
-    }
-    
-    @PostMapping("")
-    public RestFulResult save(@RequestBody User user){
-        log.debug("user : {}", user);
-        //Integer.parseInt("aaaa");
-        return RestFulResult.success();
+
+    @ApiOperation(value="用户分页列表")
+    @GetMapping("/page")
+    public RestFulResult page(
+            HttpServletRequest request,
+            @ApiParam(name = "页码，从1开始", required = true, example="1")
+            @RequestParam(required=true) Integer pageCurrent,
+            @ApiParam(name = "每页数据条数", required = true, example="20")
+            @RequestParam(required=true) Integer pageSize,
+            @ApiParam(name = "手机号")
+            @RequestParam(required=false) String phone,
+            @ApiParam(name = "账号")
+            @RequestParam(required=false) String account,
+            @ApiParam(name = "用户名")
+            @RequestParam(required=false) String userName
+    ){
+
+        Page<User> page = userService.findByExamplePage(pageCurrent, pageSize, phone, account, userName);
+
+        return RestFulResult.success(UserUtils.user4ManagerPage(page));
+
     }
 
-    @PutMapping("/updateInfo")
-    public RestFulResult updateInfo(@RequestBody User user){
-        log.debug("user : {}", user);
-        return RestFulResult.success();
-    }
 }

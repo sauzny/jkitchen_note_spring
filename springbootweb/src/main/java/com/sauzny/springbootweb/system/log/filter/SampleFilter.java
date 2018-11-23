@@ -1,9 +1,14 @@
-package com.sauzny.springbootweb.controller.vo;
+package com.sauzny.springbootweb.system.log.filter;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.filter.Filter;
+import ch.qos.logback.core.spi.FilterReply;
+import com.sauzny.springbootweb.system.log.LogRecord;
+import com.sauzny.springbootweb.utils.JacksonUtils;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /***************************************************************************
  *
@@ -14,23 +19,21 @@ import lombok.Setter;
  * ███████║██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║   
  * ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝   
  *
- * @时间: 2018/11/19 - 11:24
+ * @时间: 2018/11/20 - 15:42
  *
  * @描述: TODO
  *
  ***************************************************************************/
 
-@Getter
-@Setter
-@ApiModel(description = "登录")
-public class User4Passport {
+public class SampleFilter extends Filter<ILoggingEvent> {
 
-    @ApiModelProperty(value = "账号")
-    private String username;
-
-    @ApiModelProperty(value = "sha512(明文密码)")
-    private String password;
-
-    @ApiModelProperty(value = "验证码")
-    private String captcha;
+    @Override
+    public FilterReply decide(ILoggingEvent event) {
+        if (event.getMessage() != null) {
+            // 接受日志
+            return FilterReply.ACCEPT;
+        }
+        // 否认日志
+        return FilterReply.DENY;
+    }
 }
