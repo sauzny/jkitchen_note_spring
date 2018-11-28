@@ -100,10 +100,10 @@ public class PassportController {
         return RestFulResult.success(token);
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public RestFulResult logout(HttpServletRequest request){
-        //log.debug("JTI,{}", ControllerUtils.getJti(request));
-        //stringRedisTemplate.delete(ControllerUtils.getJti(request));
+        log.debug("JTI,{}", ControllerUtils.getJti(request));
+        stringRedisTemplate.delete(ControllerUtils.getJti(request));
         return RestFulResult.success();
     }
     

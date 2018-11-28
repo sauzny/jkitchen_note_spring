@@ -1,7 +1,9 @@
 package com.sauzny.springbootweb.service;
 
 import java.util.List;
+import java.util.Map;
 
+import com.google.common.collect.Maps;
 import com.sauzny.springbootweb.entity.dto.UserExt;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -33,7 +35,7 @@ public class UserService {
         return PageHelper.startPage(pageNo, pageSize).doSelectPage(() -> userDao.selectByExample(null));
     }
 
-    public Page<User> findByExamplePage(int pageNo, int pageSize, String phone, String account, String username) {
+    public Page<User> findByExamplePage(int pageNum, int pageSize, String phone, String account, String username) {
 
         //return null;
         //PageHelper.startPage(pageNo, pageSize);
@@ -45,9 +47,8 @@ public class UserService {
         if(StringUtils.isNotBlank(account)) criteria.andAccountEqualTo(account);
         if(StringUtils.isNotBlank(username))criteria.andUsernameEqualTo(username);
         //criteria.getAllCriteria().add(UserExt.andMutilStatusExist(2));
-        
 
-        return PageHelper.startPage(pageNo, pageSize).doSelectPage(() -> userDao.selectByExample(example));
+        return PageHelper.startPage(pageNum, pageSize).doSelectPage(() -> userDao.selectByExample(example));
     }
 
     public int deleteByPrimaryKey(int id){
@@ -81,7 +82,9 @@ public class UserService {
     }
 
     public UserExt findUserInfoByUserId(int userId){
-        return userDao.findUserInfo(userId);
+        Map<Object, Object> map = Maps.newHashMap();
+        map.put("userId", userId);
+        return userDao.findUserInfo(map);
     }
 
     public User selectByPrimaryKey(int id){

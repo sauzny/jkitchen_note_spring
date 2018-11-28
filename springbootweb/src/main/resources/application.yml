@@ -53,7 +53,7 @@ pagehelper.params: count=countSql
 audience.base64Secret: sbwjwtSecret
 audience.expiresSecond: 864000
 audience.needCaptcha: false
-audience.needjump: true
+audience.needjump: false
 audience.jumppassword: jump
 
 

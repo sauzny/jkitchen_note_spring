@@ -3,18 +3,22 @@
 <mapper namespace="com.sauzny.springbootweb.dao.UserDao">
 
     <resultMap id="UserExt" type="com.sauzny.springbootweb.entity.dto.UserExt" extends="com.sauzny.springbootweb.dao.UserMapper.BaseResultMap">
-        <collection property="roles" ofType="com.sauzny.springbootweb.entity.pojo.Role">
-            <id column="role_id" jdbcType="INTEGER" property="id" />
-            <result column="role_name" jdbcType="VARCHAR" property="name" />
+        <collection property="roleNames" ofType="string">
+            <result column="role_name" jdbcType="VARCHAR" />
         </collection>
     </resultMap>
 
-    <select id="findUserInfo" parameterType="int" resultMap="UserExt">
-        select tb_user.*,tb_role.id role_id,tb_role.name role_name
-        from tb_user
-        INNER JOIN tb_user_role_rel ON tb_user.id = tb_user_role_rel.user_id
-        INNER JOIN tb_role ON tb_user_role_rel.role_id = tb_role.id
-        WHERE tb_user.id = #{userId}
+    <select id="findUserInfo" parameterType="map" resultMap="UserExt">
+        SELECT
+            tb_user.*, tb_role.`name` role_name
+        FROM
+            tb_user
+        INNER JOIN tb_role ON tb_user.id = tb_role.user_id
+        <where>
+            <if test="userId != null">
+                tb_user.id = #{userId}
+            </if>
+        </where>
     </select>
 
     <insert id="batchInsert" parameterType="java.util.List">

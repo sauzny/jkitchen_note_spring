@@ -70,11 +70,11 @@ public class JwtFilter extends GenericFilterBean {
 
         // 得到请求头信息token信息
         final String token = request.getHeader(SbwConstant.Jwt.TOKEN);
-        log.info("jwt filter, token is {}", token);
+        log.debug("token is {}", token);
 
         // 跳过jwt验证
         if(token == null && audience.getNeedjump()){
-            log.info("jump jwt");
+            log.debug("jump jwt");
             if(audience.getJumppassword().equals(request.getHeader(SbwConstant.Jwt.JUMP_TOKEN))){
                 request.setAttribute(SbwConstant.Jwt.USER_ID, request.getHeader(SbwConstant.Jwt.USER_ID));
                 chain.doFilter(req, res);
@@ -136,7 +136,7 @@ public class JwtFilter extends GenericFilterBean {
     }
     
     private void tokenIllegal(final HttpServletResponse response, String message) throws IOException {
-        log.info("jwt验证不通过,{}",message);
+        log.debug("jwt验证不通过,{}",message);
         
         String json = RestFulResult.failure(SbwConstant.FailureEnum.TOKEN_ILLEGAL).toJson();
         PrintWriter out = response.getWriter();

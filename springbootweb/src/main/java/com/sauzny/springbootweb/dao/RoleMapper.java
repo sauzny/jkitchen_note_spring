@@ -22,8 +22,10 @@ public interface RoleMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into tb_role (id, name)",
-        "values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})"
+        "insert into tb_role (id, name, ",
+        "user_id)",
+        "values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, ",
+        "#{userId,jdbcType=INTEGER})"
     })
     int insert(Role record);
 
@@ -33,7 +35,7 @@ public interface RoleMapper {
 
     @Select({
         "select",
-        "id, name",
+        "id, name, user_id",
         "from tb_role",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -48,7 +50,8 @@ public interface RoleMapper {
 
     @Update({
         "update tb_role",
-        "set name = #{name,jdbcType=VARCHAR}",
+        "set name = #{name,jdbcType=VARCHAR},",
+          "user_id = #{userId,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Role record);

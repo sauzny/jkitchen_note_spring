@@ -37,4 +37,5 @@ public class UserInfo {
 
     @ApiModelProperty(value = "用户角色名字集合")
     private Set<String> roles = Sets.newHashSet();
+
 }

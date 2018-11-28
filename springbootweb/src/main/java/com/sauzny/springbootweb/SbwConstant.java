@@ -12,6 +12,7 @@ public interface SbwConstant {
         String SYS_CONTROLLER_MAPPING = "/sys";
         String PASSPORT_CONTROLLER_MAPPING = "/passport";
         String USER_CONTROLLER_MAPPING = "/users";
+        String ROLE_CONTROLLER_MAPPING = "/roles";
     }
     
     interface Jwt{

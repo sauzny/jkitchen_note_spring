@@ -259,10 +259,10 @@
 				<configuration>
 					<flag>all</flag>
 					<objectNames>
-						<objectName>User</objectName>
 						<objectName>Role</objectName>
-						<objectName>Food</objectName>
-						<objectName>Bill</objectName>
+						<!--<objectName>User</objectName>-->
+						<!--<objectName>Food</objectName>-->
+						<!--<objectName>Bill</objectName>-->
 					</objectNames>
 				</configuration>
 				<executions>

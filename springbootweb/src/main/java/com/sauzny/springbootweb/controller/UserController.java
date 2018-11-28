@@ -42,12 +42,10 @@ public class UserController {
         int userId = ControllerUtils.getLoginUserId(request);
 
         UserExt user = userService.findUserInfoByUserId(userId);
-        log.info("{}", JacksonUtils.nonNull().toJson(user));
+        log.debug("{}", JacksonUtils.nonNull().toJson(user));
         UserInfo userInfo = new UserInfo();
         userInfo.setUsername(user.getUsername());
-        for (Role role : user.getRoles()) {
-            userInfo.getRoles().add(role.getName());
-        }
+        userInfo.setRoles(user.getRoleNames());
 
         return RestFulResult.success(userInfo);
     }
@@ -84,7 +82,7 @@ public class UserController {
     public RestFulResult page(
             HttpServletRequest request,
             @ApiParam(name = "页码，从1开始", required = true, example="1")
-            @RequestParam(required=true) Integer pageCurrent,
+            @RequestParam(required=true) Integer pageNum,
             @ApiParam(name = "每页数据条数", required = true, example="20")
             @RequestParam(required=true) Integer pageSize,
             @ApiParam(name = "手机号")
@@ -95,7 +93,7 @@ public class UserController {
             @RequestParam(required=false) String userName
     ){
 
-        Page<User> page = userService.findByExamplePage(pageCurrent, pageSize, phone, account, userName);
+        Page<User> page = userService.findByExamplePage(pageNum, pageSize, phone, account, userName);
 
         return RestFulResult.success(UserUtils.user4ManagerPage(page));
 
