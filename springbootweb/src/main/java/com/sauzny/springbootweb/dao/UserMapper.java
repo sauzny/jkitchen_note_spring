@@ -22,14 +22,16 @@ public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into tb_user (id, account, ",
-        "create_time, creater_id, ",
-        "last_update_time, password, ",
-        "phone, salt, username)",
-        "values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{createrId,jdbcType=INTEGER}, ",
-        "#{lastUpdateTime,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR}, ",
-        "#{phone,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR})"
+        "insert into tb_user (id, username, ",
+        "password, salt, ",
+        "status, nickname, ",
+        "phone, creater_id, ",
+        "cst_create, cst_modified)",
+        "values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, ",
+        "#{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, ",
+        "#{status,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, ",
+        "#{phone,jdbcType=VARCHAR}, #{createrId,jdbcType=INTEGER}, ",
+        "#{cstCreate,jdbcType=TIMESTAMP}, #{cstModified,jdbcType=TIMESTAMP})"
     })
     int insert(User record);
 
@@ -39,8 +41,8 @@ public interface UserMapper {
 
     @Select({
         "select",
-        "id, account, create_time, creater_id, last_update_time, password, phone, salt, ",
-        "username",
+        "id, username, password, salt, status, nickname, phone, creater_id, cst_create, ",
+        "cst_modified",
         "from tb_user",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -55,14 +57,15 @@ public interface UserMapper {
 
     @Update({
         "update tb_user",
-        "set account = #{account,jdbcType=VARCHAR},",
-          "create_time = #{createTime,jdbcType=TIMESTAMP},",
-          "creater_id = #{createrId,jdbcType=INTEGER},",
-          "last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},",
+        "set username = #{username,jdbcType=VARCHAR},",
           "password = #{password,jdbcType=VARCHAR},",
-          "phone = #{phone,jdbcType=VARCHAR},",
           "salt = #{salt,jdbcType=VARCHAR},",
-          "username = #{username,jdbcType=VARCHAR}",
+          "status = #{status,jdbcType=INTEGER},",
+          "nickname = #{nickname,jdbcType=VARCHAR},",
+          "phone = #{phone,jdbcType=VARCHAR},",
+          "creater_id = #{createrId,jdbcType=INTEGER},",
+          "cst_create = #{cstCreate,jdbcType=TIMESTAMP},",
+          "cst_modified = #{cstModified,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(User record);

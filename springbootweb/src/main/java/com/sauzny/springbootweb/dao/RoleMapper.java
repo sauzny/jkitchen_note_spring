@@ -23,9 +23,11 @@ public interface RoleMapper {
 
     @Insert({
         "insert into tb_role (id, name, ",
-        "user_id)",
+        "user_id, status, ",
+        "cst_create, cst_modified)",
         "values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, ",
-        "#{userId,jdbcType=INTEGER})"
+        "#{userId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, ",
+        "#{cstCreate,jdbcType=TIMESTAMP}, #{cstModified,jdbcType=TIMESTAMP})"
     })
     int insert(Role record);
 
@@ -35,7 +37,7 @@ public interface RoleMapper {
 
     @Select({
         "select",
-        "id, name, user_id",
+        "id, name, user_id, status, cst_create, cst_modified",
         "from tb_role",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -51,7 +53,10 @@ public interface RoleMapper {
     @Update({
         "update tb_role",
         "set name = #{name,jdbcType=VARCHAR},",
-          "user_id = #{userId,jdbcType=INTEGER}",
+          "user_id = #{userId,jdbcType=INTEGER},",
+          "status = #{status,jdbcType=INTEGER},",
+          "cst_create = #{cstCreate,jdbcType=TIMESTAMP},",
+          "cst_modified = #{cstModified,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Role record);

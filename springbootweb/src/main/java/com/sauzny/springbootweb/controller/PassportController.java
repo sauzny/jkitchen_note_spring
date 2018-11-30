@@ -83,7 +83,6 @@ public class PassportController {
         String jwtId = CodecUtils.uuid();
         LocalDateTime localDateTime = LocalDateTime.now().plusSeconds(audience.getExpiresSecond());
         Map<String, String> payloadClaims = Maps.newHashMap();
-        payloadClaims.put(SbwConstant.Jwt.ACCOUNT, targetUser.getAccount());
         payloadClaims.put(SbwConstant.Jwt.USER_ID, String.valueOf(targetUser.getId()));
         payloadClaims.put(SbwConstant.Jwt.USER_NAME, targetUser.getUsername());
         

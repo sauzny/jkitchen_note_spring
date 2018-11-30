@@ -47,10 +47,10 @@
 
 		<!-- 要生成的表 -->
         <!--
-        <table tableName="tb_user" domainObjectName="User" schema="springbootweb"/>
         <table tableName="tb_food" domainObjectName="Food" schema="springbootweb"/>
         <table tableName="tb_bill" domainObjectName="Bill" schema="springbootweb"/>
         -->
+        <table tableName="tb_user" domainObjectName="User" schema="springbootweb"/>
         <table tableName="tb_role" domainObjectName="Role" schema="springbootweb"/>
         
     </context>

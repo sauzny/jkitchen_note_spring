@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sauzny.springbootweb.dao.UserDao">
 
-    <resultMap id="UserExt" type="com.sauzny.springbootweb.entity.dto.UserExt" extends="com.sauzny.springbootweb.dao.UserMapper.BaseResultMap">
+    <resultMap id="UserDTO" type="com.sauzny.springbootweb.entity.dto.UserDTO" extends="com.sauzny.springbootweb.dao.UserMapper.BaseResultMap">
         <collection property="roleNames" ofType="string">
             <result column="role_name" jdbcType="VARCHAR" />
         </collection>
     </resultMap>
 
-    <select id="findUserInfo" parameterType="map" resultMap="UserExt">
+    <select id="findUserInfo" parameterType="map" resultMap="UserDTO">
         SELECT
             tb_user.*, tb_role.`name` role_name
         FROM
@@ -19,28 +19,29 @@
                 tb_user.id = #{userId}
             </if>
         </where>
+        ORDER BY tb_user.id DESC
     </select>
 
     <insert id="batchInsert" parameterType="java.util.List">
         INSERT INTO
         tb_user
         (
-        account,
-        creater_id,
+        nickname,
         password,
         phone,
         salt,
-        username
+        username,
+        status
         )
         VALUES
         <foreach collection="list" item="entity" separator=",">
             (
-            #{entity.account},
-            #{entity.createrId},
+            #{entity.nickname},
             #{entity.password},
             #{entity.phone},
             #{entity.salt},
-            #{entity.username}
+            #{entity.username},
+            #{entity.status}
             )
         </foreach>
     </insert>

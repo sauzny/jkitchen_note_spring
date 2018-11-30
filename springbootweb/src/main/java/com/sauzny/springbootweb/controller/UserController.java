@@ -5,16 +5,23 @@ import static com.sauzny.springbootweb.SbwConstant.Controller.USER_CONTROLLER_MA
 import javax.servlet.http.HttpServletRequest;
 
 import com.github.pagehelper.Page;
-import com.sauzny.springbootweb.controller.vo.UserInfo;
-import com.sauzny.springbootweb.entity.dto.UserExt;
+import com.google.common.collect.ListMultimap;
+import com.google.common.collect.Lists;
+import com.sauzny.springbootweb.controller.vo.PageContent;
+import com.sauzny.springbootweb.controller.vo.UserVO;
+import com.sauzny.springbootweb.entity.dto.UserDTO;
 import com.sauzny.springbootweb.entity.pojo.Role;
+import com.sauzny.springbootweb.service.RoleService;
+import com.sauzny.springbootweb.service.UserRoleService;
 import com.sauzny.springbootweb.utils.ControllerUtils;
 import com.sauzny.springbootweb.utils.JacksonUtils;
+import com.sauzny.springbootweb.utils.vo.RoleUtils;
 import com.sauzny.springbootweb.utils.vo.UserUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import com.sauzny.springbootweb.SbwConstant;
@@ -26,6 +33,9 @@ import com.sauzny.springbootweb.utils.CodecUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Api(description = "用户服务")
 @RestController
 @RequestMapping(value=USER_CONTROLLER_MAPPING)
@@ -35,19 +45,37 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @ApiOperation(value="用户信息", response = UserInfo.class)
+    @Autowired
+    private UserRoleService userRoleService;
+
+    @ApiOperation(value="添加用户")
+    @PostMapping("")
+    public RestFulResult save(@RequestBody UserVO userVO){
+
+        User user = UserUtils.user(userVO);
+        List<Role> roleList = RoleUtils.roleList(userVO);
+
+        userRoleService.insertUserWithRoleList(user, roleList);
+        return RestFulResult.success();
+    }
+
+    @ApiOperation(value="修改用户")
+    @PutMapping("/updateInfo")
+    public RestFulResult updateInfo(@RequestBody UserVO userVO){
+        //userService.updateByPrimaryKeySelective(user);
+        return RestFulResult.success();
+    }
+
+    @ApiOperation(value="用户信息", response = UserVO.class)
     @GetMapping("/info")
     public RestFulResult userInfo(HttpServletRequest request){
 
         int userId = ControllerUtils.getLoginUserId(request);
 
-        UserExt user = userService.findUserInfoByUserId(userId);
+        UserDTO user = userService.findUserInfoByUserId(userId);
         log.debug("{}", JacksonUtils.nonNull().toJson(user));
-        UserInfo userInfo = new UserInfo();
-        userInfo.setUsername(user.getUsername());
-        userInfo.setRoles(user.getRoleNames());
 
-        return RestFulResult.success(userInfo);
+        return RestFulResult.success(UserUtils.userDTO2VO(user));
     }
 
     @ApiOperation(value="修改用户密码")
@@ -77,7 +105,7 @@ public class UserController {
         return result;
     }
 
-    @ApiOperation(value="用户分页列表")
+    @ApiOperation(value="用户分页列表", response = UserVO.class)
     @GetMapping("/page")
     public RestFulResult page(
             HttpServletRequest request,
@@ -87,16 +115,30 @@ public class UserController {
             @RequestParam(required=true) Integer pageSize,
             @ApiParam(name = "手机号")
             @RequestParam(required=false) String phone,
-            @ApiParam(name = "账号")
-            @RequestParam(required=false) String account,
+            @ApiParam(name = "状态")
+            @RequestParam(required=false) Integer status,
             @ApiParam(name = "用户名")
-            @RequestParam(required=false) String userName
+            @RequestParam(required=false) String username
     ){
 
-        Page<User> page = userService.findByExamplePage(pageNum, pageSize, phone, account, userName);
+        Page<User> page = userService.findByExamplePage(pageNum, pageSize, phone, status, username);
 
-        return RestFulResult.success(UserUtils.user4ManagerPage(page));
+        PageContent<UserVO> userVOPage = UserUtils.userVOPage(page);
 
+        if(!CollectionUtils.isEmpty(userVOPage.getContent())){
+
+            List<Integer> userIdList = userVOPage.getContent().stream().mapToInt(UserVO::getId).boxed().collect(Collectors.toList());
+
+            ListMultimap<Integer, Role> listMultimap = userRoleService.userId2rolesMap(userIdList);
+
+            for (UserVO userVO : userVOPage.getContent()) {
+                for (Role role : listMultimap.get(userVO.getId())) {
+                    userVO.getRoles().add(role.getName());
+                }
+            }
+        }
+
+        return RestFulResult.success(userVOPage);
     }
 
 }

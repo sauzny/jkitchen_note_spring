@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.Maps;
-import com.sauzny.springbootweb.entity.dto.UserExt;
+import com.sauzny.springbootweb.dao.RoleDao;
+import com.sauzny.springbootweb.entity.dto.UserDTO;
+import com.sauzny.springbootweb.entity.pojo.Role;
+import com.sauzny.springbootweb.utils.vo.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,45 +27,19 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
-    public List<User> findAll() {
-        //return null;
-        return userDao.selectByExample(null);
-    }
 
-    public Page<User> findByPage(int pageNo, int pageSize) {
+    public Page<User> findByExamplePage(int pageNum, int pageSize, String phone, Integer status, String username) {
 
-        //return null;
-        return PageHelper.startPage(pageNo, pageSize).doSelectPage(() -> userDao.selectByExample(null));
-    }
-
-    public Page<User> findByExamplePage(int pageNum, int pageSize, String phone, String account, String username) {
-
-        //return null;
-        //PageHelper.startPage(pageNo, pageSize);
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
         
-        if(StringUtils.isNotBlank(phone)) criteria.andPhoneLike("%" + phone + "%");
-        //if(roleId != null) criteria.andRoleIdEqualTo(roleId);
-        if(StringUtils.isNotBlank(account)) criteria.andAccountEqualTo(account);
-        if(StringUtils.isNotBlank(username))criteria.andUsernameEqualTo(username);
-        //criteria.getAllCriteria().add(UserExt.andMutilStatusExist(2));
+        if(StringUtils.isNotBlank(phone)) criteria.andPhoneLike(phone + "%");
+        if(status != null && status > 0) criteria.andStatusEqualTo(status);
+        if(StringUtils.isNotBlank(username)) criteria.andUsernameEqualTo(username);
 
         return PageHelper.startPage(pageNum, pageSize).doSelectPage(() -> userDao.selectByExample(example));
     }
 
-    public int deleteByPrimaryKey(int id){
-        return userDao.deleteByPrimaryKey(id);
-    }
-    
-    public List<User> selectByExample(){
-        return userDao.selectByExample(null);
-    }
-
-    @Transactional
-    public void insert(User user) {
-        userDao.insert(user);
-    }
     
     public User findByUsername(String username){
 
@@ -81,7 +58,7 @@ public class UserService {
         return user;
     }
 
-    public UserExt findUserInfoByUserId(int userId){
+    public UserDTO findUserInfoByUserId(int userId){
         Map<Object, Object> map = Maps.newHashMap();
         map.put("userId", userId);
         return userDao.findUserInfo(map);
@@ -90,11 +67,20 @@ public class UserService {
     public User selectByPrimaryKey(int id){
         return userDao.selectByPrimaryKey(id);
     }
-    
-    public int updateByPrimaryKeySelective(User record){
-        return userDao.updateByPrimaryKeySelective(record);
+
+    @Transactional
+    public void insertSelective(User user) {
+        userDao.insertSelective(user);
     }
-    
+
+    public int updateByPrimaryKeySelective(User user){
+        return userDao.updateByPrimaryKeySelective(user);
+    }
+
+    public int deleteByPrimaryKey(int id){
+        return userDao.deleteByPrimaryKey(id);
+    }
+
     public int batchInsert(List<User> userList){
         return userDao.batchInsert(userList);
     }

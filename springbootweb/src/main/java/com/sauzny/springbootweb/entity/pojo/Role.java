@@ -1,11 +1,19 @@
 package com.sauzny.springbootweb.entity.pojo;
 
+import java.util.Date;
+
 public class Role {
     private Integer id;
 
     private String name;
 
     private Integer userId;
+
+    private Integer status;
+
+    private Date cstCreate;
+
+    private Date cstModified;
 
     public Integer getId() {
         return id;
@@ -29,5 +37,29 @@ public class Role {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Date getCstCreate() {
+        return cstCreate;
+    }
+
+    public void setCstCreate(Date cstCreate) {
+        this.cstCreate = cstCreate;
+    }
+
+    public Date getCstModified() {
+        return cstModified;
+    }
+
+    public void setCstModified(Date cstModified) {
+        this.cstModified = cstModified;
     }
 }

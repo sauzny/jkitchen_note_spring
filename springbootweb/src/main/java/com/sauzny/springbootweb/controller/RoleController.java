@@ -1,10 +1,8 @@
 package com.sauzny.springbootweb.controller;
 
 import com.sauzny.springbootweb.controller.vo.RestFulResult;
-import com.sauzny.springbootweb.controller.vo.UserInfo;
 import com.sauzny.springbootweb.entity.pojo.Role;
 import com.sauzny.springbootweb.service.RoleService;
-import com.sauzny.springbootweb.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -45,10 +43,8 @@ public class RoleController {
 
     @ApiOperation(value = "所有角色", response = RoleInfo.class)
     @GetMapping("/all")
-    public RestFulResult userInfo(HttpServletRequest request) {
-
+    public RestFulResult allWithoutUser(HttpServletRequest request) {
         List<Role> roleList = roleService.roleListWithoutUser();
-
         return RestFulResult.success(roleList);
     }
 }

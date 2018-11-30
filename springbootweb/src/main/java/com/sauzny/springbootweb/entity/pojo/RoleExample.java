@@ -1,6 +1,7 @@
 package com.sauzny.springbootweb.entity.pojo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RoleExample {
@@ -291,6 +292,186 @@ public class RoleExample {
 
         public Criteria andUserIdNotBetween(Integer value1, Integer value2) {
             addCriterion("user_id not between", value1, value2, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNull() {
+            addCriterion("status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNotNull() {
+            addCriterion("status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusEqualTo(Integer value) {
+            addCriterion("status =", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotEqualTo(Integer value) {
+            addCriterion("status <>", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThan(Integer value) {
+            addCriterion("status >", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("status >=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThan(Integer value) {
+            addCriterion("status <", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("status <=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIn(List<Integer> values) {
+            addCriterion("status in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotIn(List<Integer> values) {
+            addCriterion("status not in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusBetween(Integer value1, Integer value2) {
+            addCriterion("status between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("status not between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstCreateIsNull() {
+            addCriterion("cst_create is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstCreateIsNotNull() {
+            addCriterion("cst_create is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstCreateEqualTo(Date value) {
+            addCriterion("cst_create =", value, "cstCreate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstCreateNotEqualTo(Date value) {
+            addCriterion("cst_create <>", value, "cstCreate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstCreateGreaterThan(Date value) {
+            addCriterion("cst_create >", value, "cstCreate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstCreateGreaterThanOrEqualTo(Date value) {
+            addCriterion("cst_create >=", value, "cstCreate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstCreateLessThan(Date value) {
+            addCriterion("cst_create <", value, "cstCreate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstCreateLessThanOrEqualTo(Date value) {
+            addCriterion("cst_create <=", value, "cstCreate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstCreateIn(List<Date> values) {
+            addCriterion("cst_create in", values, "cstCreate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstCreateNotIn(List<Date> values) {
+            addCriterion("cst_create not in", values, "cstCreate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstCreateBetween(Date value1, Date value2) {
+            addCriterion("cst_create between", value1, value2, "cstCreate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstCreateNotBetween(Date value1, Date value2) {
+            addCriterion("cst_create not between", value1, value2, "cstCreate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstModifiedIsNull() {
+            addCriterion("cst_modified is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstModifiedIsNotNull() {
+            addCriterion("cst_modified is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstModifiedEqualTo(Date value) {
+            addCriterion("cst_modified =", value, "cstModified");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstModifiedNotEqualTo(Date value) {
+            addCriterion("cst_modified <>", value, "cstModified");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstModifiedGreaterThan(Date value) {
+            addCriterion("cst_modified >", value, "cstModified");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstModifiedGreaterThanOrEqualTo(Date value) {
+            addCriterion("cst_modified >=", value, "cstModified");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstModifiedLessThan(Date value) {
+            addCriterion("cst_modified <", value, "cstModified");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstModifiedLessThanOrEqualTo(Date value) {
+            addCriterion("cst_modified <=", value, "cstModified");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstModifiedIn(List<Date> values) {
+            addCriterion("cst_modified in", values, "cstModified");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstModifiedNotIn(List<Date> values) {
+            addCriterion("cst_modified not in", values, "cstModified");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstModifiedBetween(Date value1, Date value2) {
+            addCriterion("cst_modified between", value1, value2, "cstModified");
+            return (Criteria) this;
+        }
+
+        public Criteria andCstModifiedNotBetween(Date value1, Date value2) {
+            addCriterion("cst_modified not between", value1, value2, "cstModified");
             return (Criteria) this;
         }
     }

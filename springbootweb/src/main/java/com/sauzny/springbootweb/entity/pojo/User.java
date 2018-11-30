@@ -5,21 +5,23 @@ import java.util.Date;
 public class User {
     private Integer id;
 
-    private String account;
-
-    private Date createTime;
-
-    private Integer createrId;
-
-    private Date lastUpdateTime;
+    private String username;
 
     private String password;
 
-    private String phone;
-
     private String salt;
 
-    private String username;
+    private Integer status;
+
+    private String nickname;
+
+    private String phone;
+
+    private Integer createrId;
+
+    private Date cstCreate;
+
+    private Date cstModified;
 
     public Integer getId() {
         return id;
@@ -29,36 +31,12 @@ public class User {
         this.id = id;
     }
 
-    public String getAccount() {
-        return account;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAccount(String account) {
-        this.account = account == null ? null : account.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Integer getCreaterId() {
-        return createrId;
-    }
-
-    public void setCreaterId(Integer createrId) {
-        this.createrId = createrId;
-    }
-
-    public Date getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
     public String getPassword() {
@@ -69,14 +47,6 @@ public class User {
         this.password = password == null ? null : password.trim();
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
-    }
-
     public String getSalt() {
         return salt;
     }
@@ -85,11 +55,51 @@ public class User {
         this.salt = salt == null ? null : salt.trim();
     }
 
-    public String getUsername() {
-        return username;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
+
+    public Integer getCreaterId() {
+        return createrId;
+    }
+
+    public void setCreaterId(Integer createrId) {
+        this.createrId = createrId;
+    }
+
+    public Date getCstCreate() {
+        return cstCreate;
+    }
+
+    public void setCstCreate(Date cstCreate) {
+        this.cstCreate = cstCreate;
+    }
+
+    public Date getCstModified() {
+        return cstModified;
+    }
+
+    public void setCstModified(Date cstModified) {
+        this.cstModified = cstModified;
     }
 }

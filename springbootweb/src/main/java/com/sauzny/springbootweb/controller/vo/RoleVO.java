@@ -1,12 +1,9 @@
-package com.sauzny.springbootweb.entity.dto;
+package com.sauzny.springbootweb.controller.vo;
 
-import com.google.common.collect.Sets;
-import com.sauzny.springbootweb.entity.pojo.Role;
-import com.sauzny.springbootweb.entity.pojo.User;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Set;
 
 /***************************************************************************
  *
@@ -17,14 +14,25 @@ import java.util.Set;
  * ███████║██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║   
  * ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝   
  *
- * @时间: 2018/11/20 - 14:59
+ * @时间: 2018/11/28 - 16:29
  *
  * @描述: TODO
  *
  ***************************************************************************/
-public class UserExt extends User {
+@Getter
+@Setter
+@ApiModel(description = "角色信息")
+public class RoleVO {
 
-    @Getter
-    @Setter
-    private Set<String> roleNames = Sets.newHashSet();
+    @ApiModelProperty(value = "角色名")
+    private String name;
+
+    @ApiModelProperty(value = "状态")
+    private int status;
+
+    @ApiModelProperty(value = "创建时间")
+    private long cstCreate;
+
+    @ApiModelProperty(value = "最后修改时间")
+    private long cstModified;
 }

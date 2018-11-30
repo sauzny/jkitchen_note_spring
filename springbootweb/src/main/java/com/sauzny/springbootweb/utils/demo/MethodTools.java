@@ -1,8 +1,9 @@
-package com.sauzny.springbootweb.utils;
+package com.sauzny.springbootweb.utils.demo;
 
 import java.lang.reflect.Method;
 
-import com.sauzny.springbootweb.controller.vo.PageContent;
+import com.sauzny.springbootweb.controller.vo.UserVO;
+import com.sauzny.springbootweb.entity.pojo.User;
 
 public class MethodTools {
 
@@ -18,6 +19,6 @@ public class MethodTools {
     }
     
     public static void main(String[] args) {
-        MethodTools.setget(PageContent.class, "page");
+        MethodTools.setget(User.class, "userVO");
     }
 }
