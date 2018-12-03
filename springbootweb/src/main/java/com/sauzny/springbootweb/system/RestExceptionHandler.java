@@ -27,7 +27,7 @@ public class RestExceptionHandler {
 
     @ExceptionHandler
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.OK)
     private RestFulResult runtimeExceptionHandler(
             HttpServletRequest request, Exception e) {
         
@@ -55,7 +55,7 @@ public class RestExceptionHandler {
     
     @ExceptionHandler(DataIntegrityViolationException.class)
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.OK)
     private RestFulResult dataIntegrityViolationExceptionHandler(
             HttpServletRequest request, DataIntegrityViolationException e) {
 
