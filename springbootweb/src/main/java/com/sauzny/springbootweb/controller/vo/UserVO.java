@@ -30,7 +30,7 @@ import java.util.Set;
 public class UserVO {
 
     @ApiModelProperty(value = "唯一标识")
-    private int id;
+    private Integer id;
 
     @ApiModelProperty(value = "用户名")
     private String username;

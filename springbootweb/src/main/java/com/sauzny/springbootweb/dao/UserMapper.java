@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 
 public interface UserMapper {
@@ -22,17 +23,16 @@ public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into tb_user (id, username, ",
-        "password, salt, ",
-        "status, nickname, ",
+        "insert into tb_user (username, password, ",
+        "salt, status, nickname, ",
         "phone, creater_id, ",
         "cst_create, cst_modified)",
-        "values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, ",
-        "#{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, ",
-        "#{status,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, ",
+        "values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, ",
+        "#{salt,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, ",
         "#{phone,jdbcType=VARCHAR}, #{createrId,jdbcType=INTEGER}, ",
         "#{cstCreate,jdbcType=TIMESTAMP}, #{cstModified,jdbcType=TIMESTAMP})"
     })
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Integer.class)
     int insert(User record);
 
     int insertSelective(User record);

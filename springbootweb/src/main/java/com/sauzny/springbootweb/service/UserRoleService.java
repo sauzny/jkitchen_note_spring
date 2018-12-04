@@ -3,9 +3,11 @@ package com.sauzny.springbootweb.service;
 import com.github.pagehelper.Page;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
+import com.sauzny.springbootweb.controller.vo.UserVO;
 import com.sauzny.springbootweb.entity.dto.UserDTO;
 import com.sauzny.springbootweb.entity.pojo.Role;
 import com.sauzny.springbootweb.entity.pojo.User;
+import com.sauzny.springbootweb.utils.vo.RoleUtils;
 import com.sauzny.springbootweb.utils.vo.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +43,15 @@ public class UserRoleService {
     private RoleService roleService;
 
     @Transactional
-    public void insertUserWithRoleList(User user, List<Role> roleList){
+    public void insertUserWithRoleList(UserVO userVO){
+
+        User user = UserUtils.user(userVO);
         userService.insertSelective(user);
+
+        userVO.setId(user.getId());
+        List<Role> roleList = RoleUtils.roleList(userVO);
+        log.debug("{}", roleList);
+
         roleService.batchInsert(roleList);
     }
 

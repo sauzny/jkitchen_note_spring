@@ -49,9 +49,11 @@
         <!--
         <table tableName="tb_food" domainObjectName="Food" schema="springbootweb"/>
         <table tableName="tb_bill" domainObjectName="Bill" schema="springbootweb"/>
-        -->
-        <table tableName="tb_user" domainObjectName="User" schema="springbootweb"/>
         <table tableName="tb_role" domainObjectName="Role" schema="springbootweb"/>
+        -->
+        <table tableName="tb_user" domainObjectName="User" schema="springbootweb">
+            <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
+        </table>
         
     </context>
     

@@ -69,8 +69,8 @@ public class UserService {
     }
 
     @Transactional
-    public void insertSelective(User user) {
-        userDao.insertSelective(user);
+    public int insertSelective(User user) {
+        return userDao.insertSelective(user);
     }
 
     public int updateByPrimaryKeySelective(User user){

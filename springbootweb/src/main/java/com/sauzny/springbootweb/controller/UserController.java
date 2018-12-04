@@ -51,18 +51,16 @@ public class UserController {
     @ApiOperation(value="添加用户")
     @PostMapping("")
     public RestFulResult save(@RequestBody UserVO userVO){
-
-        User user = UserUtils.user(userVO);
-        List<Role> roleList = RoleUtils.roleList(userVO);
-
-        userRoleService.insertUserWithRoleList(user, roleList);
+        userVO.setId(null);
+        userRoleService.insertUserWithRoleList(userVO);
         return RestFulResult.success();
     }
 
     @ApiOperation(value="修改用户")
     @PutMapping("/updateInfo")
     public RestFulResult updateInfo(@RequestBody UserVO userVO){
-        //userService.updateByPrimaryKeySelective(user);
+        User user = UserUtils.user(userVO);
+        userService.updateByPrimaryKeySelective(user);
         return RestFulResult.success();
     }
 
