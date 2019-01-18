@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<!-- eclipse 中 右键点项目，Run As下边Maven build... 然后goals输入mybatis-generator:generate -X -->
+<!-- idea中右侧maven plugins执行mybatis-generator:generate -->
+<generatorConfiguration>
+	
+	<!-- 设置数据库连接需要的jar包位置 -->
+    <classPathEntry location="E:\m2\repository\mysql\mysql-connector-java\5.1.33\mysql-connector-java-5.1.33.jar" />
+    
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+    	
+    	<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+    	<commentGenerator>
+	    	<property name="suppressDate" value="true"/>  
+	        <property name="suppressAllComments" value="true"/> 
+    	</commentGenerator>
+    
+    	<!-- 设置数据库连接属性 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/sbshiro?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+        
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+		<!-- 将表生成实体类java文件 -->
+        <javaModelGenerator targetPackage="com.sauzny.sbshirodemo.entity.pojo" targetProject="src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+		<!-- 每张表的xml -->
+        <sqlMapGenerator targetPackage="mybatis.sqlmap" targetProject="src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+		<!-- dao java文件 -->
+        <javaClientGenerator type="MIXEDMAPPER" targetPackage="com.sauzny.sbshirodemo.dao" targetProject="src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+		<!-- 要生成的表 -->
+        <!--
+        <table tableName="tb_food" domainObjectName="Food" schema="springbootweb"/>
+        <table tableName="tb_bill" domainObjectName="Bill" schema="springbootweb"/>
+        <table tableName="tb_role" domainObjectName="Role" schema="springbootweb"/>
+        -->
+        <!--
+        <table tableName="tb_user" domainObjectName="User" schema="springbootweb">
+            <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
+        </table>
+        -->
+        <table tableName="sys_user" domainObjectName="User" schema="sbshiro"/>
+        <table tableName="sys_role" domainObjectName="Role" schema="sbshiro"/>
+        <table tableName="sys_permission" domainObjectName="Permission" schema="sbshiro"/>
+        
+    </context>
+    
+</generatorConfiguration>
+
+
