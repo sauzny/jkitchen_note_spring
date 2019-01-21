@@ -74,12 +74,12 @@ public final class JacksonUtils {
 
     // 序列化时 忽略 null
     public static JacksonUtils nonNull() {
-        return NonEmpty.instance;
+        return NonNull.instance;
     }
 
     // 序列化时 忽略 null 空字符串
     public static JacksonUtils nonEmpty() {
-        return NonNull.instance;
+        return NonEmpty.instance;
     }
 
     // 序列化时 忽略 null 空字符串 0
