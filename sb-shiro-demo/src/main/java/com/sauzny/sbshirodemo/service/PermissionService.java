@@ -3,9 +3,9 @@ package com.sauzny.sbshirodemo.service;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.sauzny.sbshirodemo.dao.PermissionDao;
-import com.sauzny.sbshirodemo.dao.PermissionMapper;
 import com.sauzny.sbshirodemo.entity.pojo.Permission;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
  * @描述: TODO
  *
  ***************************************************************************/
+@Service
 public class PermissionService {
 
     @Autowired

@@ -4,6 +4,7 @@ import com.sauzny.sbshirodemo.dao.UserDao;
 import com.sauzny.sbshirodemo.entity.pojo.User;
 import com.sauzny.sbshirodemo.entity.pojo.UserExample;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
  * @描述: TODO
  *
  ***************************************************************************/
+@Service
 public class UserService {
 
     @Autowired

@@ -1,4 +1,4 @@
-package com.sauzny.sbshirodemo.shiro;
+package com.sauzny.sbshirodemo.system.shiro;
 
 import com.sauzny.sbshirodemo.entity.pojo.User;
 import com.sauzny.sbshirodemo.service.PermissionService;
