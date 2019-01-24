@@ -31,34 +31,35 @@ public class UserRealm extends AuthorizingRealm {
     private PermissionService permissionService;
 
     /**
-     * 授权
+     * 获取授权信息
      * @param principalCollection
      * @return
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        log.info("doGetAuthorizationInfo");
+        log.debug("doGetAuthorizationInfo");
         User user = (User) principalCollection.getPrimaryPrincipal();
         List<String> sysPermissions = permissionService.selectPermissionByUserId(user.getUserId());
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.addStringPermissions(sysPermissions);
+        log.debug("{} {}", user.getUserId(), sysPermissions);
         return info;
     }
 
     /**
-     * 认证
+     * 获取身份验证信息
      * @param authenticationToken
      * @return
      * @throws AuthenticationException
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+        log.debug("doGetAuthenticationInfo");
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         User user = userService.findByUserName(token.getUsername());
         if (user == null) {
             return null;
         }
-        log.info("doGetAuthenticationInfo");
-        return new SimpleAuthenticationInfo(user, user.getPassword().toCharArray(), ByteSource.Util.bytes(user.getSalt()), getName());
+        return new SimpleAuthenticationInfo(user, user.getUserId().toString(), getName());
     }
 }

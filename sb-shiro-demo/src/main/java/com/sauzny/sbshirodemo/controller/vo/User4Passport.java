@@ -24,9 +24,7 @@ import lombok.Setter;
 @Setter
 public class User4Passport {
 
-    private String username;
+    private String userName;
 
     private String password;
-
-    private String captcha;
 }

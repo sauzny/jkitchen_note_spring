@@ -1,5 +1,19 @@
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost
+Source Server Version : 50721
+Source Host           : localhost:3306
+Source Database       : sbshiro
+
+Target Server Type    : MYSQL
+Target Server Version : 50721
+File Encoding         : 65001
+
+Date: 2019-01-24 17:53:49
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
 -- Table structure for sys_permission
@@ -18,15 +32,13 @@ CREATE TABLE `sys_permission` (
 -- ----------------------------
 -- Records of sys_permission
 -- ----------------------------
-BEGIN;
-INSERT INTO `sys_permission` VALUES (1, NULL, '系统管理', 'menu', 'system', NULL);
-INSERT INTO `sys_permission` VALUES (2, 1, '用户管理', 'menu', 'systemUserList', '/user/userList');
-INSERT INTO `sys_permission` VALUES (3, 1, '角色管理', 'menu', 'systemRole', '/roles');
-INSERT INTO `sys_permission` VALUES (4, NULL, '一级菜单', 'menu', 'menu', NULL);
-INSERT INTO `sys_permission` VALUES (5, 4, '二级菜单1', 'menu', 'menuXxx', '/xxx');
-INSERT INTO `sys_permission` VALUES (6, 4, '二级菜单2', 'menu', 'menuYyy', '/yyy');
-INSERT INTO `sys_permission` VALUES (7, 2, '用户添加', 'button', 'systemUserAdd', NULL);
-COMMIT;
+INSERT INTO `sys_permission` VALUES ('1', null, '系统管理', 'menu', 'system', null);
+INSERT INTO `sys_permission` VALUES ('2', '1', '用户管理', 'menu', 'systemUserList', '/user/userList');
+INSERT INTO `sys_permission` VALUES ('3', '1', '角色管理', 'menu', 'systemRole', '/roles');
+INSERT INTO `sys_permission` VALUES ('4', null, '一级菜单', 'menu', 'menu', null);
+INSERT INTO `sys_permission` VALUES ('5', '4', '二级菜单1', 'menu', 'menuXxx', '/xxx');
+INSERT INTO `sys_permission` VALUES ('6', '4', '二级菜单2', 'menu', 'menuYyy', '/yyy');
+INSERT INTO `sys_permission` VALUES ('7', '2', '用户添加', 'button', 'systemUserAdd', null);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -41,10 +53,8 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-BEGIN;
-INSERT INTO `sys_role` VALUES (1, '用户管理员');
-INSERT INTO `sys_role` VALUES (2, '普通用户');
-COMMIT;
+INSERT INTO `sys_role` VALUES ('1', '用户管理员');
+INSERT INTO `sys_role` VALUES ('2', '普通用户');
 
 -- ----------------------------
 -- Table structure for sys_role_permission
@@ -59,17 +69,15 @@ CREATE TABLE `sys_role_permission` (
 -- ----------------------------
 -- Records of sys_role_permission
 -- ----------------------------
-BEGIN;
-INSERT INTO `sys_role_permission` VALUES (1, 1);
-INSERT INTO `sys_role_permission` VALUES (1, 2);
-INSERT INTO `sys_role_permission` VALUES (1, 3);
-INSERT INTO `sys_role_permission` VALUES (1, 4);
-INSERT INTO `sys_role_permission` VALUES (1, 5);
-INSERT INTO `sys_role_permission` VALUES (1, 6);
-INSERT INTO `sys_role_permission` VALUES (1, 7);
-INSERT INTO `sys_role_permission` VALUES (2, 1);
-INSERT INTO `sys_role_permission` VALUES (2, 2);
-COMMIT;
+INSERT INTO `sys_role_permission` VALUES ('1', '1');
+INSERT INTO `sys_role_permission` VALUES ('1', '2');
+INSERT INTO `sys_role_permission` VALUES ('1', '3');
+INSERT INTO `sys_role_permission` VALUES ('1', '4');
+INSERT INTO `sys_role_permission` VALUES ('1', '5');
+INSERT INTO `sys_role_permission` VALUES ('1', '6');
+INSERT INTO `sys_role_permission` VALUES ('1', '7');
+INSERT INTO `sys_role_permission` VALUES ('2', '1');
+INSERT INTO `sys_role_permission` VALUES ('2', '2');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -87,21 +95,19 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-BEGIN;
-INSERT INTO `sys_user` VALUES (1, 'zhangsan', '张三', '86fb1b048301461bdc71d021d2af3f97', '1');
-INSERT INTO `sys_user` VALUES (2, 'lisi', '李四', 'c9351e5cf153923f052ebe1462cca93a', '2');
-INSERT INTO `sys_user` VALUES (3, 'wangwu', '王五', '92262648696eae1b0a321cbd2b238bf2', '3');
-INSERT INTO `sys_user` VALUES (4, 'user1', '用户1', '86fb1b048301461bdc71d021d2af3f97', '4');
-INSERT INTO `sys_user` VALUES (5, 'user2', '用户2', '86fb1b048301461bdc71d021d2af3f97', '5');
-INSERT INTO `sys_user` VALUES (6, 'user3', '用户3', '86fb1b048301461bdc71d021d2af3f97', '5');
-INSERT INTO `sys_user` VALUES (7, 'user4', '用户4', '86fb1b048301461bdc71d021d2af3f97', '4');
-INSERT INTO `sys_user` VALUES (8, 'user5', '用户5', '86fb1b048301461bdc71d021d2af3f97', '4');
-INSERT INTO `sys_user` VALUES (9, 'user6', '用户6', '86fb1b048301461bdc71d021d2af3f97', '4');
-INSERT INTO `sys_user` VALUES (10, 'user7', '用户7', '86fb1b048301461bdc71d021d2af3f97', '4');
-INSERT INTO `sys_user` VALUES (11, 'user8', '用户8', '86fb1b048301461bdc71d021d2af3f97', '4');
-INSERT INTO `sys_user` VALUES (12, 'user9', '用户9', '86fb1b048301461bdc71d021d2af3f97', '4');
-INSERT INTO `sys_user` VALUES (13, 'user10', '用户10', '86fb1b048301461bdc71d021d2af3f97', '4');
-COMMIT;
+INSERT INTO `sys_user` VALUES ('1', 'zhangsan', '张三', '86fb1b048301461bdc71d021d2af3f97', '1');
+INSERT INTO `sys_user` VALUES ('2', 'lisi', '李四', 'c9351e5cf153923f052ebe1462cca93a', '2');
+INSERT INTO `sys_user` VALUES ('3', 'wangwu', '王五', '92262648696eae1b0a321cbd2b238bf2', '3');
+INSERT INTO `sys_user` VALUES ('4', 'user1', '用户1', '86fb1b048301461bdc71d021d2af3f97', '4');
+INSERT INTO `sys_user` VALUES ('5', 'user2', '用户2', '86fb1b048301461bdc71d021d2af3f97', '5');
+INSERT INTO `sys_user` VALUES ('6', 'user3', '用户3', '86fb1b048301461bdc71d021d2af3f97', '5');
+INSERT INTO `sys_user` VALUES ('7', 'user4', '用户4', '86fb1b048301461bdc71d021d2af3f97', '4');
+INSERT INTO `sys_user` VALUES ('8', 'user5', '用户5', '86fb1b048301461bdc71d021d2af3f97', '4');
+INSERT INTO `sys_user` VALUES ('9', 'user6', '用户6', '86fb1b048301461bdc71d021d2af3f97', '4');
+INSERT INTO `sys_user` VALUES ('10', 'user7', '用户7', '86fb1b048301461bdc71d021d2af3f97', '4');
+INSERT INTO `sys_user` VALUES ('11', 'user8', '用户8', '86fb1b048301461bdc71d021d2af3f97', '4');
+INSERT INTO `sys_user` VALUES ('12', 'user9', '用户9', '86fb1b048301461bdc71d021d2af3f97', '4');
+INSERT INTO `sys_user` VALUES ('13', 'user10', '用户10', '86fb1b048301461bdc71d021d2af3f97', '4');
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -116,14 +122,5 @@ CREATE TABLE `sys_user_role` (
 -- ----------------------------
 -- Records of sys_user_role
 -- ----------------------------
-BEGIN;
-INSERT INTO `sys_user_role` VALUES (1, 1);
-INSERT INTO `sys_user_role` VALUES (2, 2);
-COMMIT;
-
-SET FOREIGN_KEY_CHECKS = 1;
----------------------
-作者：gnail_oug
-来源：CSDN
-原文：https://blog.csdn.net/gnail_oug/article/details/80662553
-版权声明：本文为博主原创文章，转载请附上博文链接！
+INSERT INTO `sys_user_role` VALUES ('1', '1');
+INSERT INTO `sys_user_role` VALUES ('2', '2');

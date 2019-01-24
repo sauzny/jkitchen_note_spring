@@ -3,11 +3,15 @@ package com.sauzny.sbshirodemo.system.shiro;
 import com.sauzny.sbshirodemo.SbwConstant;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
+import javax.servlet.Filter;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -21,19 +25,6 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-    /**
-     * 凭证匹配器
-     *
-     * @return
-     */
-    @Bean
-    public HashedCredentialsMatcher hashedCredentialsMatcher() {
-        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-        //md5加密1次
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");
-        hashedCredentialsMatcher.setHashIterations(1);
-        return hashedCredentialsMatcher;
-    }
 
     /**
      * 自定义realm
@@ -43,7 +34,6 @@ public class ShiroConfig {
     @Bean
     public UserRealm userRealm() {
         UserRealm userRealm = new UserRealm();
-        userRealm.setCredentialsMatcher(hashedCredentialsMatcher());
         return userRealm;
     }
 
@@ -73,6 +63,11 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
+        // 增加自定义的 MyShiroFilter
+        Map<String, Filter> filterMap = new HashMap<>();
+        filterMap.put("myshiro", new MyShiroFilter());
+        shiroFilterFactoryBean.setFilters(filterMap);
+
         // 设置url
         //shiroFilterFactoryBean.setLoginUrl("/login");
         //shiroFilterFactoryBean.setSuccessUrl("/");
@@ -86,14 +81,29 @@ public class ShiroConfig {
         // 不验证权限，直接通过，anon
         filterChainDefinitionMap.put(SbwConstant.Controller.PASSPORT_CONTROLLER_MAPPING+"/login", "anon");
         filterChainDefinitionMap.put(SbwConstant.Controller.PASSPORT_CONTROLLER_MAPPING+"/unauth", "anon");
+        filterChainDefinitionMap.put(SbwConstant.Controller.USER_CONTROLLER_MAPPING+"/help", "anon");
+        //filterChainDefinitionMap.put("/users/help", "anon");
+        //filterChainDefinitionMap.put("/sbshiro/users/help", "anon");
         //filterChainDefinitionMap.put("/static/**", "anon");
-        //filterChainDefinitionMap.put("/captcha.jpg", "anon");
-        //filterChainDefinitionMap.put("/favicon.ico", "anon");
+        filterChainDefinitionMap.put("/favicon.ico", "anon");
         // 其他所有的都需要权限认证
-        filterChainDefinitionMap.put("/**", "authc");
+        filterChainDefinitionMap.put("/**", "myshiro");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
+    }
+
+
+    /**
+     * shiro集成进来后，调用API直接404异常。
+     * 在shiro的配置中加入defaultAdvisorAutoProxyCreator.setUsePrefix(true);
+     * @return
+     */
+    @Bean
+    public static DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator(){
+        DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator=new DefaultAdvisorAutoProxyCreator();
+        defaultAdvisorAutoProxyCreator.setUsePrefix(true);
+        return defaultAdvisorAutoProxyCreator;
     }
 
 }

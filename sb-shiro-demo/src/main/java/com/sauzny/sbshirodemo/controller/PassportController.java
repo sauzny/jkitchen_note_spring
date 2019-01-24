@@ -11,9 +11,7 @@ import com.sauzny.sbshirodemo.utils.CodecUtils;
 import com.sauzny.sbshirodemo.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -28,7 +26,8 @@ import java.util.Map;
  *
  ***************************************************************************/
 
-@RestController(SbwConstant.Controller.PASSPORT_CONTROLLER_MAPPING)
+@RestController
+@RequestMapping(SbwConstant.Controller.PASSPORT_CONTROLLER_MAPPING)
 @Slf4j
 public class PassportController {
 
@@ -41,7 +40,7 @@ public class PassportController {
     @PostMapping("/login")
     public RestFulResult login(@RequestBody User4Passport user){
 
-        User targetUser = userService.findByUserName(user.getUsername());
+        User targetUser = userService.findByUserName(user.getUserName());
 
         // 生成JWT
         String jwtId = CodecUtils.uuid();
@@ -63,5 +62,10 @@ public class PassportController {
     @PostMapping("/logout")
     public RestFulResult logout(String username, String password){
         return RestFulResult.success();
+    }
+
+    @GetMapping("/unauth")
+    public RestFulResult unauth(){
+        return RestFulResult.failure(SbwConstant.FailureEnum.ACCESS_ILLEGAL);
     }
 }

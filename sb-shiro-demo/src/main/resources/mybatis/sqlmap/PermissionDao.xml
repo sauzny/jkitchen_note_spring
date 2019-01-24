@@ -4,7 +4,7 @@
 
     <select id="selectByUserId" parameterType="map" resultMap="com.sauzny.sbshirodemo.dao.PermissionMapper.BaseResultMap">
         SELECT
-        <include refid="Base_Column_List" />
+        <include refid="com.sauzny.sbshirodemo.dao.PermissionMapper.Base_Column_List" />
         FROM
         sys_user_role
         INNER JOIN sys_role_permission ON sys_user_role.role_id = sys_role_permission.role_id
