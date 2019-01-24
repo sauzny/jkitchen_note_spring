@@ -8,54 +8,6 @@
    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-<script type="text/javascript">
-    
-    // 获取未被push过的消息
-    function unPushedList(){
-        var userName = document.getElementById('userName').value;
-        
-        $.ajax({ 
-           type: "post", 
-           url: "/api/v1.0/message/unPushedList/"+userName, 
-           dataType: "json", 
-           success: function (data) { 
-           		
-           		$.each(data,function(n,innerHTML){
-           			document.getElementById('message').innerHTML += innerHTML + '<br/>';
-		        });
-           }, 
-           error: function (XMLHttpRequest, textStatus, errorThrown) { 
-           		alert(errorThrown); 
-           } 
-        });
-        
-    }
-    
-    
-    // 获取被push过的消息
-    function pushedList(){
-        var userName = document.getElementById('userName').value;
-        
-        $.ajax({ 
-           type: "post", 
-           url: "/api/v1.0/message/pushedList/"+userName, 
-           dataType: "json", 
-           success: function (data) { 
-           		
-           		document.getElementById('pushedList').innerHTML = "";
-           			
-           		$.each(data,function(n,innerHTML){
-           			document.getElementById('pushedList').innerHTML += innerHTML + '<br/>';
-		        });
-           }, 
-           error: function (XMLHttpRequest, textStatus, errorThrown) { 
-           		alert(errorThrown); 
-           } 
-        });
-    }
-    
-</script>
-
 <body>
 
 <div class="alert alert-warning">先【确认用户】，再【发送】消息。【发送】按钮没有token校验，点击就会发送消息。</div>
@@ -163,12 +115,6 @@
         websocket.send(userName+"@@@"+message);
     }
     
-    //确认用户
-    function user(){
-        var userName = document.getElementById('userName').value;
-        websocket.send(userName+"~~~confirmuser");
-        unPushedList();
-    }
     
     
     
