@@ -26,7 +26,7 @@
         </jdbcConnection>
         
         <javaTypeResolver>
-            <property name="forceBigDecimals" value="false"/>
+            <property name="forceBigDecimals" value="true"/>
         </javaTypeResolver>
 
 		<!-- 将表生成实体类java文件 -->
@@ -51,9 +51,11 @@
         <table tableName="tb_bill" domainObjectName="Bill" schema="springbootweb"/>
         <table tableName="tb_role" domainObjectName="Role" schema="springbootweb"/>
         -->
+        <!--
         <table tableName="tb_user" domainObjectName="User" schema="springbootweb">
             <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
         </table>
+        -->
         
     </context>
     
