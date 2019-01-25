@@ -10,6 +10,8 @@ import com.sauzny.sbshirodemo.system.jwt.Audience;
 import com.sauzny.sbshirodemo.utils.CodecUtils;
 import com.sauzny.sbshirodemo.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -67,5 +69,10 @@ public class PassportController {
     @GetMapping("/unauth")
     public RestFulResult unauth(){
         return RestFulResult.failure(SbwConstant.FailureEnum.ACCESS_ILLEGAL);
+    }
+
+    @GetMapping("/unlogin")
+    public RestFulResult unlogin(){
+        return RestFulResult.failure(SbwConstant.FailureEnum.TOKEN_ILLEGAL);
     }
 }

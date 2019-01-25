@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.common.collect.Lists;
 import com.sauzny.sbshirodemo.utils.JwtUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -105,7 +107,6 @@ public class JwtFilter implements Filter {
                 log.debug(e.getMessage());
                 return;
             }
-
             chain.doFilter(req, res);
         }
     }

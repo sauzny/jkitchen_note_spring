@@ -4,13 +4,13 @@ import io.swagger.annotations.ApiModelProperty;
 
 public interface SbwConstant {
 
-    interface Controller{
+    interface Controller {
 
         String PASSPORT_CONTROLLER_MAPPING = "/passport";
         String USER_CONTROLLER_MAPPING = "/users";
     }
-    
-    interface Jwt{
+
+    interface Jwt {
         String TOKEN = "X-Token";
         String JTI = "jti";
         String EXP = "exp";
@@ -20,7 +20,11 @@ public interface SbwConstant {
         String JUMP_TOKEN = "jump";
     }
 
-    interface FilterOrder{
+    interface Shiro {
+        String TOKEN_DEFAULT_PASSWORD = "";
+    }
+
+    interface FilterOrder {
         int JWTFILTER = 2;
         int SHIROFILTER = 3;
     }

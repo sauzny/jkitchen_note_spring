@@ -1,5 +1,6 @@
 package com.sauzny.sbshirodemo.system.shiro;
 
+import com.sauzny.sbshirodemo.SbwConstant;
 import com.sauzny.sbshirodemo.entity.pojo.User;
 import com.sauzny.sbshirodemo.service.PermissionService;
 import com.sauzny.sbshirodemo.service.UserService;
@@ -58,8 +59,8 @@ public class UserRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         User user = userService.findByUserName(token.getUsername());
         if (user == null) {
-            return null;
+            throw new AuthenticationException("无法获取身份信息");
         }
-        return new SimpleAuthenticationInfo(user, user.getUserId().toString(), getName());
+        return new SimpleAuthenticationInfo(user, SbwConstant.Shiro.TOKEN_DEFAULT_PASSWORD, getName());
     }
 }

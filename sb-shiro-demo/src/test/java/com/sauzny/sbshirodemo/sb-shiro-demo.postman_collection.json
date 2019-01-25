@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "be97307f-c0da-49b8-a6d2-e32020eb5be6",
+		"name": "sb-shiro-demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "登录",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userName\":\"zhangsan\",\"password\":\"zhangsan\"}"
+				},
+				"url": {
+					"raw": "http://localhost:9090/passport/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"passport",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "不需要token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDkxNjMxNTMsInVzZXJOYW1lIjoiemhhbmdzYW4iLCJ1c2VySWQiOiIxIiwianRpIjoiZjlhMWEwOWYtZWI4My00N2RhLWJmYmMtZTNiZDY5YjQwMWQzIn0.n-lo1vCBRdqgMM0ZmIfOLV9wXPVbwXvKVf60cxwreEU",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9090/users/help",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"users",
+						"help"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "需要token-userList",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDkxNjMxNTMsInVzZXJOYW1lIjoiemhhbmdzYW4iLCJ1c2VySWQiOiIxIiwianRpIjoiZjlhMWEwOWYtZWI4My00N2RhLWJmYmMtZTNiZDY5YjQwMWQzIn0.n-lo1vCBRdqgMM0ZmIfOLV9wXPVbwXvKVf60cxwreEU"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9090/users/userList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"users",
+						"userList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "需要token-权限验证-userOne",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDkxNjMxNTMsInVzZXJOYW1lIjoiemhhbmdzYW4iLCJ1c2VySWQiOiIxIiwianRpIjoiZjlhMWEwOWYtZWI4My00N2RhLWJmYmMtZTNiZDY5YjQwMWQzIn0.n-lo1vCBRdqgMM0ZmIfOLV9wXPVbwXvKVf60cxwreEU"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9090/users/userOne",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"users",
+						"userOne"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
