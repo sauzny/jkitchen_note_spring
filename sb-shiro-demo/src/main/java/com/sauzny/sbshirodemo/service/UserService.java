@@ -35,4 +35,8 @@ public class UserService {
             return userList.get(0);
         }
     }
+
+    public User findOne(Long userId){
+        return userDao.selectByPrimaryKey(userId);
+    }
 }

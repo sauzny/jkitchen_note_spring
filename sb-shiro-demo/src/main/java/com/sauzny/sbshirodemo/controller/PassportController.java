@@ -6,7 +6,7 @@ import com.sauzny.sbshirodemo.controller.vo.RestFulResult;
 import com.sauzny.sbshirodemo.controller.vo.User4Passport;
 import com.sauzny.sbshirodemo.entity.pojo.User;
 import com.sauzny.sbshirodemo.service.UserService;
-import com.sauzny.sbshirodemo.system.jwt.Audience;
+import com.sauzny.sbshirodemo.system.shiro.jwt.Audience;
 import com.sauzny.sbshirodemo.utils.CodecUtils;
 import com.sauzny.sbshirodemo.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
