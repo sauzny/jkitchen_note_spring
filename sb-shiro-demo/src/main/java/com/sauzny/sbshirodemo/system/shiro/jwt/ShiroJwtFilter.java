@@ -34,13 +34,14 @@ public class ShiroJwtFilter extends AccessControlFilter {
         DecodedJWT jwt  = ShiroJwtUtils.decodeJwt(request);
         boolean isCorrect = ShiroJwtUtils.verify(jwt);
 
+        Subject subject = getSubject(request, response);
+
         if(isCorrect){
 
             // 向 request中设置相关 attribute
             ShiroJwtUtils.setAttribute(request, jwt);
 
             // 如果 subject 中的 principa 为空，需要 执行一次login
-            Subject subject = getSubject(request, response);
             if(subject.getPrincipal() == null){
                 ShiroJwtToken token = ShiroJwtUtils.getInstance(request);
                 subject.login(token);

@@ -38,12 +38,17 @@ public class UserRealm extends AuthorizingRealm {
 
     /**
      * 获取授权信息
+     * shiro验证权限时候，执行此方法
      * @param principalCollection
      * @return
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         log.debug("doGetAuthorizationInfo");
+        /*
+        principalCollection.getPrimaryPrincipal()
+        此方法获取的是 doGetAuthenticationInfo 返回结果的第一个参数
+        */
         Long userId = ShiroJwtUtils.getUserId(principalCollection.getPrimaryPrincipal());
         List<String> sysPermissions = permissionService.selectPermissionByUserId(userId);
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
@@ -54,6 +59,7 @@ public class UserRealm extends AuthorizingRealm {
 
     /**
      * 获取身份验证信息
+     * token验证成功之后shiro执行此方法
      * @param authenticationToken
      * @return
      * @throws AuthenticationException
@@ -66,6 +72,7 @@ public class UserRealm extends AuthorizingRealm {
         if (user == null) {
             throw new AuthenticationException("无法获取身份信息");
         }
+        // 这里实际传入的参数是 用户id 用户token
         return new SimpleAuthenticationInfo(token.getPrincipal(), token.getCredentials(), getName());
     }
 }
