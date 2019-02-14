@@ -48,7 +48,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     /**
         　　实体类User,使用@Entity注解后，spring会将实体类User纳入管理。默认'#{#entityName}'的值就是'User'。
         
-        　　但是如果使用了@Entity(name = "user")来注解实体类User,此时'#{#entityName}'的值就变成了'book'。
+        　　但是如果使用了@Entity(name = "user")来注解实体类User,此时'#{#entityName}'的值就变成了'user'。
         
         　　到此，事情就明了了，只需要在用@Entity来注解实体类时指定name为此实体类对应的表名。在原生sql语句中，就可以把'#{#entityName}'来作为数据表名使用。
      */
