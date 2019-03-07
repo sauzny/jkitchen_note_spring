@@ -57,3 +57,22 @@ audience.needjump: true
 audience.jumppassword: jump
 
 
+
+# ProductionSecurityFilter:开启生产环境,屏蔽所有Swagger资源,不可访问,production配置为true时,basic认证功能不可用
+swagger.production: true
+
+
+# SecurityBasicAuthFilter：开启HTTP Basic认证,访问Swagger资源需要提供服务端配置的用户名以及密码
+
+## 开启Swagger的Basic认证功能,默认是false
+swagger.basic.enable: true
+## Basic认证用户名
+swagger.basic.username: zhangsan
+## Basic认证密码
+swagger.basic.password: 123
+
+
+example.service:
+  enabled: true
+  prefix: ppp
+  suffix: sss
