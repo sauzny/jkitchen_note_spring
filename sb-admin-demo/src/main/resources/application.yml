@@ -1,0 +1,19 @@
+# https://docs.spring.io/spring-boot/docs/2.0.3.RELEASE/reference/html/common-application-properties.html
+
+spring:
+  # 配置SBA Client连接的安全账号密码
+  security:
+    user:
+      name: admin
+      password: admin
+    basic:
+      enabled: false
+  boot:
+    admin:
+      ui:
+        # 修改网页显示的tab标题
+        title: "应用监控管理"
+        # 修改网页的brand的图标和标题
+        # brand: "<img src='assets/img/icon-spring-boot-admin.svg'><span>应用监控管理</span>"
+server:
+  port: 8000
