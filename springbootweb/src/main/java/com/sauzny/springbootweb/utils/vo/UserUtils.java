@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.pagehelper.Page;
 import com.google.common.collect.Lists;
+import com.sauzny.springbootweb.SbwConstant;
 import com.sauzny.springbootweb.controller.vo.PageContent;
 import com.sauzny.springbootweb.controller.vo.UserVO;
 import com.sauzny.springbootweb.entity.dto.UserDTO;
@@ -15,17 +16,10 @@ public final class UserUtils {
 
     private UserUtils(){}
 
-    public static UserVO userDTO2VO(UserDTO user){
-        log.debug("{} {}", user.getCstCreate(), user.getCstCreate().getTime());
-        UserVO userVO = new UserVO();
-        userVO.setId(user.getId());
-        userVO.setUsername(user.getUsername());
-        userVO.setRoles(user.getRoleNames());
-        userVO.setStatus(user.getStatus());
-        userVO.setNickname(user.getNickname());
-        userVO.setCstCreate(user.getCstCreate().getTime());
-        userVO.setCstModified(user.getCstModified().getTime());
-        userVO.setPhone(user.getPhone());
+    public static UserVO userDTO2VO(UserDTO userDTO){
+        log.debug("{} {}", userDTO.getCstCreate(), userDTO.getCstCreate().getTime());
+        UserVO userVO = userVO(userDTO);
+        userVO.setRoleEnum(SbwConstant.UserRoleEnum.valueOf("MANAGER").toMap());
         return userVO;
     }
     

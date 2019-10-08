@@ -2,12 +2,14 @@ package com.sauzny.springbootweb.controller.vo;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.sauzny.springbootweb.SbwConstant;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /***************************************************************************
@@ -55,5 +57,11 @@ public class UserVO {
 
     @ApiModelProperty(value = "最后修改时间")
     private long cstModified;
+
+    @ApiModelProperty(value = "用户角色")
+    private Map<String, Object> roleEnum;
+
+    @ApiModelProperty(value = "用户角色enum")
+    private Set<SbwConstant.UserRoleEnum> roleEnums = Sets.newHashSet();
 
 }

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+configuration 节点包含下面三个属性
+ 
+scan: 当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。
+scanPeriod: 设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。
+debug: 当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false
+ -->
+<configuration debug="false">
+
+    <!--定义日志文件的存储地址 实际使用时 最好在 LogBack 的配置中使用绝对路径 -->
+    <property name="LOG_NAME" value="log/sbactivitidemo.%d{yyyy-MM-dd}.log.zip"/>
+
+    <!-- 需要查看的时候可以把数值调大，比如 6 -->
+    <property name="caller_deep" value="0"/>
+
+    <!-- 建议只使用logback-spring.xml来控制日志相关的内容，最好不要读取其他配置文件中的内容 -->
+
+    <!-- 读取其他配置文件 可以写绝对路径-->
+    <!-- <property resource="system.properties"></property> -->
+
+    <!-- 配置文件名字设置为`logback-spring.xml` 则可以获取spring容器中的配置属性 -->
+    <!--
+    <springProperty scop="context" name="db_url" source="spring.datasource.url" defaultValue=""/>
+    <springProperty scop="context" name="db_username" source="spring.datasource.username" defaultValue=""/>
+    <springProperty scop="context" name="db_password" source="spring.datasource.password" defaultValue=""/>
+    <springProperty scop="context" name="db_drivername" source="spring.datasource.driver-class-name" defaultValue=""/>
+    -->
+
+    <!-- 可以根据 spring.profiles.active=dev 的不同，做判断 -->
+    <springProfile name="dev">
+        <!-- 开发环境时激活 -->
+    </springProfile>
+
+    <springProfile name="dev,test">
+        <!-- 开发，测试的时候激活-->
+    </springProfile>
+
+    <springProfile name="!prod">
+        <!-- 当 "生产" 环境时，该配置不激活-->
+    </springProfile>
+
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+
+        <!-- 自定义拦截器 -->
+        <!-- <filter class="com.sauzny.springbootweb.system.log.filter.SampleFilter" /> -->
+
+        <!-- 用logback提供的拦截器ThresholdFilter来过滤掉ERROR级别以下的日志不输出到文件中 -->
+        <!--
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+              <level>ERROR</level>
+        </filter>
+         -->
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%-10.15thread表示线程名，%highlight(%-5level)：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS Z} %-15.15thread %highlight(%-5level) %-40(%logger{40}) - %msg%n%caller{${caller_deep}, DISP_CALLER_EVAL}</pattern>
+        </encoder>
+        <!--  
+		<layout class="com.sauzny.jmvc.utils.logback.MyPatternLayout">
+			格式化输出：%contextName %d表示日期，%-10.15thread表示线程名，%highlight(%-5level)：级别从左显示5个字符宽度  %msg：日志消息，%n是换行符
+			<pattern>%contextName %d{yyyy-MM-dd HH:mm:ss.SSS Z} [自定义转换符输出的ip：%ip] [%-10.15thread] %highlight(%-5level) %-40(%logger{40}) - %msg%n</pattern>
+		</layout>
+		 -->
+    </appender>
+
+    <!-- 归档策略，按照每天生成日志文件 -->
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 文件大小和时间限制策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按天归档，如果需要按小时归档，则设置为{yyyy-MM-dd_HH} -->
+            <FileNamePattern>${LOG_NAME}</FileNamePattern>
+            <!-- 15天的日志周期 建议为15~22天，也就是2~3周-->
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!-- 格式化输出：%d表示日期，%-10.15thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <!-- 文件输出日志，level上不要配置highlight，文件也没有办法高亮啊 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS Z} %-15.15thread %-5level %-40(%logger{40}) - %msg%n%caller{${caller_deep}, DISP_CALLER_EVAL}</pattern>
+        </encoder>
+    </appender>
+
+    
+    <!-- 日志输出级别 -->
+    <!-- TRACE < DEBUG < INFO < WARN < ERROR -->
+
+    <!-- 将组件日志级别提高至WARN -->
+    <logger name="org.hibernate" level="WARN"/>
+    <logger name="org.springframework" level="WARN"/>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

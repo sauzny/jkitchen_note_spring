@@ -1,7 +1,10 @@
 package com.sauzny.springbootweb;
 
+import com.google.common.collect.ImmutableMap;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.Map;
 
 public interface SbwConstant {
 
@@ -37,6 +40,42 @@ public interface SbwConstant {
         String[] ZH = {"", "管理员", "老师", "学生"};
     }
 
+    enum UserRoleEnum {
+
+        @ApiModelProperty("1 管理员")
+        MANAGER(1, "管理员"),
+
+        @ApiModelProperty("2 老师")
+        TEACHER(2, "老师"),
+
+        @ApiModelProperty("3 学生")
+        STUDENT(3, "学生"),
+        ;
+
+        private int code;
+        private String zh;
+
+        // 构造方法必须是私有的
+        private UserRoleEnum(int code, String zh) {
+            this.code = code;
+            this.zh = zh;
+        }
+
+        public int getCode(){
+            return this.code;
+        }
+
+        public String getZh(){
+            return this.zh;
+        }
+
+        public Map<String, Object> toMap() {
+            return ImmutableMap.<String, Object>builder()
+                    .put("code", code)
+                    .put("zh", zh)
+                    .build();
+        }
+    }
 
     ///////////////////////////////////////////////////
 
