@@ -1,0 +1,34 @@
+
+# 可配置的项
+# org.springframework.boot.autoconfigure.kafka.KafkaProperties
+
+spring.kafka.bootstrap-servers:
+  - 172.16.1.235:9092
+  - 172.16.1.235:9093
+
+# 默认值查看http://kafka.apache.org/documentation/#consumerconfigs，而且发现consumer还有很多属性
+spring.kafka.consumer:
+  # ID在发出请求时传递给服务器;用于服务器端日志记录
+  # client-id: myConsumer01
+  group-id: myGroup01
+  # 是否自动提交
+  enable-auto-commit: false
+  # 自动提交间隔，毫秒，自动提交为true时才有效
+  # auto-commit-interval: 100
+  key-deserializer: org.apache.kafka.common.serialization.StringSerializer
+  value-deserializer: org.apache.kafka.common.serialization.StringSerializer
+  # value-deserializer=org.springframework.kafka.support.serializer.JsonDeserializer
+
+  # 当没有初始offset 或 如果当前offset在服务器上已经不存在
+  # 使用的策略，默认值为latest
+  # earliest 当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，从头开始消费
+  # latest 当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，消费新产生的该分区下的数据
+  # none topic各分区都存在已提交的offset时，从offset后开始消费；只要有一个分区不存在已提交的offset，则抛出异常
+  # auto-offset-reset: latest
+  # 服务器应以字节为单位返回获取请求的最小数据量，默认值为1，对应的kafka的参数为fetch.min.bytes。
+  # fetch-min-size: 100
+  # 如果没有足够的数据立即满足“fetch.min.bytes”给出的要求，服务器在回答获取请求之前将阻塞的最长时间（以毫秒为单位），默认值为500
+  # spring.kafka.consumer.fetch-max-wait: 500
+  # 一次调用poll()操作时返回的最大记录数，放到本地缓存，默认值为500
+  # max-poll-records: 500
+spring.kafka.listener:
