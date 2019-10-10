@@ -27,3 +27,7 @@ http://kafka.apache.org/documentation/#sinkconnectconfigs
 http://kafka.apache.org/documentation/#streamsconfigs
 
 http://kafka.apache.org/documentation/#adminclientconfigs
+
+## 二、问题整理
+
+开启批量处理时，注意不要超时！
