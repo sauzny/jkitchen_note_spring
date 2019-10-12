@@ -59,7 +59,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM #{#entityName} u " + "WHERE u.status = #{T(fully.qualified.path.UserModel).STATUS_ACTIVE}") 
     
     //hql(sql)修改或者删除（delete xxx）
-    @Modifying
+    //flushAutomatically = true 执行 modifying query 之前会先调用 flush 操作，从而避免数据丢失问题。
+    //clearAutomatically = true 清理一级缓存
+    /**
+    自动清理之后还会带来一个新的问题，clear 操作清理的缓存中，还包括提交后未 flush 的数据，
+    例如调用 save 而不是 saveAndFlush 就有可能不会立即将修改内容更新到数据库中，
+    在 save 之后 flush 之前调用 @Modifying(clearAutomatically = true) 修饰的方法就有可能导致修改丢失。
+     */
+    @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Query("update User t set t.username = ?1 where t.id = ?2")
     int updateUser(String username, Long id);
 }
