@@ -1,0 +1,14 @@
+
+# Network address to which the server should bind.
+# spring.rsocket.server.address
+
+
+# Path under which RSocket handles requests (only works with websocket transport).
+# spring.rsocket.server.mapping-path
+
+# Server port.
+spring.rsocket.server.port: 22088
+
+# RSocket transport protocol.
+spring.rsocket.server.transport: tcp
+
