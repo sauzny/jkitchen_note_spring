@@ -12,3 +12,9 @@ springannotation1.bbb : 123
 # 自定义参数 for SpringAnnotation2
 # springAnnotation2.value : 
 springAnnotation2.names : aaa,bbb,ccc,ddd
+
+# AOP
+# 是否支持@EnableAspectJAutoProxy，默认为: true
+spring.aop.auto: true
+# true为使用CGLIB代理，需要自己引入jar包，false为JDK代理，默认为false
+spring.aop.proxy-target-class: true
