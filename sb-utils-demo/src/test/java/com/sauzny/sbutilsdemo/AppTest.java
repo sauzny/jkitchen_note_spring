@@ -74,6 +74,8 @@ public class AppTest {
 
     @Test
     public void annotation() {
-		annotationService.test();
+		annotationService.test1();
+        annotationService.test2();
+        annotationService.test3();
     }
 }
