@@ -146,4 +146,26 @@ public class User {
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
     }
+
+    @Override
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", userId=").append(userId);
+        sb.append(", userName=").append(userName);
+        sb.append(", userSex=").append(userSex);
+        sb.append(", userAge=").append(userAge);
+        sb.append(", userIdNo=").append(userIdNo);
+        sb.append(", userPhoneNum=").append(userPhoneNum);
+        sb.append(", userEmail=").append(userEmail);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", modifyTime=").append(modifyTime);
+        sb.append(", userState=").append(userState);
+        sb.append(", companyId=").append(companyId);
+        sb.append("]");
+        return sb.toString();
+    }
 }

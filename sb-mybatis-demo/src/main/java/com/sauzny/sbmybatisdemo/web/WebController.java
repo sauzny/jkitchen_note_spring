@@ -19,11 +19,11 @@ public class WebController {
 
     @GetMapping("/write")
     public void write() {
-        userService.write();
+        userService.writeTest();
     }
 
     @GetMapping("/select")
     public void select() {
-        userService.select();
+        userService.selectTest();
     }
 }

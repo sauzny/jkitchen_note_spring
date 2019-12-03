@@ -68,4 +68,20 @@ public class Company {
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
     }
+
+    @Override
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", companyId=").append(companyId);
+        sb.append(", companyName=").append(companyName);
+        sb.append(", companyEmail=").append(companyEmail);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", modifyTime=").append(modifyTime);
+        sb.append("]");
+        return sb.toString();
+    }
 }

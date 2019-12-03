@@ -81,4 +81,21 @@ public class Payment {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
+
+    @Override
+    @Generated("org.mybatis.generator.api.MyBatisGenerator")
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", paymentId=").append(paymentId);
+        sb.append(", paymentName=").append(paymentName);
+        sb.append(", paymentAmount=").append(paymentAmount);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", modifyTime=").append(modifyTime);
+        sb.append(", userId=").append(userId);
+        sb.append("]");
+        return sb.toString();
+    }
 }
