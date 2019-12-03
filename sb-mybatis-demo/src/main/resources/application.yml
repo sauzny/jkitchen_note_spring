@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active:
+  h2:
+    console:
+      settings:
+        web-allow-others: true
+      path: /web/h2-console
+      enabled: true
+  datasource:
+    url: jdbc:h2:tcp://localhost/./h2/sbmd01;AUTO_RECONNECT=TRUE
+    driver-class-name: org.h2.Driver
+    username: root
+    password: root
+    schema: classpath*:db/schema.sql  #进行该配置后，每次启动程序，程序都会运行
+    # data: classpath*:db/data.sql  #进行该配置后，每次启动程序，程序都会运行
+
+logging.level.com.sauzny.sbmybatisdemo.dao: debug

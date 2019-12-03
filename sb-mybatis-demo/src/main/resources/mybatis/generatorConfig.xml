@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<!-- 右键点项目，Run As下边Maven build... 然后goals输入mybatis-generator:generate -X -->
+<generatorConfiguration>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3DynamicSql">
+
+        <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!-- 设置数据库连接属性 -->
+        <jdbcConnection driverClass="org.h2.Driver"
+                        connectionURL="jdbc:h2:tcp://localhost/./h2/sbmd01"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+
+        <!-- 将表生成实体类java文件 -->
+        <javaModelGenerator targetPackage="com.sauzny.sbmybatisdemo.entity.po" targetProject="src\main\java" />
+
+        <!-- dao java文件 -->
+        <javaClientGenerator targetPackage="com.sauzny.sbmybatisdemo.dao.mapper" targetProject="src\main\java" />
+
+        <!-- 要生成的表 -->
+
+        <table tableName="USER" domainObjectName="User"/>
+        <table tableName="COMPANY" domainObjectName="Company"/>
+        <table tableName="PAYMENT" domainObjectName="Payment"/>
+
+        <!--
+       <table tableName="income" domainObjectName="Income" schema="mds"/>
+        -->
+    </context>
+
+</generatorConfiguration>
