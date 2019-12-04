@@ -1,4 +1,4 @@
-package com.sauzny;
+package com.sauzny.sbsharding;
 
 /**
  * Hello world!
