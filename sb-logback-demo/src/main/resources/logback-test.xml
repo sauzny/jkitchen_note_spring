@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+configuration 节点包含下面三个属性
+
+scan: 当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。
+scanPeriod: 设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。
+debug: 当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false
+packagingData: 如果启用了展示包数据，logback 会在堆栈的每一行显示 jar 包的名字以及 jar 的版本号。展示包数据可以很好的解决 jar 版本冲突的问题。但是，这个的代价比较高，特别是在频繁报错的情况下。
+ -->
+<!-- scan="true" scanPeriod="30 seconds" packagingData="true" -->
+<!-- packagingData Example:
+14:28:48.835 [btpool0-7] INFO  c.q.l.demo.prime.PrimeAction - 99 is not a valid value
+java.lang.Exception: 99 is invalid
+  at ch.qos.logback.demo.prime.PrimeAction.execute(PrimeAction.java:28) [classes/:na]
+  at org.apache.struts.action.RequestProcessor.processActionPerform(RequestProcessor.java:431) [struts-1.2.9.jar:1.2.9]
+  at org.apache.struts.action.RequestProcessor.process(RequestProcessor.java:236) [struts-1.2.9.jar:1.2.9]
+  at org.apache.struts.action.ActionServlet.doPost(ActionServlet.java:432) [struts-1.2.9.jar:1.2.9]
+  at javax.servlet.http.HttpServlet.service(HttpServlet.java:820) [servlet-api-2.5-6.1.12.jar:6.1.12]
+  at org.mortbay.jetty.servlet.ServletHolder.handle(ServletHolder.java:502) [jetty-6.1.12.jar:6.1.12]
+  at ch.qos.logback.demo.UserServletFilter.doFilter(UserServletFilter.java:44) [classes/:na]
+  at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1115) [jetty-6.1.12.jar:6.1.12]
+  at org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:361) [jetty-6.1.12.jar:6.1.12]
+  at org.mortbay.jetty.webapp.WebAppContext.handle(WebAppContext.java:417) [jetty-6.1.12.jar:6.1.12]
+  at org.mortbay.jetty.handler.ContextHandlerCollection.handle(ContextHandlerCollection.java:230) [jetty-6.1.12.jar:6.1.12]
+-->
+<configuration>
+
+    <contextName>sb-logback-demo</contextName>
+
+    <!-- 变量定义的几种方式 -->
+    <!-- java启动指定
+    java -DUSER_HOME="/data/logs" MyApp3
+    -->
+    <!-- 引入配置文件
+    <property file="F:\project\logback-examples\src\main\resources\variables1.properties"/>
+    <property resource="resource1.properties" />
+    -->
+    <property name="LOG_HOME" value="./logs" />
+
+
+    <!-- 引入文件
+    如果引入的外部配置文件是可选的，可以设置 optional=true
+    <include optional="true" file="src/main/resources/includedConfig.xml" />
+    <include optional="true" url="http://some.host.com/includedConfig.xml"/>
+    -->
+    <include optional="true" resource="includedConfig.xml"/>
+
+    <!-- 日志记录 INFO 及其以下的日志 -->
+    <appender name="ROLLING_INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--
+        DENY        否认
+        NEUTRAL     中立
+        ACCEPT      接受
+        -->
+        <!-- 不接受错误日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>NEUTRAL</onMismatch>
+        </filter>
+        <!-- 不接受警告日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>NEUTRAL</onMismatch>
+        </filter>
+
+        <file>${LOG_HOME}/info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/info/info-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>60</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--
+            <pattern>${HOSTNAME} %cn %d{yyyy-MM-dd HH:mm:ss.SSS Z} %-15.15t %-5p %-60.60c %-4L - %m%n</pattern>
+            -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS Z} %-15.15t %-5p %-60.60c %-4L - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 日志记录 WARN 及其以上的日志 -->
+    <appender name="ROLLING_WARN_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <file>${LOG_HOME}/warn.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/warn/warn-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>60</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--
+            <pattern>${HOSTNAME} %cn %d{yyyy-MM-dd HH:mm:ss.SSS Z} %-15.15t %-5p %-60.60c %-4L - %m%n</pattern>
+            -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS Z} %-15.15t %-5p %-60.60c %-4L - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 各级别的排序为：ALL < TRACE < DEBUG < INFO < WARN < ERROR < OFF -->
+    <!-- root logger 的日志级别永远不会设置成一个非空的值，默认是 DEBUG。 -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ROLLING_INFO_FILE"/>
+        <appender-ref ref="ROLLING_ERROR_FILE"/>
+    </root>
+
+</configuration>
