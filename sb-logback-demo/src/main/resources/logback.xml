@@ -2,6 +2,7 @@
 
 <configuration>
 
+    <!-- 项目名字 -->
     <contextName>sb-logback-demo</contextName>
 
     <property name="LOG_HOME" value="./logs" />
@@ -71,7 +72,7 @@
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="ROLLING_INFO_FILE"/>
-        <appender-ref ref="ROLLING_ERROR_FILE"/>
+        <appender-ref ref="ROLLING_WARN_FILE"/>
     </root>
 
 </configuration>

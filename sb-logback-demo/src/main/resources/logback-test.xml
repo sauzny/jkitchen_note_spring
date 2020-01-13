@@ -26,6 +26,7 @@ java.lang.Exception: 99 is invalid
 -->
 <configuration>
 
+    <!-- 项目名字 -->
     <contextName>sb-logback-demo</contextName>
 
     <!-- 变量定义的几种方式 -->
@@ -108,7 +109,7 @@ java.lang.Exception: 99 is invalid
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="ROLLING_INFO_FILE"/>
-        <appender-ref ref="ROLLING_ERROR_FILE"/>
+        <appender-ref ref="ROLLING_WARN_FILE"/>
     </root>
 
 </configuration>
