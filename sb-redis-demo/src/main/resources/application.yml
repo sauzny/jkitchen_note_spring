@@ -1,0 +1,14 @@
+spring:
+  redis:
+    client-name: sb-redis-demo
+    cluster:
+      max-redirects: 3
+      nodes:
+        - 127.0.0.1:30001
+        - 127.0.0.1:30002
+        - 127.0.0.1:30006
+    lettuce:
+      pool:
+        min-idle: 1
+        max-idle: 1
+        max-active: 1
