@@ -32,21 +32,21 @@ public class KafkaDemoApp {
 
     @Bean
     public NewTopic topic1() {
-        return TopicBuilder.name("ljx_topic1")
+        return TopicBuilder.name("test_topic1")
                 .compact()
                 .build();
     }
 
     @Bean
     public NewTopic topic2() {
-        return TopicBuilder.name("ljx_topic2")
+        return TopicBuilder.name("test_topic2")
                 .compact()
                 .build();
     }
 
     @Bean
     public NewTopic topic3() {
-        return TopicBuilder.name("ljx_topic3")
+        return TopicBuilder.name("test_topic3")
                 .compact()
                 .build();
     }

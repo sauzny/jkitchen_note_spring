@@ -11,17 +11,17 @@ public class TestEntry {
 
 
     @Autowired
-    private SendMessage<Integer, String> sendMessage;
+    private SendMessage<String, String> sendMessage;
 
     @GetMapping("/send1/{name}")
     public void send1(@PathVariable String name){
-        sendMessage.asyncSend("ljx_topic1", 1, name);
+        sendMessage.asyncSend("ljx_topic1", "1", name);
     }
 
     @GetMapping("/send2/{name}")
     public void send2(@PathVariable String name){
-        sendMessage.syncSend("ljx_topic2", 2, name);
-        sendMessage.syncSend("ljx_topic3", 3, name);
+        sendMessage.syncSend("ljx_topic2", "2", name);
+        sendMessage.syncSend("ljx_topic3", "3", name);
 
     }
 }

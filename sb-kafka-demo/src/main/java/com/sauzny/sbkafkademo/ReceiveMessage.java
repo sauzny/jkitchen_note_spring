@@ -1,12 +1,17 @@
 package com.sauzny.sbkafkademo;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
-import org.springframework.kafka.support.converter.JsonMessageConverter;
+import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 @Component
 @Slf4j
@@ -26,25 +31,42 @@ public class ReceiveMessage {
      beanRef：真实监听容器的BeanName，需要在 BeanName前加 "__"
      */
 
-    @KafkaListener(topics = "ljx_topic1")
+
+    @Bean("customKafkaListenerContainerFactory0")
+    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, String>> customKafkaListenerContainerFactory0(KafkaProperties properties) {
+        ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
+
+        Map<String, Object> map =  properties.buildConsumerProperties();
+        // 写不写都不影响启动
+        //map.put(ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY_CONFIG, "org.apache.kafka.clients.consumer.RoundRobinAssignor");
+        map.put(ConsumerConfig.GROUP_ID_CONFIG, "ljx_group0");
+        factory.setConsumerFactory(new DefaultKafkaConsumerFactory<>(map));
+        return factory;
+    }
+
+    @KafkaListener(topics = "test_topic1", containerFactory = "customKafkaListenerContainerFactory0")
     public void listen(String data) {
         log.info("从卡夫卡中获取数据：{}", data);
     }
 
-/*
-    @Bean
-    public KafkaListenerContainerFactory<Integer, String> kafkaJsonListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<Integer, String> factory =
-                new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(consumerFactory());
-        factory.setMessageConverter(new JsonMessageConverter());
+    @Bean("customKafkaListenerContainerFactory")
+    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, String>> customKafkaListenerContainerFactory(KafkaProperties properties) {
+        ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
+
+        Map<String, Object> map =  properties.buildConsumerProperties();
+        map.put(ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY_CONFIG, "org.apache.kafka.clients.consumer.RoundRobinAssignor");
+
+        factory.setConsumerFactory(new DefaultKafkaConsumerFactory<>(map));
+        factory.setConcurrency(2);
+        factory.setBatchListener(true);
+        factory.getContainerProperties().setPollTimeout(3000);
         return factory;
     }
-*/
 
-    @KafkaListener(topics = {"ljx_topic2", "ljx_topic3"}, containerFactory = "kafkaJsonListenerContainerFactory")
+
+    @KafkaListener(topics = {"test_topic2", "test_topic3"}, containerFactory = "customKafkaListenerContainerFactory")
     public void jsonListener(String data) {
-
+        log.info("从卡夫卡中获取数据：{}", data);
     }
 
 }
