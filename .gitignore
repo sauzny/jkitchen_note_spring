@@ -25,8 +25,8 @@ hs_err_pid*
 /*/.settings/
 /*/.classpath
 /*/.project
-/*/*.pid
 /*/.idea/
 /*/*.iml
-/*/db/*.trace.db
-/*/db/*.lock.db
+/*/*.pid
+/*/h2/*.lock.db
+/*/h2/*.trace.db
