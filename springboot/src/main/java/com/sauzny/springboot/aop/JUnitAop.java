@@ -21,11 +21,19 @@ AOP
 
 public class JUnitAop extends BaseJUnit4Test{
 
+	// 这里实际使用的是 cglib 生成的子类实例
 	@Autowired
 	private AopTarget aopTarget;
 	
 	@Test
 	public void testint(){
+		// cglib 生成的子类实例 也就是说执行了 aop 中的内容
+		// 但是其内部的say1().则是其父类 aopTarget 实例执行，所以不会执行被AOP的代码
 		aopTarget.say();
+	}
+
+	@Test
+	public void testint1(){
+		aopTarget.say1();
 	}
 }
