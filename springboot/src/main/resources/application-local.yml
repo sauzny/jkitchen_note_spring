@@ -1,0 +1,40 @@
+profile: local_envrimont
+
+  # AOP
+  # 是否支持@EnableAspectJAutoProxy，默认为: true
+spring.aop.auto: true
+  # true为使用CGLIB代理，需要自己引入jar包，false为JDK代理，默认为false
+spring.aop.proxy-target-class: true
+
+  # JDBC
+spring:
+  h2:
+    console:
+      settings:
+        web-allow-others: true
+      path: /h2
+      enabled: true
+  datasource:
+    url: jdbc:h2:file:./h2/DBName;AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+    username: root
+    password: root
+    # schema: classpath*:db/schema.sql  #进行该配置后，每次启动程序，程序都会运行
+    # data: classpath*:db/data.sql  #进行该配置后，每次启动程序，程序都会运行
+
+  # 请查看pom文件中的注解，说明 jdbc pool的使用顺序
+  # HikariCP settings
+  # spring.datasource.hikari.*
+
+  # 在 com.zaxxer.hikari.HikariConfig类中，能查看到很多属性及其默认值
+
+    hikari:
+    #60 sec
+      connection-timeout: 60000
+      # max 5
+      maximum-pool-size: 5
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop

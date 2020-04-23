@@ -22,7 +22,7 @@ public class SampleScheduling{
     @Scheduled(cron = "*/3 * * * * ?")
     public void perSecond() {
         
-        log.info("SampleScheduling，没隔3秒执行一次");
+        log.info("SampleScheduling，每隔3秒执行一次");
     }
     
 }

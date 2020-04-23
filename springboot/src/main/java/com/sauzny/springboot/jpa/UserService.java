@@ -125,7 +125,7 @@ public class UserService {
         List<User> foundASCSortedUserList = userRepository.findAll(Sort.by("id"));
         
         // 根据 id 字段倒序查询（DESC）。
-        List<User> foundDESCSortedUserList = userRepository.findAll(new Sort(Sort.Direction.DESC, "id"));
+        List<User> foundDESCSortedUserList = userRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
         
         
         User user = new User("TestBob", "test@gmail.com");

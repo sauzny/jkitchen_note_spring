@@ -41,7 +41,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByUserName3(@Param("username") String username, @Param("createTime") Date createTime);
 
     // 问号绑定参数
-    @Query("select t from User t where t.username = ? and t.createTime = ?")
+    @Query("select t from User t where t.username = ?1 and t.createTime = ?2")
     User findByUserName4(String username, Date createTime);
 
     // SPEL表达式，泛型DAO的时候可能会用到
@@ -52,7 +52,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
         
         　　到此，事情就明了了，只需要在用@Entity来注解实体类时指定name为此实体类对应的表名。在原生sql语句中，就可以把'#{#entityName}'来作为数据表名使用。
      */
-    @Query("select t from #{#entityName} t where t.username = ? and t.createTime = ?")
+    @Query("select t from #{#entityName} t where t.username = ?1 and t.createTime = ?2")
     User findByUserName5(String username, Date createTime);
 
     

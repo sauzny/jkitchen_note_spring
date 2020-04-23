@@ -1,8 +1,11 @@
 package com.sauzny.springboot;
 
+import org.h2.tools.Server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.ApplicationPidFileWriter;
+
+import java.sql.SQLException;
 
 /**
  * *************************************************************************
@@ -24,12 +27,10 @@ import org.springframework.boot.context.ApplicationPidFileWriter;
 public class App {
     
     public static void main(String[] args) {
-        
         start(args);
     }
-    
+
     private static void start(String[] args){
-        
         // 结束前执行的钩子
         Runtime.getRuntime().addShutdownHook(new Thread(){
             @Override
@@ -40,7 +41,7 @@ public class App {
 
         SpringApplication app = new SpringApplication(App.class);
         // 启动，写PID文件，文件path可在 application.properties 中配置
-        app.addListeners(new ApplicationPidFileWriter("PID"));
+        app.addListeners(new ApplicationPidFileWriter("sbapp.pid"));
         app.run(args);
     }
     
@@ -49,6 +50,6 @@ public class App {
     }
     
     private static void stop() {
-        System.out.println("finagle thrift server stop");
+        System.out.println("App stop");
     }
 }
