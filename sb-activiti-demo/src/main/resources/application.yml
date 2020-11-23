@@ -12,8 +12,8 @@ spring.aop.proxy-target-class: true
 
 # JDBC
 spring.datasource.url: jdbc:mysql://localhost:3306/sb-activiti-demo?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
-spring.datasource.username: root
-spring.datasource.password: root
+spring.datasource.username: mysql01
+spring.datasource.password: mysql01
 spring.datasource.driver-class-name: com.mysql.cj.jdbc.Driver
 
 # 请查看pom文件中的注解，说明 jdbc pool的使用顺序

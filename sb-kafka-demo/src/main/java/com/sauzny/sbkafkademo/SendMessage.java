@@ -6,6 +6,8 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -19,6 +21,18 @@ public class SendMessage<K, V> {
     // K 是 key      用来计算数据落在哪个partition上
     // V 是 value    发送的数据
     private KafkaTemplate<K, V> template;
+
+    @Autowired
+    private KafkaTemplate<String, byte[]> kafkaTemplate;
+
+    @PostConstruct
+    public void test001(){
+        kafkaTemplate.send("8ttokfk_712", new String("one712").getBytes());
+        kafkaTemplate.send("8ttokfk_714", new String("one714").getBytes());
+        kafkaTemplate.send("8ttokfk_713", new String("one713").getBytes());
+        kafkaTemplate.send("8ttokfk_711", new String("one711").getBytes());
+        System.out.println("发送完毕");
+    }
 
     // 异步发送
     public void asyncSend(String topic, K key, V data){

@@ -1,13 +1,13 @@
 
 spring.kafka.bootstrap-servers:
-  - 172.16.3.76:9092
+  - 192.168.238.241:9092
 
 spring.kafka.consumer:
   group-id: ljx_group1
-  value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  value-deserializer: org.apache.kafka.common.serialization.ByteArraySerializer
 spring.kafka.listener:
   concurrency: 1
 spring.kafka.producer:
   acks: all
   retries: 1
-  value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
