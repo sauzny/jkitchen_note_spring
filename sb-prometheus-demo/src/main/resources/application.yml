@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: prometheus-example
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    enable:
+      tomcat: false
+      jvm: false
+      process: false
+      hikaricp: false
+      system: false
+      jdbc: false
+      logback: false
+      http: false
+    tags:
+      application: ${spring.application.name}
