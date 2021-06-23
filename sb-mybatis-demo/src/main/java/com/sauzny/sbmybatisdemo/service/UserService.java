@@ -11,8 +11,10 @@ import org.mybatis.dynamic.sql.render.RenderingStrategies;
 import org.mybatis.dynamic.sql.render.TableAliasCalculator;
 import org.mybatis.dynamic.sql.select.render.SelectStatementProvider;
 import org.mybatis.dynamic.sql.where.render.WhereClauseProvider;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Locale;
@@ -149,5 +151,48 @@ public class UserService {
                         .where(userId, isEqualTo(102))
                         .or(userName, isLike("f%")));
     }
+
+
+    @Transactional
+    public void writeTest2() {
+
+        Locale local = new Locale("zh", "CN");
+        //创建对象
+        Faker faker = new Faker(local);
+
+
+        // 插入一条
+        User one = new User();
+        one.setUserName(faker.name().fullName());
+        one.setUserEmail(faker.internet().emailAddress());
+        one.setCompanyId(21);
+        userDao.insert(one);
+    }
+
+    @Transactional
+    public void writeTest3() {
+
+        Locale local = new Locale("zh", "CN");
+        //创建对象
+        Faker faker = new Faker(local);
+
+
+        // 插入一条
+        User one = new User();
+        one.setUserName(faker.name().fullName());
+        one.setUserEmail(faker.internet().emailAddress());
+        one.setCompanyId(31);
+        userDao.insert(one);
+
+        //((UserService)AopContext.currentProxy()).writeTest2();
+
+        // 插入一条
+        User two = new User();
+        two.setUserName(faker.name().fullName());
+        two.setUserEmail(faker.internet().emailAddress());
+        two.setCompanyId(32);
+        userDao.insert(two);
+    }
+
 
 }

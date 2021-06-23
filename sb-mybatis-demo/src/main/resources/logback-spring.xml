@@ -57,9 +57,9 @@ debug: 当此属性设置为true时，将打印出logback内部日志信息，�
 
     <!-- 将组件日志级别提高至WARN -->
     <logger name="org.hibernate" level="WARN"/>
-    <logger name="org.springframework" level="WARN"/>
+    <logger name="org.springframework" level="DEBUG"/>
 
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE" />
     </root>

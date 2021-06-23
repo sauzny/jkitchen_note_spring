@@ -26,4 +26,9 @@ public class WebController {
     public void select() {
         userService.selectTest();
     }
+
+    @GetMapping("/write3")
+    public void write3() {
+        userService.writeTest3();
+    }
 }
