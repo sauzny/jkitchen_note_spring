@@ -18,7 +18,7 @@
 		<jdk>1.8</jdk>
 		<junit>4.12</junit>
 		<jetty>9.4.6.v20170531</jetty>
-		<spring>4.3.10.RELEASE</spring>
+		<spring>5.2.20.RELEASE</spring>
 		<mybatis.generator>1.3.5</mybatis.generator>
 		<jstl>1.2</jstl>
 		<servlet>4.0.0</servlet>
